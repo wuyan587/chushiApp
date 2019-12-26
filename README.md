@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # code
 
 ## Project setup
@@ -22,3 +23,7 @@ yarn lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+=======
+# chushiApp
+初食app
+>>>>>>> e9a14e334b8c4ee61fb48edf648ee47e2985521f
