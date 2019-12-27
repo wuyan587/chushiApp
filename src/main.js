@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './routers'
-import { Popup } from 'vant';
+import { Popup,Search } from 'vant';
 import './utils/rem'
 
 //引用vant图标
@@ -14,6 +14,7 @@ Vue.use( Button )
 
 Vue.config.productionTip = false
 Vue.use( Popup );
+Vue.use( Search );
 new Vue({
   router,
   render: h => h(App),

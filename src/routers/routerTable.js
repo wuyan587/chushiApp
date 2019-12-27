@@ -6,6 +6,9 @@ const Mine=()=>import(/* 我的 */ '../views/mine/index.vue')
 
 const routerTable=[
     {
+        path:'/',
+        redirect:'/home'
+    },{
         path:'/home',
         component:Home
     },{

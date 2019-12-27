@@ -18,7 +18,14 @@
                 >
                     <div class='pop'>
                         <div class="pop_warp">
-
+                            <a href="javascript:;">
+                                <img src="~assets/images/supply.jpg" alt="">
+                                <span> 发供应 </span>
+                            </a>
+                            <a href="javascript:;">
+                                <img src="~assets/images/purchase.jpg" alt="">
+                                <span> 发采购 </span>
+                            </a>
                         </div>
                         <i class="fas fa-times"  @click="hidePopup"></i> 
                     </div>
@@ -158,10 +165,27 @@ export default {
             }
             .pop_warp{
                 height: 0.9rem;
-                background: #ccc;
                 margin-top: 0.5rem;
                 margin-bottom: 0.55rem;
                 width: 100%;
+                display: flex;
+                justify-content: center;
+                a{
+                    display: flex;
+                    flex-direction: column;
+                    width: 1.5rem;
+                    justify-content: center;
+                    align-items: center;
+                    img{
+                        width: 0.6rem;
+                        height: 0.6rem;
+                        margin-bottom: 0.1rem;
+                    }
+                    span{
+                        color:black;
+                        font-size: 0.16rem;
+                    }
+                }
             }
         }
     }
