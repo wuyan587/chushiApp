@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header/>
+    <!-- <Header/> -->
     <keep-alive>
           <router-view></router-view>
     </keep-alive>
@@ -10,11 +10,11 @@
 </template>
 
 <script>
-import Header from '../components/header'
+// import Header from '../components/header'
 import Tabbar from '../components/tabbar'
 export default {
     components:{
-        Header,
+        // Header,
         Tabbar
     }
 }
