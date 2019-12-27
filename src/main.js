@@ -4,6 +4,14 @@ import router from './routers'
 import { Popup } from 'vant';
 import './utils/rem'
 
+//引用vant图标
+import {
+  Button
+} from 'vant'
+
+//全局注册使用
+Vue.use( Button )
+
 Vue.config.productionTip = false
 Vue.use( Popup );
 new Vue({

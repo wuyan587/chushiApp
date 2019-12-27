@@ -92,6 +92,10 @@ export default {
 <style lang='scss' scoped>
     footer{
         height: 0.5rem;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
         ul{
             height: 100%;
             display: flex;
