@@ -1,6 +1,7 @@
 <template>
-  <div>
-    <Header/>
+  <div class="head">
+    <top></top>
+    
     <keep-alive>
           <router-view></router-view>
     </keep-alive>
@@ -10,18 +11,18 @@
 </template>
 
 <script>
-import Header from '../components/header'
-import Tabbar from '../components/tabbar'
+import Tabbar from 'components/tabbar'
+import top from 'components/top'
 export default {
     components:{
-        Header,
-        Tabbar
+        Tabbar,
+        top
     }
 }
 </script>
 
 <style lang='scss' scoped>
-  div{
+  .div{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
