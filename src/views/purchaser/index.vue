@@ -7,19 +7,36 @@
     <div class="question">
       <div class="first">
         <p class="first_1">采购</p>
-        <p>湖南有名的什么东西</p>
+        <p class="first_2">湖南有名的什么东西</p>
       </div>
       <div class="second">
         <p>单次</p>
         <p>100000斤</p>
       </div>
     </div>
-    <div class="product"></div>
-    <div class="money">报价金额</div>
-    <div class="contact">联系方式</div>
+    <div class="product">
+      <div class="pro_1">
+        <p>报价产品</p>
+        <p>更换产品</p>
+      </div>
+      <div class="pro_2">
+        <img src="@/assets/images/10.png" alt="">
+        <div class="pro_3">
+          <p class="pro_name">{{this.$route.query.name}}</p>
+          <p class="pro_price">20斤/元</p>
+        </div>
+      </div>
+      <div class="pro_1"></div>
+    </div>
+    <div class="money">报价金额 (元/斤)
+      <input type="text" placeholder="请输入你的报价">
+    </div>
+    <div class="contact">联系方式
+      <input type="text" placeholder="请输入你的联系方式">
+    </div>
     <div class="tips">
-      <p>报价说明</p>
-      <p class="tips_detail"></p>
+      <p class="tips_price">报价说明</p>
+      <p class="tips_detail">你可以在说明规格，物流等补充说明</p>
     </div>
     <div class="quotation">立即报价</div>
   </div>
@@ -40,6 +57,9 @@ export default {
 .purchaserier {
   height: 100%;
   overflow: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .title {
   display: flex;
@@ -83,6 +103,9 @@ h2 {
   border-radius: 0.1rem;
   margin-right: .1rem;
 }
+.first_2 {
+  font-weight: bold;
+}
 .second {
     margin-top: .2rem;
     width: 1.1rem;
@@ -95,32 +118,74 @@ h2 {
   border-bottom: 0.03rem solid #f4f4f4;
   text-align: left;
   display: flex;
+  flex-direction: column;
   padding: 0.15rem 0.15rem;
+  font-size: .14rem;
+}
+.pro_1 {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: .1rem;
+  font-weight: bold;
+}
+.pro_2 {
+  display: flex;
+}
+.pro_2 img {
+  width: .8rem;
+  height: .8rem;
+  margin-right: .2rem;
+}
+.pro_3 .pro_price {
+  color: #ff6600;
+  margin-top: .4rem;
+
 }
 .money {
   width: 3.45rem;
   height: 0.4rem;
+  font-size: .14rem;
   border-bottom: 0.03rem solid #f4f4f4;
   text-align: left;
   display: flex;
+  flex-direction: column;
+  font-weight: bold;
   padding: 0.15rem 0.15rem;
 }
+input {
+  font-weight: normal;
+  text-align: center;
+  margin-top: .1rem;
+  border: none;
+}
+
 .contact {
   width: 3.45rem;
   height: 0.4rem;
+  font-size: .14rem;
   border-bottom: 0.03rem solid #f4f4f4;
   text-align: left;
   display: flex;
+  flex-direction: column;
+  font-weight: bold;
   padding: 0.15rem 0.15rem;
 }
+
 .tips {
   display: flex;
   flex-direction: column;
   margin-bottom: 0.5rem;
   padding: 0.15rem 0.15rem;
+  font-size: .14rem;
+  
+}
+.tips .tips_price {
+  font-weight: bold;
+
 }
 .tips p {
   text-align: left;
+  font-weight: normal;
 }
 .tips .tips_detail {
   width: 3.3rem;
