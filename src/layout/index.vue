@@ -26,7 +26,7 @@ export default {
       $route:{
         deep:true,
         handler(){
-          if(this.$route.path.match("/release"))
+          if(this.$route.path.match("/release" )|| this.$route.name == "detail")
             this.flag=false;
           else 
             this.flag=true;
@@ -41,6 +41,6 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100%;
+    // height: 100%;
   }
 </style>
