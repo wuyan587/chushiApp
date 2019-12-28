@@ -3,7 +3,7 @@ const Sort=()=>import(/* 分类 */ '../views/sort/index.vue')
 const Release=()=>import(/* 发布 */ '../views/release/index.vue')
 const Shopcart=()=>import(/* 货单 */ '../views/shopcart/index.vue')
 const Mine=()=>import(/* 我的 */ '../views/mine/index.vue')
-
+const Login=()=>import(/* 我的 */ '../views/login/index.vue')
 const routerTable=[
     {
         path:'/',
@@ -23,6 +23,13 @@ const routerTable=[
     },{
         path:'/user',
         component:Mine
+    },{
+        path:'/login',
+        component:Login,
+        name: 'login',
+        meta: {
+          include: 'Login'
+      }
     }
 ]
 
