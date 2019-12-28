@@ -12,6 +12,8 @@ const Login = () =>
     import ( /* 登录*/ '../views/login/index.vue')
 const Register = () =>
     import ( /* 注册 */ '../views/register/index.vue')
+const Search = () =>
+    import ( /* 搜索页 */ '../views/search/index.vue')
 
 
 
@@ -36,8 +38,31 @@ const routerTable = [{
         component: Login
     },
     {
+        path: '/',
+        redirect: '/home'
+    }, {
+        path: '/home',
+        component: Home
+    }, {
+        path: '/sort',
+        component: Sort
+    }, {
+        path: '/release',
+        component: Release
+    }, {
+        path: '/shopcart',
+        component: Shopcart
+    }, {
+        path: '/user',
+        component: Mine
+    },
+    {
         path: '/register',
         component: Register
+    },
+    {
+        path: '/search',
+        component: Search
     }
 ]
 
