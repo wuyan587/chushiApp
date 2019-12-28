@@ -1,8 +1,8 @@
 <template>
   <div class="home">
-    
+    <div class="content">
       <top></top>
-      <!-- <div class="content"> -->
+      
       <ul class="tab">
         <li>
           <router-link :to="{name:'supply'}" active-class="active">最新供应信息</router-link>
@@ -12,7 +12,7 @@
         </li>
       </ul>
       <router-view></router-view>
-      <!-- </div> -->
+      </div>
     </div>
   
 </template>
@@ -31,14 +31,17 @@ export default {
   height: 100%;
   background: #f2f2f2;
   overflow: auto;
-  display: flex;
+  /* display: flex; */
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
 }
 .content {
-  height: 100%;
+  /* height: 100%; */
   /* overflow: auto; */
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 .tab {
   display: flex;
