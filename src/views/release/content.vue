@@ -1,0 +1,289 @@
+<template>
+  <div class="content">
+      <!-- 1级发布 -->
+    <van-tree-select
+      height="100%"
+      :items="items"
+      :main-active-index.sync="activeIndex"
+      v-if="index==1"
+    >
+      <template slot="content">
+        <!-- 内容 -->
+      </template>
+    </van-tree-select>
+     <!-- 2级发布 -->
+    <div v-else-if="index==2">
+      <ul class="fruits">
+        <li>醉金相葡萄</li>
+        <li>1</li>
+        <li>1</li>
+        <li>1</li>
+        <li>1</li>
+        <li>1</li>
+      </ul>
+    </div>
+     <!-- 3级发布 -->
+    <div v-else-if="index==3">
+      <ul class="fruits_type">
+        <li>醉金相葡萄</li>
+        <li>2</li>
+        <li>3</li>
+        <li>1</li>
+        <li>1</li>
+        <li>1</li>
+      </ul>
+    </div>
+     <!-- 发布供应 -->
+    <div v-else-if="index==4&&$route.query.type=='supply'">
+      <van-cell-group>
+        <van-cell title-class="titles" value-class="text" title="货品名称" value="内容" />
+        <van-cell title-class="titles" value-class="text" title="规格" value="内容" />
+        <van-cell title-class="titles" value-class="text" title="标题预览" value="内容" />
+      </van-cell-group>
+      <van-cell-group>
+        <van-field label="单价" label-class="titles price" v-model="value" placeholder="请输入用户名" />
+        <van-field label="起批数量" label-class="titles num" v-model="value" placeholder="请输入用户名" />
+        <van-cell title="发货地址" title-class="titles" value-class="text" is-link value="内容" />
+        <van-cell title="发货时间" title-class="titles" value-class="text" is-link value="内容" />
+      </van-cell-group>
+      <van-cell-group>
+        <van-field label="是否包运费" type="checkbox" label-class="titles" placeholder="请输入用户名" />
+        <van-field label="是否支持零售" type="checkbox" label-class="titles" placeholder="请输入用户名" />
+        <van-cell title="提供服务" title-class="titles" value-class="text" is-link value="内容" />
+      </van-cell-group>
+      <van-cell-group>
+        <van-field
+          v-model="message"
+          label-class="titles"
+          rows="4"
+          label="详情"
+          type="textarea"
+          placeholder="请输入详情"
+        />
+      </van-cell-group>
+      <van-cell-group>
+        <p style='padding:0.1rem 0.15rem;' class="titles">产品主图</p>
+        <van-uploader v-model="fileList" multiple />
+      </van-cell-group>
+    </div>
+     <!-- 发布采购 -->
+    <div v-else-if="index==4&&$route.query.type=='purchase'">
+        <van-cell-group>
+        <van-cell title-class="titles" value-class="text" title="货品名称" value="内容" />
+        <van-cell title-class="titles" value-class="text" title="规格" value="内容" />
+        <van-cell title-class="titles" value-class="text" title="标题预览" value="内容" />
+      </van-cell-group>
+       <van-cell-group>
+        <van-field label="采购数量" label-class="titles num" v-model="value" placeholder="请输入用户名" />
+        <van-cell title="采购周期" title-class="titles" value-class="text" is-link value="内容" />
+        <van-cell title="期望产地" title-class="titles" value-class="text" is-link value="内容" />
+        <van-cell title="收货地址" title-class="titles" value-class="text" is-link value="内容" />
+      </van-cell-group>
+       <van-cell-group>
+        <van-field
+          v-model="message"
+          label-class="titles"
+          rows="2"
+          label="其他要求(选填)"
+          type="textarea"
+          placeholder="请输入详情"
+        />
+      </van-cell-group>
+       <van-cell-group>
+        <van-field label="手机号码" label-class="titles" v-model="value" placeholder="请输入用户名" />
+        <van-field
+    v-model="sms"
+     label-class="titles"
+    center
+    clearable
+    label="短信验证码"
+    placeholder="请输入短信验证码"
+  >
+    <van-button slot="button" size="small" type="primary">发送验证码</van-button>
+  </van-field>
+        </van-cell-group>
+    </div>
+     <!--发布完成-->
+     <div v-else-if="index==5" class="success">
+         <h2>发布完成</h2>
+         <img src="~assets/images/supplysuccess.jpg" alt="">
+         <h3>您的商品正在审核中</h3>
+         <span>
+             (<van-count-down @finish="finish" :time="time" format="ss"/>)秒后跳转到首页
+         </span>
+         
+     </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: ["index"],
+  data() {
+    return {
+      activeIndex: 0,
+      items: [{ text: "水果", list: [{}] }, { text: "分组 2" }],
+      value: "",
+      price: 0,
+      num: 0,
+      areaList: {},
+      searchResult: [],
+      message: "",
+      fileList: [],
+      time: 5 * 1000,
+      sms:'',    //短信验证
+    };
+  },
+  methods: {
+      finish(){
+          this.$emit('reset');
+          this.$router.push({name:'home'});
+
+        }
+    }
+}
+</script>
+
+<style lang='scss'>
+.content {
+  background: #f6f6f6;
+}
+.van-tree-select {
+  margin-top: 0.13rem;
+}
+.fruits {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  background: white;
+  li {
+    width: 1rem;
+    border: 1px solid #4cc79b;
+    height: 0.29rem;
+    line-height: 0.29rem;
+    border-radius: 0.1rem;
+    margin-top: 0.13rem;
+    font-size: 0.13rem;
+    &.active {
+      color: white;
+      background: #4cc79b;
+    }
+  }
+}
+.fruits_type {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  background: white;
+  li {
+    width: 1rem;
+    height: 0.29rem;
+    line-height: 0.29rem;
+    border: 1px solid #4cc79b;
+    border-radius: 0.1rem;
+    margin-top: 0.13rem;
+    font-size: 0.13rem;
+    &.active {
+      color: white;
+      background: #4cc79b;
+    }
+  }
+}
+.van-sidebar {
+  width: 0.95rem;
+  flex: none;
+  .van-sidebar-item--select {
+    color: #4cc79b;
+    border: none;
+  }
+}
+.van-field__label {
+  min-width: 0.6rem;
+}
+.titles {
+  text-align: left;
+  width: 0.9rem;
+  line-height: 0.32rem;
+  flex: none;
+  font-size: 0.14rem;
+  font-weight: bold;
+}
+.van-field__body {
+  height: 100%;
+}
+.text,
+.van-field__control {
+  display: flex;
+  box-sizing: border-box;
+  line-height: 0.32rem;
+  font-size: 0.12rem;
+  min-height: 0.2rem;
+}
+.price::after {
+  content: "元/斤";
+  display: inline-block;
+  position: absolute;
+  right: 0.6rem;
+}
+.num::after {
+  content: "斤";
+  display: inline-block;
+  position: absolute;
+  right: 0.8rem;
+}
+
+.van-cell-group {
+  margin-bottom: 0.1rem;
+}
+.van-uploader__preview,.van-uploader__upload{
+    margin: 0.22rem;
+}
+.van-uploader__upload{
+    border: 1px solid #ccc;
+}
+//详情相关
+.van-field--min-height{
+    flex-direction: column;
+    align-items: center;
+    .titles{
+        width: 100%;
+        height: 0.32rem;
+    }
+    .van-cell__value{
+        width: 95%;
+
+    }
+    textarea{
+        background: #f6f6f6;
+        border-radius: 0.1rem;
+        height: 0.6rem;
+        padding: 0.1rem 0.1rem;
+        font-size: 0.1rem;
+        line-height: 0.2rem;
+    }
+}
+//发布完成
+.success{
+    margin-top: 0.7rem;
+    background: white;
+    h2{
+        font-size: 0.3rem;
+        color: #4cc79b;
+    }
+    h3{
+        font-size: 0.14rem;
+        margin-bottom: 0.25rem;
+    }
+    img{
+        margin-top: 0.3rem;
+        width: 2.15rem;
+        height: 0.92rem;
+        margin-bottom: 0.25rem;
+    }
+    
+    .van-count-down{
+        display: inline-block;
+        color:#4cc79b;
+    }
+}
+</style>

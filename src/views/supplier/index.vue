@@ -5,7 +5,7 @@
       <h2>商家详情</h2>
     </div>
     <div class="shop">
-      <img src="@/assets/img/userpic.png" alt />
+      <img src="@/assets/images/userpic.png" alt />
       <div class="shopinfo">
         <div class="shopname">
           <p class="farm">养殖户</p>
@@ -35,22 +35,22 @@
       <p>我们的理念，基于互联网+农业的中国新锐农业电商品牌服务商，成立于2013年9月。秉承推动中国农业现代化、产业化、品牌化的理念，为政府、农企提供县域电商服务、品牌整合、事件营销策划、品牌传播、地方馆代运营、自有平台合作等服务。团队核心成员皆来自中国主流农业媒体，对中国农业有着深刻认知，具备丰富的专业经验。</p>
     <ul class="pic_box">
         <li>
-            <img src="@/assets/img/10.png" alt="">
+            <img src="@/assets/images/10.png" alt="">
         </li>
         <li>
-            <img src="@/assets/img/10.png" alt="">
+            <img src="@/assets/images/10.png" alt="">
         </li>
         <li>
-            <img src="@/assets/img/10.png" alt="">
+            <img src="@/assets/images/10.png" alt="">
         </li>
         <li>
-            <img src="@/assets/img/10.png" alt="">
+            <img src="@/assets/images/10.png" alt="">
         </li>
         <li>
-            <img src="@/assets/img/10.png" alt="">
+            <img src="@/assets/images/10.png" alt="">
         </li>
         <li>
-            <img src="@/assets/img/10.png" alt="">
+            <img src="@/assets/images/10.png" alt="">
         </li>
     </ul>
     

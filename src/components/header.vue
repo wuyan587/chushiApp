@@ -1,6 +1,6 @@
 <template>
   <header>
-      <img src="@/assets/img/logo.png" alt="">
+      <img src="@/assets/images/logo.png" alt="">
       <div class="search">
           <i class="fas fa-search"></i>
           <p>搜好货</p>

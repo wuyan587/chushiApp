@@ -12,7 +12,7 @@
               }
             }"
           >
-        <img src="@/assets/img/10.png" alt />
+        <img src="@/assets/images/10.png" alt />
         <h3>{{item.name}}</h3>
         <div class="address">
           <p>{{item.km}}</p>
@@ -37,7 +37,7 @@ export default {
         {
           id: 1,
           name: "湖南特产绿心猕猴桃",
-          img: "~@/assets/img/10.png",
+          img: "~@/assets/images/10.png",
           km:'300km',
           address:'浙江杭州市',
           price: 20
@@ -45,7 +45,7 @@ export default {
         {
           id: 2,
           name: "湖南特产绿心猕猴桃",
-          img: "@/assets/img/10.png",
+          img: "@/assets/images/10.png",
           km:'300km',
           address:'浙江杭州市',
           price: 20
@@ -53,7 +53,7 @@ export default {
         {
           id: 3,
           name: "湖南特产绿心猕猴桃",
-          img: "@/assets/img/10.png",
+          img: "@/assets/images/10.png",
           km:'300km',
           address:'浙江杭州市',
           price: 20
@@ -61,7 +61,7 @@ export default {
         {
           id: 4,
           name: "湖南特产绿心猕猴桃",
-          img: "@/assets/img/10.png",
+          img: "@/assets/images/10.png",
           km:'300km',
           address:'浙江杭州市',
           price: 20

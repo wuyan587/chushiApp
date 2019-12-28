@@ -2,7 +2,7 @@
   <div class="detail">
     <div class="photo">
       <i class="fas fa-arrow-circle-left" @click="goBack"></i>
-      <img src="@/assets/img/banner3.png" alt />
+      <img src="@/assets/images/banner3.png" alt />
     </div>
     <div class="detail_list">
       <h3>{{details.name}}</h3>
@@ -24,14 +24,14 @@
     </div>
     <div class="nature">
       <h3>产品属性</h3>
-      <img src="@/assets/img/table1.png" alt />
+      <img src="@/assets/images/table1.png" alt />
     </div>
     <div class="service">
       <h3>商家服务</h3>
-      <img src="@/assets/img/table2.png" alt />
+      <img src="@/assets/images/table2.png" alt />
     </div>
     <div class="shop">
-      <img src="@/assets/img/userpic.png" alt />
+      <img src="@/assets/images/userpic.png" alt />
       <div class="shopinfo" @click='goSupplier'>
         <div class="shopname">
           <p class="farm">养殖户</p>
@@ -48,27 +48,27 @@
     </div>
     <ul class="bigPic">
       <li>
-        <img src="@/assets/img/10.png" alt />
+        <img src="@/assets/images/10.png" alt />
       </li>
       <li>
-        <img src="@/assets/img/10.png" alt />
+        <img src="@/assets/images/10.png" alt />
       </li>
     </ul>
     <div class="similar">
       <h3>相类产品</h3>
       <ul class="smallpic">
         <li>
-          <img src="@/assets/img/10.png" alt />
+          <img src="@/assets/images/10.png" alt />
           <p class="s_name">产品名称</p>
           <p class="s_price">20元一斤</p>
         </li>
         <li>
-          <img src="@/assets/img/10.png" alt />
+          <img src="@/assets/images/10.png" alt />
           <p class="s_name">产品名称</p>
           <p class="s_price">20元一斤</p>
         </li>
         <li>
-          <img src="@/assets/img/10.png" alt />
+          <img src="@/assets/images/10.png" alt />
           <p class="s_name">产品名称</p>
           <p class="s_price">20元一斤</p>
         </li>
