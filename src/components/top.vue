@@ -3,7 +3,12 @@
     <Header/>
 
     <div class="banner">
-      <img src="@/assets/img/banner.png" alt />
+      <van-swipe :autoplay="3000" indicator-color="white">
+      <van-swipe-item><img src="@/assets/img/banner.png" alt /></van-swipe-item>
+      <van-swipe-item><img src="@/assets/img/banner1.jpg" alt /></van-swipe-item>
+      <van-swipe-item><img src="@/assets/img/banner2.jpg" alt /></van-swipe-item>
+      <van-swipe-item><img src="@/assets/img/banner3.png" alt /></van-swipe-item>
+      </van-swipe>
     </div>
     <ul class="pics">
       <li>
@@ -54,16 +59,25 @@
 import Header from 'components/header'
 
 export default {
+  data() {
+    return {
+      
+    }
+  },
   components:{
     Header
   }
 }
 </script>
 <style scoped>
+.banner {
+  width: 3.75rem;
+}
 .banner img {
-  width: 3.43rem;
+  width: 3.45rem;
   height: 1.55rem;
-  margin-bottom: .2rem
+  margin-bottom: .2rem;
+  border-radius: .1rem;
 }
 .pics {
   display: flex;

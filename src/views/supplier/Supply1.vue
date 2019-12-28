@@ -1,5 +1,5 @@
 <template>
-  <ul class="supply">
+  <ul class="supply" v-if="f">
     <li v-for="item of dataList" :key="item.id">
       <router-link
             :to = "{
@@ -32,6 +32,7 @@
 export default {
   data() {
     return {
+      f:true,
       dataList: [
         {
           id: 1,
@@ -73,9 +74,10 @@ export default {
 
 <style scoped>
 .supply {
-  margin-top: 0.15rem;
+  padding-top: 0.15rem;
   height: 100%;
   width: 100%;
+  background: #f2f2f2;
   overflow: auto;
   display: flex;
   flex-direction: row;

@@ -19,7 +19,6 @@ export default {
 @import './assets/stylesheets/_reset.scss';
 html,body{
   height: 100%;
-  background: #f2f2f2;
 }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;

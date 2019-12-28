@@ -1,31 +1,47 @@
 <template>
-  <div class="head">
-    <top></top>
-    
+  <div class="layout">
+    <!-- <Header/> -->
     <keep-alive>
-          <router-view></router-view>
+      <router-view></router-view>
     </keep-alive>
 
-    <Tabbar/>
+    <Tabbar v-if="tabBarFlag"/>
   </div>
 </template>
 
 <script>
-import Tabbar from 'components/tabbar'
-import top from 'components/top'
+import Tabbar from "components/tabbar";
+// import top from 'components/top'
 export default {
-    components:{
-        Tabbar,
-        top
+  data() {
+    return {
+      tabBarFlag: true
+    };
+  },
+  components: {
+    Tabbar
+  },
+  watch: {
+    $route: {
+      deep: true,
+      handler() {
+        if (this.$route.name == "detail") {
+          this.tabBarFlag = false;
+        } else {
+          this.tabBarFlag = true;
+        }
+      }
     }
-}
+  }
+};
 </script>
 
 <style lang='scss' scoped>
-  .div{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-  }
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  // height: 100%;
+}
 </style>
