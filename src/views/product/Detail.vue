@@ -114,7 +114,7 @@ export default {
   background: white;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   padding-bottom: 0.6rem;
   /* align-items: center */
 }

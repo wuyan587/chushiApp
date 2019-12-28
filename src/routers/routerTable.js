@@ -19,6 +19,7 @@ const routerTable=[
         redirect: '/home/supply',  // 从  /  ->  /home 
     },{
         path:'/home',
+        redirect:'/home/supply',
         component:Home,
         name:'home',
         children: [
