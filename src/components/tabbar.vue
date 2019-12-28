@@ -103,6 +103,7 @@ export default {
         bottom: 0;
         left: 0;
         right: 0;
+        background: #fff;
         ul{
             height: 100%;
             display: flex;

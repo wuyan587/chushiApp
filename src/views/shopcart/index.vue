@@ -8,7 +8,7 @@
 
           <div class="list-top">
             <h4> {{item.Supplier}} </h4>
-        <van-cell is-link @click="showPopup(index)" >X</van-cell>
+        <van-cell  @click="showPopup(index)" :round=true>x</van-cell>
         <van-popup v-model="show">
           <van-button type="danger" class="button determine"  @click = "remove( activeIndex )">确定</van-button>
           <van-button type="warning" class="button deselect"  @click = "closeFlag">取消</van-button>
@@ -124,6 +124,7 @@ height: 100%
   display: flex;
   flex: 2;
   background: url('~@/assets/images/bg.jpg') no-repeat;
+  background-size:contain;
   h3{
     width: 100%;
     text-align: left;
@@ -149,6 +150,7 @@ height: 100%
     display: flex;
     justify-content:space-between;
     margin-bottom: .08rem;
+    align-items: center;
     h4{
       font-size: .14rem;
       font-weight: bold;        
@@ -202,6 +204,17 @@ height: 100%
 .checkLisit{
   height: 5rem;
   width:100%; 
-  background: url("~@/assets/images/bg2.jpg") .1rem 2rem no-repeat
+  background: url("~@/assets/images/bg2.jpg") .1rem 2rem no-repeat;
+  background-size: 100%;
+}
+
+.van-cell{
+  width: auto;
+   line-height: .15rem;
+   border: 1.5px solid black;
+   font-weight: bold;
+   border-radius: 50%;
+   padding:0 .04rem
+   
 }
 </style>
