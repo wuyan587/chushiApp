@@ -118,8 +118,10 @@ height: 100%
 } */
 
 .shopcart{
-  height: auto;
+  // height: auto;
   // padding:.68rem .16rem 0 .16rem;
+  height: 100%;
+  overflow: auto;
   padding: .16rem;
   display: flex;
   flex: 2;
