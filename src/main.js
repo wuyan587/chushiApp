@@ -1,16 +1,15 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './routers'
-import { Popup,Search } from 'vant';
+import { Popup,Search,Button, Dialog , SwipeCell } from 'vant';
 import './utils/rem'
 
-//引用vant图标
-import {
-  Button
-} from 'vant'
 
-//全局注册使用
 Vue.use( Button )
+Vue.use( Dialog  )
+Vue.use( SwipeCell  )
+
+ 
 
 Vue.config.productionTip = false
 Vue.use( Popup );
