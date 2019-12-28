@@ -64,7 +64,7 @@ export default {
 .purchase {
   margin-top: 0.1rem;
   width: 3.4rem;
-  height: 100%;
+  /* height: 100%; */
   overflow: auto;
   display: flex;
   flex-direction: column;

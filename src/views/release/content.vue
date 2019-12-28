@@ -41,8 +41,8 @@
         <van-cell title-class="titles" value-class="text" title="标题预览" value="内容" />
       </van-cell-group>
       <van-cell-group>
-        <van-field label="单价" label-class="titles price" v-model="value" placeholder="请输入用户名" />
-        <van-field label="起批数量" label-class="titles num" v-model="value" placeholder="请输入用户名" />
+        <van-field label="单价" label-class="titles suffix_price" v-model="value" placeholder="请输入用户名" />
+        <van-field label="起批数量" label-class="titles suffix_num" v-model="value" placeholder="请输入用户名" />
         <van-cell title="发货地址" title-class="titles" value-class="text" is-link value="内容" />
         <van-cell title="发货时间" title-class="titles" value-class="text" is-link value="内容" />
       </van-cell-group>
@@ -74,7 +74,7 @@
         <van-cell title-class="titles" value-class="text" title="标题预览" value="内容" />
       </van-cell-group>
        <van-cell-group>
-        <van-field label="采购数量" label-class="titles num" v-model="value" placeholder="请输入用户名" />
+        <van-field label="采购数量" label-class="titles suffix_num" v-model="value" placeholder="请输入用户名" />
         <van-cell title="采购周期" title-class="titles" value-class="text" is-link value="内容" />
         <van-cell title="期望产地" title-class="titles" value-class="text" is-link value="内容" />
         <van-cell title="收货地址" title-class="titles" value-class="text" is-link value="内容" />
@@ -219,13 +219,13 @@ export default {
   font-size: 0.12rem;
   min-height: 0.2rem;
 }
-.price::after {
+.suffix_price::after {
   content: "元/斤";
   display: inline-block;
   position: absolute;
   right: 0.6rem;
 }
-.num::after {
+.suffix_num::after {
   content: "斤";
   display: inline-block;
   position: absolute;
