@@ -10,19 +10,23 @@ const routerTable=[
         redirect:'/home'
     },{
         path:'/home',
-        component:Home
+        component:Home,
+        name:'home'
     },{
         path:'/sort',
-        component:Sort
+        component:Sort,
+        name:'sort'
     },{
         path:'/release',
         component:Release
     },{
         path:'/shopcart',
-        component:Shopcart
+        component:Shopcart,
+        name:'shopcart'
     },{
         path:'/user',
-        component:Mine
+        component:Mine,
+        name:'user'
     }
 ]
 
