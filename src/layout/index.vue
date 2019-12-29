@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="layout">
     <!-- <Header/> -->
     <keep-alive>
           <router-view></router-view>
@@ -37,7 +37,7 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-  div{
+  .layout{
     display: flex;
     flex-direction: column;
     justify-content: space-between;

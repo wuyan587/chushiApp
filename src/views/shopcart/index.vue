@@ -120,6 +120,8 @@ height: 100%
 .shopcart{
   // height: auto;
   // padding:.68rem .16rem 0 .16rem;
+  display: flex;
+  flex-direction: column;
   height: 100%;
   overflow: auto;
   padding: .16rem;
@@ -142,7 +144,7 @@ height: 100%
 
 .list{
   display: flex;
-  flex: 1;
+  // flex: 1;
   flex-direction: column;
   padding:.13rem .16rem 0 .16rem;
   margin-bottom: .14rem;
@@ -211,12 +213,16 @@ height: 100%
 }
 
 .van-cell{
-  width: auto;
+   width: 0.2rem;
+   height: 0.2rem;
    line-height: .15rem;
    border: 1.5px solid black;
    font-weight: bold;
    border-radius: 50%;
-   padding:0 .04rem
-   
+   padding:0;
+   .van-cell__value--alone{
+     text-align: center;
+     line-height: 0.17rem;
+   }
 }
 </style>
