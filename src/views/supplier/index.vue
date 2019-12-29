@@ -82,7 +82,7 @@ export default {
 
 <style scoped>
 .supplier {
-  height: 100%;
+  /* height: 100%; */
   overflow: auto;
 }
 .title {
