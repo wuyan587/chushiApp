@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="top_warp">
     <Header/>
 
     <div class="banner">
@@ -70,6 +70,11 @@ export default {
 }
 </script>
 <style scoped>
+.top_warp{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .banner {
   width: 3.75rem;
 }

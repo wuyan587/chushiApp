@@ -104,8 +104,14 @@ const routerTable = [{
 
         ]
     },
+    // {
+    //     path: '/purchase/detail',
+    //     component: pDetail,
+    //     name: 'pdetail',
+
+    // },
     {
-        path: '/detail',
+        path: '/supply/detail',
         component: Detail,
         name: 'detail',
 

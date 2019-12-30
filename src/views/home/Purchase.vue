@@ -1,9 +1,20 @@
 <template>
   <ul class="purchase">
-    <li>
+   <li v-for="item of dataList" :key="item.id">
+      <router-link
+            :to = "{
+              name: 'pdetail',
+              params: {
+                id: item.id
+              },
+              query: {
+                ...item
+              }
+            }"
+          >
       <div class="name">
         <p class="buy">采购</p>
-        <h3>湖南特产绿心猕猴桃</h3>
+        <h3>{{item.name}}</h3>
       </div>
       <p class="city">期望产地：浙江省宁波市</p>
       <p class="quality">品质要求：纯天然 无添加 保质保量</p>
@@ -15,41 +26,40 @@
         <p class="ctf">实名认证</p>
       </div>
       <p class="quantity">20000斤</p>
-    </li>
-    <li>
-        <div class="name">
-        <p class="buy">采购</p>
-        <h3>湖南特产绿心猕猴桃</h3>
-      </div>
-      <p class="city">期望产地：浙江省宁波市</p>
-      <p class="quality">品质要求：纯天然 无添加 保质保量</p>
-      <div class="address">
-        <p>300km</p>
-        <i class="fas fa-map-marker-alt"></i>
-        <p>浙江杭州市</p>
-        <p class="ctf">企业认证</p>
-        <p class="ctf">实名认证</p>
-      </div>
-      <p class="quantity">20000斤</p>
-    </li>
-    <li>
-        <div class="name">
-        <p class="buy">采购</p>
-        <h3>湖南特产绿心猕猴桃</h3>
-      </div>
-      <p class="city">期望产地：浙江省宁波市</p>
-      <p class="quality">品质要求：纯天然 无添加 保质保量</p>
-      <div class="address">
-        <p>300km</p>
-        <i class="fas fa-map-marker-alt"></i>
-        <p>浙江杭州市</p>
-        <p class="ctf">企业认证</p>
-        <p class="ctf">实名认证</p>
-      </div>
-      <p class="quantity">20000斤</p>
+      </router-link>
     </li>
   </ul>
 </template>
+<script>
+export default {
+  data(){
+    return{
+      dataList:[
+        {
+          id: 1,
+          name: "湖南特产绿心猕猴桃",
+        },
+        {
+          id: 2,
+          name: "湖南特产绿心猕猴桃",
+        },
+        {
+          id: 3,
+          name: "湖南特产绿心猕猴桃",
+        }
+      ]
+
+    }
+  },
+  methods:{
+    // goPurchaser(){
+    //   this.$router.push({
+    //     name:'pdetail'
+    //   })
+    // }
+  }
+}
+</script>
 <style scoped>
 .purchase {
   margin-top: 0.1rem;
@@ -70,6 +80,9 @@
   text-align: left;
   padding-left: .2rem;
   padding-top: .15rem;
+}
+a {
+  color:black;
 }
 .name {
     display: flex;

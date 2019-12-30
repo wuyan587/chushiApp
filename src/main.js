@@ -18,9 +18,18 @@ import {
     Cell,
     CellGroup,
     Checkbox,
-    CheckboxGroup
+    CheckboxGroup,
+    Dialog,
+    SwipeCell
 } from 'vant'
 import './utils/rem'
+
+
+Vue.use(Button)
+Vue.use(Dialog)
+Vue.use(SwipeCell)
+Vue.use(Cell).use(CellGroup);
+
 
 Vue.config.productionTip = false
 Vue.use(Popup);

@@ -19,7 +19,6 @@ export default {
 @import './assets/stylesheets/_reset.scss';
 html,body{
   height: 100%;
-  background: #fefefe;
 }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -27,6 +26,8 @@ html,body{
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  background: #f8f8f8;
   height: 100%;
+  
 }
 </style>
