@@ -83,6 +83,7 @@ const routerTable=[
     },{
         path:'/user',
         component:Mine,
+        name:'user'
     },{
         path:'/login',
         component:Login,

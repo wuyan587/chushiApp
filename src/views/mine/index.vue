@@ -142,6 +142,7 @@ export default {
 <style lang="scss">
 $themecolor:#C0F8D1;
 .mine{
+  height:100%;
   background-color: $themecolor;
   justify-content: unset!important;
 }

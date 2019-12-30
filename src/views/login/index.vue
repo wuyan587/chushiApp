@@ -66,9 +66,9 @@ export default {
         
       }, 1000);
     },
-	goback(){
+    goback(){
       this.$router.go( -1 );
-	}
+    }
   }
 };
 </script>
