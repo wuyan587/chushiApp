@@ -12,7 +12,13 @@ import {
     Sidebar,
     SidebarItem,
     DropdownMenu,
-    DropdownItem
+    DropdownItem,
+    Switch,
+    Button,
+    Cell,
+    CellGroup,
+    Checkbox,
+    CheckboxGroup
 } from 'vant'
 import './utils/rem'
 
@@ -28,6 +34,15 @@ Vue.use(Sidebar);
 Vue.use(SidebarItem);
 Vue.use(DropdownMenu);
 Vue.use(DropdownItem);
+Vue.use(Switch);
+Vue.use(Button);
+Vue.use(Cell);
+Vue.use(CellGroup);
+Vue.use(Checkbox);
+Vue.use(CheckboxGroup);
+
+
+
 
 
 

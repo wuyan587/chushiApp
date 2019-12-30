@@ -17,15 +17,27 @@
                 :overlay-style="{ background:'rgba(0,0,0,0.3)' }"
                 >
                     <div class='pop'>
-                        <div class="pop_warp">
-                            <a href="javascript:;">
+                        <div class="pop_warp" @click="hidePopup">
+                            <router-link :to="{
+                                path:'/release',
+                                query:{
+                                    type:'supply'
+                                }
+                            }" 
+                            >
                                 <img src="~assets/images/supply.jpg" alt="">
                                 <span> 发供应 </span>
-                            </a>
-                            <a href="javascript:;">
+                            </router-link>
+                            <router-link  :to="{
+                                path:'/release',
+                                query:{
+                                    type:'purchase'
+                                }
+                            }" 
+                        >
                                 <img src="~assets/images/purchase.jpg" alt="">
                                 <span> 发采购 </span>
-                            </a>
+                            </router-link >
                         </div>
                         <i class="fas fa-times"  @click="hidePopup"></i> 
                     </div>
@@ -99,6 +111,8 @@ export default {
 <style lang='scss' scoped>
     footer{
         height: 0.5rem;
+        position: relative;
+        bottom:0;
         ul{
             height: 100%;
             display: flex;
@@ -169,7 +183,8 @@ export default {
                 a{
                     display: flex;
                     flex-direction: column;
-                    width: 1.5rem;
+                    width: 1.2rem;
+                    margin: 0 0.3rem;
                     justify-content: center;
                     align-items: center;
                     img{
