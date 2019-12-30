@@ -37,7 +37,8 @@
 export default {
      data() {
     return {
-       value1: 0,
+        value1: 0,
+    
       value2: 'a',
       
        activeId: 1,
@@ -76,6 +77,11 @@ export default {
       toggle(index) {
       this.$refs.checkboxes[index].toggle();
     }
+  },
+  mounted(){
+   const v=this.items.map(ele=>{
+         return ele.value
+       })
   }
 
 }
