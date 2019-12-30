@@ -20,42 +20,55 @@ import {
     Checkbox,
     CheckboxGroup,
     Dialog,
-    SwipeCell
+    Swipe,
+    SwipeCell,
+    SwipeItem,
+    Field,
+    AddressEdit,
+    Uploader,
+    CountDown,
+    GoodsAction,
+    GoodsActionButton
 } from 'vant'
 import './utils/rem'
 
+//把在上面应用的vant模块直接复制到这个vantObj里就行了
 
-Vue.use(Button)
-Vue.use(Dialog)
-Vue.use(SwipeCell)
-Vue.use(Cell).use(CellGroup);
+const vantObj={
+    Popup,
+    Search,
+    TreeSelect,
+    Image,
+    Icon,
+    Tab,
+    Tabs,
+    Sidebar,
+    SidebarItem,
+    DropdownMenu,
+    DropdownItem,
+    Switch,
+    Button,
+    Cell,
+    CellGroup,
+    Checkbox,
+    CheckboxGroup,
+    Dialog,
+    Swipe,
+    SwipeCell,
+    SwipeItem,
+    Field,
+    AddressEdit,
+    Uploader,
+    CountDown,
+    GoodsAction,
+    GoodsActionButton
+}
 
+    for(let key in vantObj){
+        Vue.use(vantObj[key]);
+    }
 
 Vue.config.productionTip = false
-Vue.use(Popup);
-Vue.use(Search);
-Vue.use(TreeSelect);
-Vue.use(Image);
-Vue.use(Icon);
-Vue.use(Tab);
-Vue.use(Tabs);
-Vue.use(Sidebar);
-Vue.use(SidebarItem);
-Vue.use(DropdownMenu);
-Vue.use(DropdownItem);
-Vue.use(Switch);
-Vue.use(Button);
-Vue.use(Cell);
-Vue.use(CellGroup);
-Vue.use(Checkbox);
-Vue.use(CheckboxGroup);
-
-
-
-
-
-
-
 
 
 new Vue({

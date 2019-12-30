@@ -18,7 +18,6 @@ const Search = () =>
 
 
 
-
 //77
 const Supply = () =>
     import ( /* 我的 */ '../views/home/Supply.vue')
@@ -32,58 +31,14 @@ const Supply1 = () =>
     import ( /* 我的 */ '../views/supplier/Supply1.vue')
 const Purchase1 = () =>
     import ( /* 我的 */ '../views/supplier/Purchase1.vue')
+const pDetail = ()=>
+    import( /*采购详情*/ 'views/purchaser/index.vue' )
     //77
 
 
 
-const routerTable = [{
-        path: '/home',
-        component: Home
-    }, {
-        path: '/sort',
-        component: Sort
-    }, {
-        path: '/release',
-        component: Release
-    }, {
-        path: '/shopcart',
-        component: Shopcart
-    }, {
-        path: '/user',
-        component: Mine
-    },
+const routerTable = [
     {
-        path: '/login',
-        component: Login
-    },
-    {
-        path: '/',
-        redirect: '/home'
-    }, {
-        path: '/home',
-        component: Home
-    }, {
-        path: '/sort',
-        component: Sort
-    }, {
-        path: '/release',
-        component: Release
-    }, {
-        path: '/shopcart',
-        component: Shopcart
-    }, {
-        path: '/user',
-        component: Mine
-    },
-    {
-        path: '/register',
-        component: Register
-    },
-    {
-        path: '/search',
-        component: Search,
-    }, {
-        //............................................
         path: '/',
         redirect: '/home/supply', // 从  /  ->  /home 
     }, {
@@ -104,12 +59,12 @@ const routerTable = [{
 
         ]
     },
-    // {
-    //     path: '/purchase/detail',
-    //     component: pDetail,
-    //     name: 'pdetail',
+    {
+        path: '/purchase/detail',
+        component: pDetail,
+        name: 'pdetail',
 
-    // },
+    },
     {
         path: '/supply/detail',
         component: Detail,
@@ -150,9 +105,19 @@ const routerTable = [{
         path: '/user',
         component: Mine,
         name: 'user'
-
-
-    }
+    },
+    {
+        path: '/register',
+        component: Register
+    },
+    {
+        path: '/login',
+        component: Login
+    },
+    {
+        path: '/search',
+        component: Search,
+    },
 ]
 
 export default routerTable
