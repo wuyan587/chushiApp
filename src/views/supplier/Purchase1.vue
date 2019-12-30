@@ -63,8 +63,11 @@ export default {
 .purchase {
   margin-top: 0.15rem;
   width: 3.45rem;
+<<<<<<< HEAD
   /* height: 100%; */
   /* overflow: auto; */
+=======
+>>>>>>> 9be671b62b63ed22fafc50f47bfc4143f9a46c1c
   display: flex;
   padding: 0 0.15rem;
   padding-left: 0.15rem;

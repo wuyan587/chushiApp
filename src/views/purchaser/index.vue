@@ -54,6 +54,10 @@ export default {
 };
 </script>
 <style scoped>
+.purchaser{
+  display: flex;
+  flex-direction: column;
+}
 .purchaserier {
   height: 100%;
   overflow: auto;

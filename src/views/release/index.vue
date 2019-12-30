@@ -2,10 +2,10 @@
   <div class='release'>
     <header v-if='num<5'>
       <van-search placeholder="请输入搜索关键词" v-model="value" v-if='num==1' />
-      <div class="top" v-else> <i class="fas fa-chevron-left" @click='num--'> </i> <span>类别</span></div>
+      <div class="top" v-else> <i class="fas fa-chevron-left" @click='num--'> </i> <span>{{fruit.fruitName?fruit.fruitName:''}}</span></div>
     </header>
     <section>
-      <Content :index='num' @reset='reset' />
+      <Content :findex='num' @reset='reset' @getitem='getitem' />
     </section>
     <van-button type="primary" v-if='num<5' size="large" round @click='num++'>
       <span v-if='num==1'>选择完成，下一步</span> 
@@ -20,7 +20,8 @@ export default {
     data(){
       return {
         value:'',
-        num:1
+        num:1,
+        fruit:{}
       }
     },
     components:{
@@ -29,6 +30,9 @@ export default {
     methods:{
       reset(){
         this.num=1;
+      },
+      getitem(val){
+        this.fruit=val;
       }
     },
     watch:{
@@ -44,9 +48,14 @@ header{
   justify-content: center;
 }
   .release{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     justify-content: flex-start;
     position: relative;
     align-items: center;
+    background: white;
+    overflow: auto;
     
     .top,.van-search{
       margin-top: 0.1rem;
