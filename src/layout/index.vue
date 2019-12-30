@@ -5,7 +5,7 @@
           <router-view></router-view>
     </keep-alive>
 
-    <Tabbar v-if="tabBarFlag"/>
+    <Tabbar v-if="flag"/>
   </div>
 </template>
 
@@ -13,28 +13,27 @@
 // import Header from '../components/header'
 import Tabbar from '../components/tabbar'
 export default {
-  data () {
-    return {
-      tabBarFlag: true 
-    }
-  },
-  components:{
-      // Header,
-      Tabbar
-  },
-  watch: {
-    $route: {
-      deep: true,
-      handler () {
-        if ( this.$route.name == 'login') {
-          this.tabBarFlag = false 
-        } else {
-          this.tabBarFlag = true 
+    data(){
+      return {
+        flag:true,//控制底部栏出不出现
+      }
+    },
+    components:{
+        // Header,
+        Tabbar
+    },
+    watch:{
+      $route:{
+        deep:true,
+        handler(){
+          if(this.$route.path.match("/release" )|| this.$route.name == "detail"||this.$route.path.match("/login5" ))
+            this.flag=false;
+          else 
+            this.flag=true;
         }
       }
     }
-  }
-}
+}        
 </script>
 
 <style lang='scss' scoped>
@@ -42,7 +41,6 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    justify-content: start;
     height: 100%;
   }
 </style>

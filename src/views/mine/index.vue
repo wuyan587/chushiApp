@@ -54,10 +54,8 @@
           <img src="~assets/images/shop.jpg" alt="">
           <span> 我的店铺 </span>
         </div>
-
       </div>
   </div>
-  
   <div class="mine_bottom">
       <div class="mine_CellGroup">
          <van-cell is-link @click="showPopup">
@@ -145,6 +143,7 @@ export default {
 $themecolor:#C0F8D1;
 .mine{
   background-color: $themecolor;
+  justify-content: unset!important;
 }
 .mine_top{
   padding:.06rem .18rem 0;
