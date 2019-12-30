@@ -17,7 +17,6 @@ const Search = () =>
 
 
 
-
 //77
 const Supply = () =>
     import ( /* 我的 */ '../views/home/Supply.vue')
@@ -117,7 +116,14 @@ const routerTable = [
     {
         path: '/search',
         component: Search,
-    },
+    },{
+        path:'/login',
+        component:Login,
+        name: 'login',
+        meta: {
+          include: 'Login'
+      }
+    }
 ]
 
 export default routerTable

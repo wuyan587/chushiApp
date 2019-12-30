@@ -28,7 +28,8 @@ import {
     Uploader,
     CountDown,
     GoodsAction,
-    GoodsActionButton
+    GoodsActionButton,
+    Tag
 } from 'vant'
 import './utils/rem'
 
@@ -61,7 +62,8 @@ const vantObj={
     Uploader,
     CountDown,
     GoodsAction,
-    GoodsActionButton
+    GoodsActionButton,
+    Tag
 }
 
     for(let key in vantObj){
