@@ -75,10 +75,8 @@ export default {
 <style scoped>
 .supply {
   padding-top: 0.15rem;
-  height: 100%;
   width: 100%;
   background: #f2f2f2;
-  overflow: auto;
   display: flex;
   flex-direction: row;
   justify-content: space-around;

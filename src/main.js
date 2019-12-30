@@ -1,11 +1,26 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './routers'
-import { Popup,Search,TreeSelect,Button,Cell, 
-  CellGroup,Field,AddressEdit,
-  Uploader,CountDown,Swipe,SwipeItem,GoodsAction,GoodsActionButton,Icon,Tag
+// import { Popup,Search,Button, Dialog , SwipeCell,Cell,CellGroup  } from 'vant';
+import {
+  TreeSelect,Field,
+  AddressEdit,Uploader,
+  CountDown,Swipe,
+  SwipeItem,GoodsAction,
+  GoodsActionButton,Popup,
+  Search,Button,
+  Dialog,SwipeCell,
+  Cell,CellGroup,
+  Icon,Tag
  } from 'vant';
 import './utils/rem'
+
+
+Vue.use( Button )
+Vue.use( Dialog  )
+Vue.use( SwipeCell  )
+Vue.use(Cell).use(CellGroup);
+ 
 
 Vue.config.productionTip = false
 Vue.use( Popup )

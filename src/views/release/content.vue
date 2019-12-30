@@ -5,38 +5,28 @@
       height="100%"
       :items="items"
       :main-active-index.sync="activeIndex"
-      v-if="index==1"
+      v-if="findex==1"
     >
       <template slot="content">
         <!-- 内容 -->
       </template>
     </van-tree-select>
      <!-- 2级发布 -->
-    <div v-else-if="index==2">
+    <div v-else-if="findex==2">
       <ul class="fruits">
-        <li>醉金相葡萄</li>
-        <li>1</li>
-        <li>1</li>
-        <li>1</li>
-        <li>1</li>
-        <li>1</li>
+        <li :class="{ 'active':fruitsflag==index }" v-for="(item,index) of fruitsitems" @click="fruitChose(index)" :key="item.sid">{{item.name}}</li>
       </ul>
     </div>
      <!-- 3级发布 -->
-    <div v-else-if="index==3">
+    <div v-else-if="findex==3">
       <ul class="fruits_type">
-        <li>醉金相葡萄</li>
-        <li>2</li>
-        <li>3</li>
-        <li>1</li>
-        <li>1</li>
-        <li>1</li>
+        <li :class="{ 'active':typeflag==index }" v-for="(item,index) of fruitstype" @click="typeChose(index)" :key="item.sid">{{item.name}}</li>
       </ul>
     </div>
      <!-- 发布供应 -->
-    <div v-else-if="index==4&&$route.query.type=='supply'">
+    <div v-else-if="findex==4&&$route.query.type=='supply'">
       <van-cell-group>
-        <van-cell title-class="titles" value-class="text" title="货品名称" value="内容" />
+        <van-cell title-class="titles" value-class="text" title="货品名称" :value="fruitDetil.fruitName" />
         <van-cell title-class="titles" value-class="text" title="规格" value="内容" />
         <van-cell title-class="titles" value-class="text" title="标题预览" value="内容" />
       </van-cell-group>
@@ -67,9 +57,9 @@
       </van-cell-group>
     </div>
      <!-- 发布采购 -->
-    <div v-else-if="index==4&&$route.query.type=='purchase'">
+    <div v-else-if="findex==4&&$route.query.type=='purchase'">
         <van-cell-group>
-        <van-cell title-class="titles" value-class="text" title="货品名称" value="内容" />
+        <van-cell title-class="titles" value-class="text" title="货品名称" :value="fruitDetil.fruitName" />
         <van-cell title-class="titles" value-class="text" title="规格" value="内容" />
         <van-cell title-class="titles" value-class="text" title="标题预览" value="内容" />
       </van-cell-group>
@@ -104,7 +94,7 @@
         </van-cell-group>
     </div>
      <!--发布完成-->
-     <div v-else-if="index==5" class="success">
+     <div v-else-if="findex==5" class="success">
          <h2>发布完成</h2>
          <img src="~assets/images/supplysuccess.jpg" alt="">
          <h3>您的商品正在审核中</h3>
@@ -118,11 +108,38 @@
 
 <script>
 export default {
-  props: ["index"],
+  props: ["findex"],
   data() {
     return {
       activeIndex: 0,
-      items: [{ text: "水果", list: [{}] }, { text: "分组 2" }],
+      items:[{ text: "水果", list: [{}] }, { text: "分组 2" }],//水果总目录
+      fruitsitems:[{
+            sid:1,
+              name:'苹果'
+            },{
+              sid:2,
+              name:'橘子'
+            },{
+              sid:3,
+              name:'醉金相葡萄'
+            }
+      ],//水果详细目录
+      fruitstype:[{
+              sid:1,
+              name:'苹果'
+            },{
+              sid:2,
+              name:'橘子'
+            },{
+              sid:3,
+              name:'醉金相葡萄'
+            }],//水果类型目录
+      fruitDetil:{
+      //   fruitName:this.fruitsitems[this.fruitsflag].name,
+      //   fruitType:this.fruitstype[this.typeflag].name,
+      },
+      fruitsflag:0,
+      typeflag:0,
       value: "",
       price: 0,
       num: 0,
@@ -138,13 +155,33 @@ export default {
       finish(){
           this.$emit('reset');
           this.$router.push({name:'home'});
-
-        }
+        },
+      fruitChose(index){
+        this.fruitsflag=index;
+      },
+      typeChose(index){
+        this.typeflag=index;
+      },
+    },
+  computed:{
+   
+  },
+  watch:{
+    findex(){
+      console.log(this.fruitDetil);
+      if(this.findex>2){
+        this.$set(this.fruitDetil,'fruitName',this.fruitsitems[this.fruitsflag].name);
+        this.$set(this.fruitDetil,'fruitType',this.fruitstype[this.typeflag].name);
+        this.$emit('getitem',this.fruitDetil)
+      }
+        
     }
+  }
 }
 </script>
 
 <style lang='scss'>
+
 .content {
   background: #f6f6f6;
 }
@@ -203,10 +240,12 @@ export default {
 .titles {
   text-align: left;
   width: 0.9rem;
-  line-height: 0.32rem;
+  line-height: 0.12rem;
   flex: none;
   font-size: 0.14rem;
   font-weight: bold;
+  display: flex;
+  align-items: center;
 }
 .van-field__body {
   height: 100%;
@@ -215,9 +254,11 @@ export default {
 .van-field__control {
   display: flex;
   box-sizing: border-box;
-  line-height: 0.32rem;
+  line-height: 0.12rem;
   font-size: 0.12rem;
   min-height: 0.2rem;
+  display: flex;
+  align-items: center;
 }
 .suffix_price::after {
   content: "元/斤";
@@ -231,7 +272,13 @@ export default {
   position: absolute;
   right: 0.8rem;
 }
-
+.van-cell {
+  height: 0.32rem;
+  align-items: center;
+}
+.van-cell__right-icon{
+  line-height: 0.12rem;
+}
 .van-cell-group {
   margin-bottom: 0.1rem;
 }
@@ -245,10 +292,13 @@ export default {
 .van-field--min-height{
     flex-direction: column;
     align-items: center;
+    height: 1.02rem;
     .titles{
         width: 100%;
         height: 0.32rem;
+        line-height: 0.32rem;
     }
+    
     .van-cell__value{
         width: 95%;
 

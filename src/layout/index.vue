@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="layout">
     <!-- <Header/> -->
     <keep-alive>
-          <router-view></router-view>
+      <router-view></router-view>
     </keep-alive>
 
     <Tabbar v-if="flag"/>
@@ -10,8 +10,8 @@
 </template>
 
 <script>
-// import Header from '../components/header'
-import Tabbar from '../components/tabbar'
+import Tabbar from "components/tabbar";
+// import top from 'components/top'
 export default {
     data(){
       return {
@@ -26,18 +26,19 @@ export default {
       $route:{
         deep:true,
         handler(){
-          if(this.$route.path.match("/release" )|| this.$route.name == "detail"||this.$route.path.match("/login5" ))
+          if(this.$route.path.match("/release" )|| this.$route.name == "detail"|| this.$route.name == "pdetail"||this.$route.name == "supply1"||this.$route.name == "purchase1"||this.$route.path.match("/login" ))
             this.flag=false;
           else 
             this.flag=true;
         }
       }
     }
-}        
+  }
+
 </script>
 
 <style lang='scss' scoped>
-  div{
+  .layout{
     display: flex;
     flex-direction: column;
     justify-content: space-between;

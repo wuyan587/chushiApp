@@ -7,6 +7,7 @@ const Mine=()=>import(/* 我的 */ 'views/mine/index.vue')
 const Supply = () => import(/* 我的 */ '../views/home/Supply.vue')
 const Purchase = () => import(/* 我的 */ '../views/home/Purchase.vue')
 const Detail = () => import(/* 我的 */ '../views/product/Detail.vue')
+const pDetail = () => import(/* 我的 */ '../views/purchaser/index.vue')
 const Supplier = () => import(/* 我的 */ '../views/supplier/index.vue')
 const Supply1 = () => import(/* 我的 */ '../views/supplier/Supply1.vue')
 const Purchase1 = () => import(/* 我的 */ '../views/supplier/Purchase1.vue')
@@ -37,7 +38,13 @@ const routerTable=[
         ]
     },
     {
-        path: '/detail',
+        path: '/purchase/detail',
+        component: pDetail,
+        name:'pdetail',
+        
+    },  
+    {
+        path: '/supply/detail',
         component: Detail,
         name:'detail',
         
@@ -75,7 +82,7 @@ const routerTable=[
         name:'shopcart'
     },{
         path:'/user',
-        component:Mine
+        component:Mine,
     },{
         path:'/login',
         component:Login,
