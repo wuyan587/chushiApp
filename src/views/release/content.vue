@@ -8,28 +8,32 @@
       v-if="findex==1"
     >
       <template slot="content">
-        <!-- 内容 -->
+      <!-- 内容 -->
       </template>
     </van-tree-select>
-     <!-- 2级发布 -->
+      <!-- 2级发布 -->
     <div v-else-if="findex==2">
       <ul class="fruits">
         <li :class="{ 'active':fruitsflag==index }" v-for="(item,index) of fruitsitems" @click="fruitChose(index)" :key="item.sid">{{item.name}}</li>
       </ul>
     </div>
-     <!-- 3级发布 -->
+      <!-- 3级发布 -->
     <div v-else-if="findex==3">
-      <ul class="fruits_type">
-        <li :class="{ 'active':typeflag==index }" v-for="(item,index) of fruitstype" @click="typeChose(index)" :key="item.sid">{{item.name}}</li>
-      </ul>
+      <div v-for='item of fruitstype' :key="item.sid" class="type_warp">
+        <h2>{{item.name}}</h2>
+        <ul class="fruits_type">
+            <li :class="{ 'active':typeFlag(item.sid,items.val) }" v-for="(items) of item.list" @click="typeChose(item.sid,items.val)" :key="items.sid">{{items.val}}</li>
+        </ul>
+      </div>
+      
     </div>
      <!-- 发布供应 -->
     <div v-else-if="findex==4&&$route.query.type=='supply'">
-      <PubSupply :fruitDetil='fruitDetil' />
+      <PubSupply/>
     </div>
      <!-- 发布采购 -->
     <div v-else-if="findex==4&&$route.query.type=='purchase'">
-        <PubPurchase :fruitDetil='fruitDetil' />
+        <PubPurchase/>
     </div>
      <!--发布完成-->
      <div v-else-if="findex==5" class="success">
@@ -47,8 +51,9 @@
 <script>
 import PubSupply from './supply'
 import PubPurchase from './purchase'
+import { mapMutations } from 'vuex'
 export default {
-  props: ["findex"],
+  // props: ["findex"],
   data() {
     return {
       activeIndex: 0,
@@ -66,20 +71,84 @@ export default {
       ],//水果详细目录
       fruitstype:[{
               sid:1,
-              name:'苹果'
+              name:'储存方式',
+              list:[{
+                sid:1,
+                val:'冷藏'
+              },{
+                sid:2,
+                val:'鲜果'
+              },{
+                sid:3,
+                val:'窖藏'
+              },],
             },{
               sid:2,
-              name:'橘子'
+              name:'果型',
+              list:[{
+                sid:1,
+                val:'高桩'
+              },{
+                sid:2,
+                val:'矮桩'
+              },],
             },{
               sid:3,
-              name:'醉金相葡萄'
-            }],//水果类型目录
-      fruitDetil:{
-      //   fruitName:this.fruitsitems[this.fruitsflag].name,
-      //   fruitType:this.fruitstype[this.typeflag].name,
-      },
+              name:'单果重',
+              list:[{
+                sid:1,
+                val:'250g'
+              },{
+                sid:2,
+                val:'150g'
+              },{
+                sid:3,
+                val:'120g'
+              },{
+                sid:4,
+                val:'220g'
+              },{
+                sid:5,
+                val:'110g'
+              },{
+                sid:6,
+                val:'190g'
+              },],
+            },{
+              sid:4,
+              name:'是否贴字',
+              list:[{
+                sid:1,
+                val:'不贴字'
+              },{
+                sid:2,
+                val:'贴字'
+              },],
+            },{
+              sid:5,
+              name:'包装',
+              list:[{
+                sid:1,
+                val:'纸袋'
+              },{
+                sid:2,
+                val:'膜袋'
+              },{
+                sid:3,
+                val:'光果'
+              },{
+                sid:4,
+                val:'纸+膜袋'
+              },],
+            }],//水果规格目录
       fruitsflag:0,
-      typeflag:0,
+      typeflag:{
+          reserve:'',
+          model:'',
+          weight:'',
+          paste:'',
+          pack:''
+      },
       value: "",
       price: 0,
       num: 0,
@@ -94,29 +163,79 @@ export default {
     PubPurchase 
   },
   methods: {
+      ...mapMutations(['setType','setName','setSpecification','reset']),
       finish(){
-          this.$emit('reset');
+          // this.$emit('reset');
+          this.$store.commit('reset');
           this.$router.push({name:'home'});
         },
       fruitChose(index){
         this.fruitsflag=index;
       },
-      typeChose(index){
-        this.typeflag=index;
+      typeChose(sid,val){
+        // this.typeflag=index;
+        switch(sid){
+            case 1:
+               this.typeflag.reserve=val;
+              break;
+            case 2:
+               this.typeflag.model=val;
+              break;
+            case 3:
+               this.typeflag.weight=val;
+              break;
+            case 4:
+               this.typeflag.paste=val;
+              break;
+            case 5:
+               this.typeflag.pack=val;
+              break;
+          }
       },
     },
   computed:{
-   
+    findex(){
+      return this.$store.state.release.flagNum;
+    },
+    typeFlag(){
+      return (sid,val)=>{
+        switch(sid){
+            case 1:
+              return this.typeflag.reserve==val;
+              // break;
+            case 2:
+              return this.typeflag.model==val;
+              // break;
+            case 3:
+              return this.typeflag.weight==val;
+              // break;
+            case 4:
+              return this.typeflag.paste==val;
+              // break;
+            case 5:
+              return this.typeflag.pack==val;
+              // break;
+          }
+      }
+    }
   },
   watch:{
     findex(){
       // console.log(this.fruitDetil);
-      if(this.findex>2){
-        this.$set(this.fruitDetil,'fruitName',this.fruitsitems[this.fruitsflag].name);
-        this.$set(this.fruitDetil,'fruitType',this.fruitstype[this.typeflag].name);
-        this.$emit('getitem',this.fruitDetil)
-      }
-        
+      if(this.findex==2)
+      //  this.$store.commit('setType',this.fruitstype[this.typeflag].name) 
+      ''
+      else if (this.findex==3)
+       this.$store.commit('setName',this.fruitsitems[this.fruitsflag].name)
+      else if (this.findex==4)
+       this.$store.commit('setSpecification',this.typeflag)
+      else if (this.findex>=4)
+        ''
+        // this.$store.state.release.fruit.fruitName=this.fruitsitems[this.fruitsflag].name;
+      
+        // this.$set(this.fruitDetil,'fruitName',this.fruitsitems[this.fruitsflag].name);
+        // this.$set(this.fruitDetil,'fruitType',this.fruitstype[this.typeflag].name);
+        // this.$emit('getitem',this.fruitDetil)
     }
   }
 }
@@ -149,17 +268,27 @@ export default {
     }
   }
 }
+.type_warp{
+  padding:0.1rem 0.15rem;
+  background: white;
+  h2{
+    text-align: left;
+    font-weight: bold;
+  }
+}
 .fruits_type {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
-  background: white;
+  // justify-content: space-around;
+  
+  // margin-bottom: 0.2rem;
   li {
     width: 1rem;
     height: 0.29rem;
     line-height: 0.29rem;
     border: 1px solid #4cc79b;
     border-radius: 0.1rem;
+    margin: 0 0.06rem;
     margin-top: 0.13rem;
     font-size: 0.13rem;
     &.active {
@@ -184,7 +313,7 @@ export default {
   width: 0.9rem;
   line-height: 0.12rem;
   flex: none;
-  font-size: 0.14rem;
+  font-size: 0.13rem;
   font-weight: bold;
   display: flex;
   align-items: center;
