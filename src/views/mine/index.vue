@@ -7,14 +7,55 @@
       close-icon="arrow-left"
       close-icon-position="top-left"
       position="left"
-      :closeable="true"
-      :style="{ height: '100%',width:'100%' }"
+      :style="{ height: '100%',width:'100%'}"
 			>
      <div style="margin:10px">
-
-        <van-cell is-link @click="showPopup">展示弹出层</van-cell>
-     
-        <van-popup  v-model="show">内容</van-popup>
+         <van-cell 
+         icon="arrow-left"
+         center
+         arrow-direction="left"
+         title="系统设置" value="" 
+         class="mine_top_setting"
+         @click="cog"
+         />
+         <van-cell 
+         is-link
+         left
+         title="意见反馈" size="large"
+         :title-style="{'text-align':'left','font-size':'.14rem'}"
+         @click="showsuggestion"
+          />
+         <van-popup 
+          v-model="suggestion"
+          close-icon="arrow-left"
+          close-icon-position="top-left"
+          position="left"
+          :style="{ height: '100%',width:'100%'}"
+          >
+          <div style="margin:10px">
+         <van-cell 
+         icon="arrow-left"
+         center
+         arrow-direction="left"
+         title="意见反馈" value="" 
+         class="mine_top_setting"
+         @click="showsuggestion"
+         />
+         <div class="suggestion_textarea" >
+          <input type="" name="" style="border: none;width: 100%" placeholder="我们想听听您的心声,如果愿意,您也可以留下联系方式,我们期待与您的真诚沟通
+          ">
+          <div>
+            <van-uploader v-model="fileList" multiple />
+          </div>
+         </div>
+         </div>
+         </van-popup>
+         <van-cell 
+         is-link
+         left
+         title="退出账户" size="large" 
+         :title-style="{'text-align':'left','font-size':'.14rem'}"
+         @click="logout"/>
      </div>   
      </van-popup>
      <div  class="user_info_box" v-if="!token" @click="personal">
@@ -60,13 +101,13 @@
       <div class="mine_CellGroup">
          <van-cell is-link @click="showPopup">
           <div><van-icon name="coupon-o" class="ver_middle"/>实名认证</div>
-         <span class="check_auth active"  v-if="user.realname_auth">认证成功</span>
-         <span class="check_auth" v-else>立即认证</span>
+         <span class="check_auth" :class="[{active : user.realname_auth}]">
+         {{user.realname_auth&&'认证成功'||'立即认证'}}</span>
          </van-cell>
           <van-cell is-link @click="showPopup">
            <div><van-icon name="balance-list-o" class="ver_middle"/>企业认证 </div>
-           <span class="check_auth active" v-if="user.business_auth">认证成功</span>
-           <span class="check_auth" v-else>立即认证</span> 
+         <span class="check_auth" :class="[{active : user.business_auth}]">
+         {{user.business_auth&&'认证成功'||'立即认证'}}</span>
           </van-cell>
       </div>
       <div class="mine_CellGroup">
@@ -85,7 +126,7 @@
 </template>
 
 <script>
-import { getCookie } from '@/utils/cookie.js'
+import { getCookie,remove } from '@/utils/cookie.js'
 export default {
   data() {
     return {
@@ -93,6 +134,12 @@ export default {
       showcog:false,//个人设置弹出层flag
       token:'',//用户token
       show:false,//测试弹出层
+      suggestion:false,//意见反馈弹出层
+      fileList: [
+        { url: 'https://img.yzcdn.cn/vant/leaf.jpg' },
+        // Uploader 根据文件后缀来判断是否为图片文件
+        // 如果图片 URL 中不包含类型信息，可以添加 isImage 标记来声明
+      ],
       user: {
         img:'',  //头像
         name:'',//姓名
@@ -121,7 +168,7 @@ export default {
   methods: {
     //齿轮弹出层触发
 		cog(){
-			this.showcog = true;
+			this.showcog = !this.showcog;
     },
     //个人中心弹出层触发
     personal() {
@@ -132,8 +179,31 @@ export default {
         this.$router.push('/login')
       }
     },
+    //意见反馈弹出层
+    showsuggestion(){
+      this.suggestion = !this.suggestion;
+    },
     showPopup() {
       this.show = true;
+    },
+    logout(){
+      if(this.token){
+      this.$dialog.confirm({
+      message: '您确定要退出登录么？'
+      }).then(()=>{
+        remove('token');
+        this.cog();
+        this.$toast({
+          message: '正在前往首页...',
+          forbidClick: true
+        });
+        location.href="/"
+      }).catch(()=>{
+        return 
+      });
+     }else{
+        this.$toast('您还未登录');
+     }  
     }
   }
 }
@@ -143,10 +213,13 @@ export default {
 $themecolor:#C0F8D1;
 .mine{
   height:100%;
-  background-color: $themecolor;
   justify-content: unset!important;
+  overflow:hidden;
 }
 .mine_top{
+  background-image:url('~assets/images/bg.jpg');
+  background-repeat: no-repeat;
+  background-size: contain;
   padding:.06rem .18rem 0;
 	&	.setting-module{
 		height:.3rem;
@@ -245,5 +318,29 @@ $themecolor:#C0F8D1;
     }
   }
 }
-
+.mine_top_setting{
+  display:flex;
+  & .van-cell__value{
+    flex:0
+  }
+  & .van-cell__title{
+    margin-left:-.1rem;
+    font-size:.16rem;
+    font-weight:500;
+  }
+}
+.suggestion_textarea{
+    margin-top: .1rem;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px 16px;
+    overflow: hidden;
+    color: #323233;
+    font-size: 14px;
+    line-height: 24px;
+    border-radius: 5%;
+    background-color: #ffffff;
+    box-shadow: 8px 1px 10px 7px #f6f6f6;
+}
 </style>
