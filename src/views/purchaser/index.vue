@@ -4,6 +4,20 @@
       <i class="fas fa-angle-left" @click="goBack"></i>
       <h2>采购详情</h2>
     </div>
+
+    <div class="shop">
+      <img src="@/assets/images/userpic.png" alt />
+      <div class="shopinfo">
+        <div class="shopname">
+          <p class="farm">养殖户</p>
+          <h3>宁波居食坊</h3>
+        </div>
+        <div class="comp">
+          <p>实名</p>
+          <p>企业</p>
+        </div>
+      </div>
+    </div>
     <div class="question">
       <div class="first">
         <p class="first_1">采购</p>
@@ -14,47 +28,62 @@
         <p>100000斤</p>
       </div>
     </div>
-    <div class="product">
-      <div class="pro_1">
-        <p>报价产品</p>
-        <p>更换产品</p>
-      </div>
-      <div class="pro_2">
-        <img src="@/assets/images/10.png" alt="">
-        <div class="pro_3">
-          <p class="pro_name">{{this.$route.query.name}}</p>
-          <p class="pro_price">20斤/元</p>
-        </div>
-      </div>
-      <div class="pro_1"></div>
+    <div class="details">
+      <p>
+        <strong>期望产地：</strong>全国
+      </p>
+      <p>
+        <strong>规格要求：</strong>幼苗期
+      </p>
+      <p>
+        <strong>品质要求：</strong>品质中上，不需要非常好
+      </p>
+      <p>
+        <strong>其他要求：</strong>要有包装，运输安全
+      </p>
     </div>
-    <div class="money">报价金额 (元/斤)
-      <input type="text" placeholder="请输入你的报价">
+    <div class="delivery">
+      <p>
+        <strong>收货地：</strong>浙江省宁波市
+      </p>
+      <p>
+        <strong>送货时间：</strong>20119年5月28日-20119年8月28日
+      </p>
     </div>
-    <div class="contact">联系方式
-      <input type="text" placeholder="请输入你的联系方式">
-    </div>
-    <div class="tips">
-      <p class="tips_price">报价说明</p>
-      <p class="tips_detail">你可以在说明规格，物流等补充说明</p>
-    </div>
-    <div class="quotation">立即报价</div>
+    <div class="quotation" @click="toQuotation">立即报价</div>
+    <van-dialog v-model="show" title="提示" 
+    message="您还没有发布过该采购需求中的产品"
+    confirmButtonText='发供应'
+    confirmButtonColor='#4cc79b'
+    cancelButtonText='暂不报价'
+    cancelButtonColor='#81d8b9'
+    show-cancel-button></van-dialog>
   </div>
 </template>
 <script>
 export default {
   data() {
-    return {};
+    return {
+      show: false
+    };
   },
   methods: {
     goBack() {
       this.$router.go(-1);
+    },
+    toQuotation() {
+      this.show=true;
+      // this.$router.push({
+      //   name: 'quotation',
+      // });
+      
     }
-  }
+  },
+  mounted() {}
 };
 </script>
 <style scoped>
-.purchaser{
+.purchaser {
   display: flex;
   flex-direction: column;
 }
@@ -94,10 +123,10 @@ h2 {
 .first,
 .second {
   display: flex;
-  font-size: .14rem;
+  font-size: 0.14rem;
 }
 .first_1 {
-    width: 0.4rem;
+  width: 0.4rem;
   height: 0.14rem;
   background: #ff6600;
   font-size: 0.11rem;
@@ -105,115 +134,98 @@ h2 {
   line-height: 0.14rem;
   text-align: center;
   border-radius: 0.1rem;
-  margin-right: .1rem;
+  margin-right: 0.1rem;
 }
 .first_2 {
   font-weight: bold;
 }
 .second {
-    margin-top: .2rem;
-    width: 1.1rem;
-    justify-content: space-between;
-    color: #ff6600;
-}
-.product {
-  width: 3.45rem;
-  height: 1.05rem;
-  border-bottom: 0.03rem solid #f4f4f4;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  padding: 0.15rem 0.15rem;
-  font-size: .14rem;
-}
-.pro_1 {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: .1rem;
-  font-weight: bold;
-}
-.pro_2 {
-  display: flex;
-}
-.pro_2 img {
-  width: .8rem;
-  height: .8rem;
-  margin-right: .2rem;
-}
-.pro_3 .pro_price {
-  color: #ff6600;
-  margin-top: .4rem;
-
-}
-.money {
-  width: 3.45rem;
-  height: 0.4rem;
-  font-size: .14rem;
-  border-bottom: 0.03rem solid #f4f4f4;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  font-weight: bold;
-  padding: 0.15rem 0.15rem;
-}
-input {
-  font-weight: normal;
-  text-align: center;
-  margin-top: .1rem;
-  border: none;
-}
-
-.contact {
-  width: 3.45rem;
-  height: 0.4rem;
-  font-size: .14rem;
-  border-bottom: 0.03rem solid #f4f4f4;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  font-weight: bold;
-  padding: 0.15rem 0.15rem;
-}
-
-.tips {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 0.5rem;
-  padding: 0.15rem 0.15rem;
-  font-size: .14rem;
-  
-}
-.tips .tips_price {
-  font-weight: bold;
-
-}
-.tips p {
-  text-align: left;
-  font-weight: normal;
-}
-.tips .tips_detail {
-  width: 3.3rem;
-  height: 0.7rem;
   margin-top: 0.2rem;
-  background: #f4f4f4;
-  border-radius: 0.2rem;
-  display: flex;
-  align-self: center;
+  width: 1.1rem;
+  justify-content: space-between;
+  color: #ff6600;
+}
+.shop {
+  width: 3.45rem;
+  height: 0.6rem;
+  border-bottom: 0.03rem solid #f4f4f4;
   text-align: left;
-  font-size: 0.13rem;
-  padding: 0.1rem 0.1rem;
+  padding: 0.15rem 0.15rem;
+  display: flex;
+}
+
+.shop img {
+  width: 0.6rem;
+  height: 0.6rem;
+  margin-right: 0.2rem;
+}
+.shop .shopname {
+  display: flex;
+  width: 1.3rem;
+  justify-content: space-between;
+  margin-top: 0.1rem;
+}
+h3 {
+  font-weight: bold;
+}
+.shop .shopname .farm {
+  width: 0.4rem;
+  height: 0.14rem;
+  background: #3bc191;
+  font-size: 0.11rem;
+  color: white;
+  line-height: 0.14rem;
+  text-align: center;
+  border-radius: 0.1rem;
+}
+.shop .comp {
+  display: flex;
+  width: 1rem;
+  justify-content: space-between;
+  margin-top: 0.1rem;
+}
+.shop .comp p {
+  width: 0.4rem;
+  height: 0.15rem;
+  border: 1px solid #3bc191;
+  border-radius: 0.2rem;
+  color: #3bc191;
+  line-height: 0.15rem;
+  font-size: 0.11rem;
+  text-align: center;
+}
+
+.details {
+  width: 3.45rem;
+  height: 1rem;
+  border-bottom: 0.03rem solid #f4f4f4;
+  text-align: left;
+  padding: 0.15rem 0.15rem;
+  font-size: 0.14rem;
+  line-height: 0.2rem;
+}
+strong {
+  font-weight: bold;
+}
+.delivery {
+  width: 3.45rem;
+  height: 0.45rem;
+  border-bottom: 0.03rem solid #f4f4f4;
+  text-align: left;
+  padding: 0.15rem 0.15rem;
+  font-size: 0.14rem;
   line-height: 0.2rem;
 }
 .quotation {
   width: 2.4rem;
   height: 0.35rem;
-  border-radius: .2rem;
+  border-radius: 0.2rem;
   color: white;
-  line-height: .35rem;
+  line-height: 0.35rem;
   background: #3bc191;
   display: flex;
   align-self: center;
   justify-content: center;
-  margin-bottom: .2rem;
+  margin-top: 1.8rem;
 }
 </style>

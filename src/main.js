@@ -1,39 +1,83 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './routers'
-// import { Popup,Search,Button, Dialog , SwipeCell,Cell,CellGroup  } from 'vant';
-import {TreeSelect, 
-  Field,AddressEdit,
-  Uploader,CountDown,Swipe,SwipeItem,GoodsAction,GoodsActionButton,Popup,Search,Button, Dialog , SwipeCell,Cell,CellGroup
- } from 'vant';
+import store from './store'
+import {
+    Popup,
+    Search,
+    TreeSelect,
+    Image,
+    Icon,
+    Tab,
+    Tabs,
+    Sidebar,
+    SidebarItem,
+    DropdownMenu,
+    DropdownItem,
+    Switch,
+    Button,
+    Cell,
+    CellGroup,
+    Checkbox,
+    CheckboxGroup,
+    Dialog,
+    Swipe,
+    SwipeCell,
+    SwipeItem,
+    Field,
+    AddressEdit,
+    Uploader,
+    CountDown,
+    GoodsAction,
+    GoodsActionButton,
+    Tag,
+    Area
+} from 'vant'
 import './utils/rem'
 
+//把在上面应用的vant模块直接复制到这个vantObj里就行了
 
-Vue.use( Button )
-Vue.use( Dialog  )
-Vue.use( SwipeCell  )
-Vue.use(Cell).use(CellGroup);
- 
+const vantObj={
+    Popup,
+    Search,
+    TreeSelect,
+    Image,
+    Icon,
+    Tab,
+    Tabs,
+    Sidebar,
+    SidebarItem,
+    DropdownMenu,
+    DropdownItem,
+    Switch,
+    Button,
+    Cell,
+    CellGroup,
+    Checkbox,
+    CheckboxGroup,
+    Dialog,
+    Swipe,
+    SwipeCell,
+    SwipeItem,
+    Field,
+    AddressEdit,
+    Uploader,
+    CountDown,
+    GoodsAction,
+    GoodsActionButton,
+    Tag,
+    Area
+}
+
+    for(let key in vantObj){
+        Vue.use(vantObj[key]);
+    }
 
 Vue.config.productionTip = false
-Vue.use( Popup )
-   .use( Search )
-   .use( TreeSelect )
-   .use( Button )
-   .use(Cell)
-   .use(CellGroup)
-   .use( Field )
-   .use(AddressEdit)
-   .use(Uploader)
-   .use(CountDown);
-   //77
-   Vue.use( Swipe );
-   Vue.use( SwipeItem );
-   Vue.use( GoodsAction );
-   Vue.use( GoodsActionButton );
-   //77
+
 
 new Vue({
-  router,
-  render: h => h(App),
+    router,
+    store,
+    render: h => h(App),
 }).$mount('#app')
