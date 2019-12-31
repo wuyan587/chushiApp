@@ -32,6 +32,8 @@ const Purchase1 = () =>
     import ( /* 我的 */ '../views/supplier/Purchase1.vue')
 const pDetail = ()=>
     import( /*采购详情*/ 'views/purchaser/index.vue' )
+const Quotation = ()=>
+    import( /*采购详情*/ 'views/purchaser/quotation.vue' )
     //77
 
 
@@ -62,6 +64,12 @@ const routerTable = [
         path: '/purchase/detail',
         component: pDetail,
         name: 'pdetail',
+
+    },
+    {
+        path: '/purchase/detail/quotation',
+        component: Quotation,
+        name: 'quotation',
 
     },
     {
