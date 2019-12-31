@@ -26,7 +26,7 @@ export default {
       $route:{
         deep:true,
         handler(){
-          if(this.$route.path.match("/release" )|| this.$route.name == "detail"|| this.$route.name == "pdetail"||this.$route.name == "supply1"||this.$route.name == "purchase1")
+          if(this.$route.path.match("/release" )|| this.$route.name == "detail"|| this.$route.name == "pdetail"||this.$route.name == "supply1"||this.$route.name == "purchase1"||this.$route.path.match("/login" ))
             this.flag=false;
           else 
             this.flag=true;
