@@ -43,7 +43,7 @@
       >内容</van-popup>
       <div class="mine_operation">
         <div class="mine_operation_detail">
-          <img src="~assets/images/supply.jpg" alt="">
+          <img src="~assets/images/supply.jpg" alt="" @click="my_supply">
           <span> 我的供应 </span>
         </div>
         <div class="mine_operation_detail">
@@ -134,6 +134,9 @@ export default {
     },
     showPopup() {
       this.show = true;
+    },
+    my_supply(){
+      this.$router.push('my_supply');
     }
   }
 }

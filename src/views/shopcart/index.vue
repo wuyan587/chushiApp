@@ -10,8 +10,11 @@
             <h4> {{item.Supplier}} </h4>
         <van-cell  @click="showPopup(index)" :round=true>x</van-cell>
         <van-popup v-model="show">
-          <van-button type="danger" class="button determine"  @click = "remove( activeIndex )">确定</van-button>
-          <van-button type="warning" class="button deselect"  @click = "closeFlag">取消</van-button>
+          <p class="hint"> 确认删除吗？ </p>
+          <div>
+            <van-button type="danger" class="button determine"  @click = "remove( activeIndex )">确定</van-button>
+            <van-button type="warning" class="button deselect"  @click = "closeFlag">取消</van-button>
+          </div>
 
         </van-popup>
           </div>
@@ -203,7 +206,7 @@ height: 100%
   }
 }
 .van-popup{
-  background: none;
+  // background: none;
 }
 .checkLisit{
   height: 5rem;
@@ -224,5 +227,18 @@ height: 100%
      text-align: center;
      line-height: 0.17rem;
    }
+}
+
+
+.van-popup{
+  border-radius: .2rem;
+  
+  .hint{
+  margin: .2rem .4rem
+}
+  div{
+    margin: .1rem;
+     
+  }
 }
 </style>
