@@ -110,10 +110,6 @@ const routerTable = [
         component: Register
     },
     {
-        path: '/login',
-        component: Login
-    },
-    {
         path: '/search',
         component: Search,
     },{
