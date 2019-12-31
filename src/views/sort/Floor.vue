@@ -28,10 +28,11 @@ export default {
    return {
      goodslist:[
 
-       {name:'当季最热',
-       sid:1,
-       list:[
-       {  sid:1,
+       {
+         name:'当季最热',
+        sid:1,
+        list:[
+        {  sid:1,
          url:"https://img.alicdn.com/imgextra/i4/2053469401/O1CN01MeXEEF2JJhzeoqBBw_!!2053469401.png",title:"123"
          },
            {sid:2,
@@ -59,9 +60,7 @@ export default {
          url:"https://img.alicdn.com/imgextra/i4/2053469401/O1CN01MeXEEF2JJhzeoqBBw_!!2053469401.png",title:"123"
          }
          ]
-     }
-    
-     ],
+     }],
      otherList:[ {name:'其他',sid:2,list:[
       { sid:1,
         url:"https://img.alicdn.com/imgextra/i3/2053469401/O1CN0120xXfv2JJhzih36oA_!!2053469401.png",title:"葡萄"},

@@ -1,0 +1,47 @@
+const release={
+    state:{
+        fruit:{
+            fruitType:'',
+            fruitName:'',
+            fruitSpecification:{
+                reserve:'',
+                model:'',
+                weight:'',
+                paste:'',
+                pack:''
+            },
+            fruitTitle:'',
+            price:'',
+            num:'',
+            area:'',
+            sup:'',
+            detail:'',
+            img:''
+        },
+        flagNum:1
+    },
+    mutations:{
+        setType(state,val){
+            state.fruit.fruitType=val;
+        },
+        setName(state,val){
+            state.fruit.fruitName=val;
+        },
+        setSpecification(state,val){
+            state.fruit.fruitSpecification=val;
+        },
+        add(state){
+            state.flagNum++;
+        },
+        des(state){
+            state.flagNum--;
+        },
+        reset(state){
+            state.flagNum=1;
+        }
+    },
+    actions:{
+
+    },
+}
+export default release
