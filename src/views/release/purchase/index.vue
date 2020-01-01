@@ -39,6 +39,9 @@
 
 <script>
 export default {
+    props:[
+        'fruitDetil'
+    ],
     data(){
         return {
             value:'',
