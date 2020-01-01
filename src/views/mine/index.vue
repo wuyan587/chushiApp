@@ -84,7 +84,7 @@
       >内容</van-popup>
       <div class="mine_operation">
         <div class="mine_operation_detail">
-          <img src="~assets/images/supply.jpg" alt="">
+          <img src="~assets/images/supply.jpg" alt="" @click="my_supply">
           <span> 我的供应 </span>
         </div>
         <div class="mine_operation_detail">
@@ -203,9 +203,12 @@ export default {
       });
      }else{
         this.$toast('您还未登录');
-     }  
-    }
+     }},
+     my_supply(){
+      this.$router.push('my_supply');
   }
+  }
+  
 }
 </script>
 

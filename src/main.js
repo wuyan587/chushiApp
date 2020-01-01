@@ -31,7 +31,8 @@ import {
     GoodsAction,
     GoodsActionButton,
     Tag,
-    Area
+    Area,
+    NavBar
 } from 'vant'
 import './utils/rem'
 
@@ -66,7 +67,8 @@ const vantObj={
     GoodsAction,
     GoodsActionButton,
     Tag,
-    Area
+    Area,
+    NavBar
 }
 
     for(let key in vantObj){

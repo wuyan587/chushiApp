@@ -30,7 +30,7 @@ export default {
           this.$route.name == "detail"|| this.$route.name == "pdetail"||
           this.$route.name == "supply1"||this.$route.name == "purchase1"||this.$route.name == "quotation"||
           this.$route.path.match("/login" )||this.$route.path.match("/search")
-          ||this.$route.path.match("/register" ))
+          ||this.$route.path.match("/register" )||this.$route.path.match("/my_supply" ))
             this.flag=false;
           else 
             this.flag=true;
