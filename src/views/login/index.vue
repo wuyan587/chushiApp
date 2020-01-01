@@ -13,6 +13,7 @@
             name=""
             id="phoneNumber"
             placeholder="请输入手机号码"
+            @keyup.enter="pic"
           />
           <button class="btn3">xxx</button>
         </div>
@@ -24,9 +25,11 @@
             name=""
             id="pic"
             placeholder="请输入图片中的字符"
-            @keyup.enter="pic"
+            @blur="pic"
           />
-          <div class="btn4" @click="num">{{ testcode }}</div>
+          <div class="btn4" @click="num" :style="{ background: color }">
+            {{ testcode }}
+          </div>
         </div>
         <hr />
         <div class="l1">
@@ -36,13 +39,13 @@
             name=""
             id="check"
             placeholder="请输入验证码"
-            @keyup.enter="check"
+            @blur="check"
           />
           <button class="btn2" @click="send($event)">{{ zt }}</button>
         </div>
         <hr />
         <div class="l2">
-          <button class="btn1">登录</button>
+          <button class="btn1" @click="login">登录</button>
         </div>
       </div>
       <div class="forget">
@@ -72,7 +75,9 @@ export default {
       flag: true,
       timer: null,
       testcode: "获取字符",
-      count: 0
+      count: 0,
+      color: "",
+      
     };
   },
   methods: {
@@ -104,7 +109,7 @@ export default {
       function getNumber(min, max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
       }
-      let btn = document.querySelector(".btn4");
+
       function getColor() {
         var randomNumber; //保存随机数
         var color = "#"; //定义变量 连接字符串
@@ -115,7 +120,6 @@ export default {
         }
         return color;
       }
-      btn.style = "background:" + getColor() + ";";
 
       function sj() {
         let code = "";
@@ -133,19 +137,39 @@ export default {
               break;
           }
         }
-
         return code;
       }
 
       this.testcode = sj();
+      this.color = getColor();
+    },
+
+    pic() {
+      let pic = document.querySelector("#pic");
+      if (pic.value == this.testcode && this.count == 0) {
+        this.count++;
+        this.testcode = "字符输入正确";
+      } else {
+        this.testcode = "请重新输入";
+        pic.value = "";
+      }
+    },
+
+    check() {
+      let check = document.querySelector("#check");
+      if (check.value == 101) {
+      this.count++      
+      }
+    },
+  login(){
+    if(this.count==2){
+      this.$router.push('/user')
+    }else{
+      alert('验证码错误')
     }
   }
-  // pic(){
-  //   let pic = document.querySelector('#pic')
-  // if(pic.value == this.testcode){
-  //  count++
-  // }
-  // }
+
+  }
 };
 </script>
 
@@ -172,7 +196,8 @@ export default {
   height: 6.67rem;
   background: rgb(248, 248, 248);
 }
-.l1,.l5 {
+.l1,
+.l5 {
   display: flex;
 }
 .l2 {
@@ -186,7 +211,7 @@ export default {
 .shuru {
   margin-top: 1.6rem;
   width: 2.85rem;
-  height: 2.0rem;
+  height: 2rem;
   background: white;
   border-radius: 0.1rem;
   font-size: 0.12rem;

@@ -8,13 +8,13 @@
       <div class="shuru">
         <div>
           <i class="fa fa-mobile fa-2x"></i>
-          <input type="text" name="" id="" placeholder="请输入手机号码" />
+          <input type="text" name="" id="number" placeholder="请输入手机号码" />
           <button class="btn3">xxx</button>
         </div>
         <hr />
         <div class="l1">
           <i class="fa fa-envelope-open fa-2x"></i>
-          <input type="text" name="" id="" placeholder="请输入验证码" />
+          <input type="text" name="" id="yz" placeholder="请输入验证码" />
           <button class="btn2" @click="send($event)">{{zt}}</button>
         </div>
         <hr />
