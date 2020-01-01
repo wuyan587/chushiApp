@@ -12,19 +12,16 @@
     <div class="content">      
       <van-tabs v-model="active">
         <van-tab title="上架中">
-           <div class="list" v-for="(item,index) of lists" :key="item.id" >
-      
-
-          
+        <div class="list" v-for="(item,index) of suplist" :key="index" >
           <div class="list-content">
             <div class="list-ing">
-              <img :src="item.imgUrl" alt="">
+              <img src="http://img5.imgtn.bdimg.com/it/u=3865526395,2512926950&fm=11&gp=0.jpg" alt="">
             </div>
             <div class="list-right">
-              <h4> {{ item.Product }} </h4>
-              <p> {{ item.Distance }} <i class="fas fa-map-marker-alt"> </i> <span></span> {{ item.location }} </p> 
+              <h4> {{ item.fruitName }} </h4>
+              <p> 300km <i class="fas fa-map-marker-alt"> </i> <span></span> {{ item.area }} </p> 
              
-              <p class="price">{{item.price}}</p>
+              <p class="price">{{item.price}} 斤 / 件</p>
 
               <div class="list-top">
               
@@ -47,34 +44,30 @@
                 </div>
 
                 </van-popup>
+              </div>
             </div>
-            </div>
-
           </div>
-       
-      </div>
-        <div v-if = "!checkLisit" class="checkLisit">
-          
         </div>
+      <div v-if = "!checkLisit" class="checkLisit">
+          
+      </div>
             
         </van-tab>
-        <van-tab title="下架中"> <div class="list" v-for="(item,index) of lists" :key="item.id" >
-      
-
-          
+        <van-tab title="下架中"> 
+          <div class="list" v-for="(item,index) of suplist" :key="index" >
           <div class="list-content">
             <div class="list-ing">
-              <img :src="item.imgUrl" alt="">
+              <img src="http://img5.imgtn.bdimg.com/it/u=3865526395,2512926950&fm=11&gp=0.jpg" alt="">
             </div>
             <div class="list-right">
-              <h4> {{ item.Product }} </h4>
-              <p> {{ item.Distance }} <i class="fas fa-map-marker-alt"> </i> <span></span> {{ item.location }} </p> 
+              <h4> {{ item.fruitName }} </h4>
+              <p> 300km <i class="fas fa-map-marker-alt"> </i> <span></span> {{ item.area }} </p> 
              
-              <p class="price">{{item.price}}</p>
+              <p class="price">{{item.price}} 斤 / 件</p>
 
               <div class="list-top">
               
-                <van-cell    :round=true>上架</van-cell>
+                <van-cell  @click="SoldOut(index)" :round=true>下架</van-cell>
                 <van-cell   :round=true>修改</van-cell>
                 <van-cell  @click="showPopup(index)" :round=true>删除</van-cell>
                 <van-popup v-model="xiajia">
@@ -93,33 +86,29 @@
                 </div>
 
                 </van-popup>
+              </div>
             </div>
-            </div>
-
           </div>
-       
-      </div>
+        </div>
         <div v-if = "!checkLisit" class="checkLisit">
           
         </div>
             </van-tab>
-        <van-tab title="未通过"> <div class="list" v-for="(item,index) of lists" :key="item.id" >
-      
-
-          
+        <van-tab title="未通过"> 
+          <div class="list" v-for="(item,index) of suplist" :key="index" >
           <div class="list-content">
             <div class="list-ing">
-              <img :src="item.imgUrl" alt="">
+              <img src="http://img5.imgtn.bdimg.com/it/u=3865526395,2512926950&fm=11&gp=0.jpg" alt="">
             </div>
             <div class="list-right">
-              <h4> {{ item.Product }} </h4>
-              <p> {{ item.Distance }} <i class="fas fa-map-marker-alt"> </i> <span></span> {{ item.location }} </p> 
+              <h4> {{ item.fruitName }} </h4>
+              <p> 300km <i class="fas fa-map-marker-alt"> </i> <span></span> {{ item.area }} </p> 
              
-              <p class="price">{{item.price}}</p>
+              <p class="price">{{item.price}} 斤 / 件</p>
 
               <div class="list-top">
               
-                 
+                <van-cell  @click="SoldOut(index)" :round=true>下架</van-cell>
                 <van-cell   :round=true>修改</van-cell>
                 <van-cell  @click="showPopup(index)" :round=true>删除</van-cell>
                 <van-popup v-model="xiajia">
@@ -138,36 +127,29 @@
                 </div>
 
                 </van-popup>
+              </div>
             </div>
-            </div>
-
           </div>
-          <div id="size">
-            <p>哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈 </p>
-          </div>
-       
-      </div>
+        </div>
         <div v-if = "!checkLisit" class="checkLisit">
           
         </div>
             </van-tab>
-        <van-tab title="审核中"><div class="list" v-for="(item,index) of lists" :key="item.id" >
-      
-
-          
+        <van-tab title="审核中">
+          <div class="list" v-for="(item,index) of suplist" :key="index" >
           <div class="list-content">
             <div class="list-ing">
-              <img :src="item.imgUrl" alt="">
+              <img src="http://img5.imgtn.bdimg.com/it/u=3865526395,2512926950&fm=11&gp=0.jpg" alt="">
             </div>
             <div class="list-right">
-              <h4> {{ item.Product }} </h4>
-              <p> {{ item.Distance }} <i class="fas fa-map-marker-alt"> </i> <span></span> {{ item.location }} </p> 
+              <h4> {{ item.fruitName }} </h4>
+              <p> 300km <i class="fas fa-map-marker-alt"> </i> <span></span> {{ item.area }} </p> 
              
-              <p class="price">{{item.price}}</p>
+              <p class="price">{{item.price}} 斤 / 件</p>
 
               <div class="list-top">
               
-                 
+                <van-cell  @click="SoldOut(index)" :round=true>下架</van-cell>
                 <van-cell   :round=true>修改</van-cell>
                 <van-cell  @click="showPopup(index)" :round=true>删除</van-cell>
                 <van-popup v-model="xiajia">
@@ -186,12 +168,10 @@
                 </div>
 
                 </van-popup>
+              </div>
             </div>
-            </div>
-
           </div>
-       
-      </div>
+        </div>
         <div v-if = "!checkLisit" class="checkLisit">
           
         </div>
@@ -279,6 +259,9 @@ export default {
   computed:{
      checkLisit () {
       return this.lists.length !=0 
+    },
+    suplist(){
+      return this.$store.state.pub.Mine.supplylist;
     }
   }
 }

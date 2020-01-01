@@ -13,7 +13,7 @@
       </van-cell-group>
        <van-cell-group>
         <van-field
-          v-model="message"
+          v-model="fruit.detail"
           label-class="titles"
           rows="2"
           label="其他要求(选填)"
@@ -45,7 +45,6 @@ export default {
     data(){
         return {
             value:'',
-            message:'',
             sms:'',    //短信验证
         }
     },

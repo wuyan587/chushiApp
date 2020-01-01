@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './routers'
 import store from './store'
+import axios from '@/utils/request'
 import {
     Popup,
     Search,
@@ -76,7 +77,7 @@ const vantObj={
     }
 
 Vue.config.productionTip = false
-
+Vue.prototype.$request=axios;
 
 new Vue({
     router,

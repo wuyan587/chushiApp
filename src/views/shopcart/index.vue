@@ -1,7 +1,7 @@
 <template>
   <div class="shopcart">
     <h3>货单</h3>
-    <div class="list">
+    <div class="list" v-for='(item,index) of lists' :key='(item.id+index)'>
       <div class="list-top">
         <h4>供应商名字</h4>
         <van-cell @click="showPopup(index)" :round="true">x</van-cell>
@@ -19,18 +19,18 @@
           <img src="@/assets/images/10.png" alt />
         </div>
         <div class="list-right">
-          <h4>{{ lists.name }}</h4>
+          <h4>{{ item.name }}</h4>
           <p>
-            {{ lists.km }}
+            {{ item.km }}
             <i class="fas fa-map-marker-alt"></i>
             <span></span>
-            {{ lists.address }}
+            {{ item.address }}
           </p>
           <div>
             <van-button color="#aee6d2" plain>企业认证</van-button>
             <van-button color="#aee6d2" plain>实名认证</van-button>
           </div>
-          <p class="price">{{lists.price}}元/斤</p>
+          <p class="price">{{item.price}}元/斤</p>
         </div>
       </div>
     </div>
@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import {mapMutations} from 'vuex'
 export default {
   data() {
     return {
@@ -49,6 +50,7 @@ export default {
     };
   },
   methods: {
+    ...mapMutations(['removebuyitems']),
     showPopup(index) {
       this.show = true;
       this.activeIndex = index;
@@ -58,7 +60,8 @@ export default {
       this.show = false;
     },
     remove(index) {
-      this.lists.splice(index, 1);
+      this.$store.commit('removebuyitems',index);
+      // this.lists.splice(index, 1);
       this.closeFlag();
       console.log(this);
     }
@@ -69,7 +72,7 @@ export default {
     },
     lists(){
       console.log(this.$route.query)
-      return this.$route.query
+      return this.$store.state.pub.Mine.buylist;
     }
   }
 };
