@@ -163,7 +163,7 @@ export default {
     PubPurchase 
   },
   methods: {
-      ...mapMutations(['setType','setName','setSpecification','reset']),
+      ...mapMutations(['setType','setName','setSpecification','reset','addpuritems','addsupitems']),
       finish(){
           // this.$emit('reset');
           this.$store.commit('reset');
@@ -197,6 +197,9 @@ export default {
     findex(){
       return this.$store.state.release.flagNum;
     },
+    fruitinfo(){
+      return this.$store.state.release.fruit;
+    },
     typeFlag(){
       return (sid,val)=>{
         switch(sid){
@@ -229,8 +232,18 @@ export default {
        this.$store.commit('setName',this.fruitsitems[this.fruitsflag].name)
       else if (this.findex==4)
        this.$store.commit('setSpecification',this.typeflag)
-      else if (this.findex>=4)
-        ''
+      else if (this.findex>=5){
+        switch(this.$route.query.type){
+          case 'purchase': //发布采购完毕
+
+          break;
+          case 'supply': //发布供应完毕
+          var nobj=JSON.parse(JSON.stringify(this.fruitinfo));
+          this.$store.commit('addsupitems',nobj);
+          break;
+        }
+      }
+        
         // this.$store.state.release.fruit.fruitName=this.fruitsitems[this.fruitsflag].name;
       
         // this.$set(this.fruitDetil,'fruitName',this.fruitsitems[this.fruitsflag].name);

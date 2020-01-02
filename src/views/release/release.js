@@ -1,6 +1,7 @@
 const release={
     state:{
         fruit:{
+            sid:'',
             fruitType:'',
             fruitName:'',
             fruitSpecification:{
@@ -16,7 +17,8 @@ const release={
             area:'',
             sup:'',
             detail:'',
-            img:''
+            img:'',
+            imgs:''
         },
         flagNum:1
     },
@@ -38,6 +40,24 @@ const release={
         },
         reset(state){
             state.flagNum=1;
+        },
+        setval(state,arr){
+            
+            switch(arr[0]){
+                case 'area':
+                    state.fruit.area=arr[1];
+                break;
+                case 'sup':
+                    state.fruit.sup=arr[1];
+                break;
+                case 'img':
+                    state.fruit.img=arr[1];
+                break;
+                case 'imgs':
+                    state.fruit.imgs=arr[1];
+                break;
+            }
+            
         }
     },
     actions:{

@@ -26,7 +26,11 @@ export default {
       $route:{
         deep:true,
         handler(){
-          if(this.$route.path.match("/release" )|| this.$route.name == "detail"|| this.$route.name == "pdetail"||this.$route.name == "supply1"||this.$route.name == "purchase1"||this.$route.path.match("/login" )||this.$route.path.match("/my_supply" ))
+          if(this.$route.path.match("/release" )|| 
+          this.$route.name == "detail"|| this.$route.name == "pdetail"||
+          this.$route.name == "supply1"||this.$route.name == "purchase1"||this.$route.name == "quotation"||
+          this.$route.path.match("/login" )||this.$route.path.match("/search")
+          ||this.$route.path.match("/register" )||this.$route.path.match("/my_supply" ) ||this.$route.path.match("/my_provide" ))
             this.flag=false;
           else 
             this.flag=true;

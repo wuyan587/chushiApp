@@ -18,7 +18,7 @@
       </van-cell-group>
       <van-cell-group>
         <van-field
-          v-model="message"
+          v-model="fruit.detail"
           label-class="titles"
           rows="4"
           label="详情"
@@ -64,6 +64,7 @@
 
 <script>
 import areaList from '@/utils/area';
+import { mapMutations } from 'vuex'
 export default {
     data(){
         return {
@@ -159,6 +160,7 @@ export default {
 
     },
     methods:{
+      ...mapMutations(['setval']),
       showPopup() {
         this.show = true;
       },
@@ -195,6 +197,7 @@ export default {
         if(areastr=='')
            return '请选择地址';
         else {
+          this.$store.commit('setval',['area',areastr]);
           return areastr;
         }
            
@@ -207,6 +210,7 @@ export default {
           }).join(',');
          else
           str='请选择提供的服务';
+        this.$store.commit('setval',['sup',str]);
         return str;
       },
       fruit(){

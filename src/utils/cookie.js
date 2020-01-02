@@ -9,7 +9,10 @@ export const getCookie = name => {
           cookies[key] = value;
       }
   }
-  return cookies[ name ];
+  if(!name)
+    return cookies;
+  else  
+    return cookies[ name ];
 }
 
 

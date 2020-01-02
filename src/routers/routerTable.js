@@ -32,9 +32,14 @@ const Purchase1 = () =>
     import ( /* 我的 */ '../views/supplier/Purchase1.vue')
 const pDetail = ()=>
     import( /*采购详情*/ 'views/purchaser/index.vue' )
+const Quotation = ()=>
+    import( /*采购详情*/ 'views/purchaser/quotation.vue' )
     //77
 const Mysupply= ()=>
     import( /*我的供应*/ '../views/mine/supply1.vue' )
+const Myprovide= ()=>
+    import( /*我的采购*/ '../views/mine/procurement.vue')
+
 
 
 const routerTable = [
@@ -66,6 +71,12 @@ const routerTable = [
 
     },
     {
+        path: '/purchase/detail/quotation',
+        component: Quotation,
+        name: 'quotation',
+
+    },
+    {
         path: '/supply/detail',
         component: Detail,
         name: 'detail',
@@ -86,6 +97,7 @@ const routerTable = [
                 component: Purchase1,
                 name: 'purchase1'
             },
+           
 
         ]
     },
@@ -111,10 +123,6 @@ const routerTable = [
         component: Register
     },
     {
-        path: '/login',
-        component: Login
-    },
-    {
         path: '/search',
         component: Search,
     },{
@@ -131,6 +139,14 @@ const routerTable = [
         name: 'my_supply',
         meta: {
           include: 'my_supply'
+      }
+    },
+    {
+        path:'/my_provide',
+        component:Myprovide,
+        name: 'my_provide',
+        meta: {
+          include: 'my_provide'
       }
     }
 

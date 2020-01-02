@@ -1,35 +1,34 @@
 <template>
-  <div class="supply1">
+  <div class="procurement">
     <!-- <header>
       <p> &lt; </p>
       <h2> <span> 我的供应 </span> </h2> -->
           <van-nav-bar
-      title="我的供应"
+      title="我的采购"
       left-arrow
       @click-left="goback"
     />
     <!-- </header> -->
     <div class="content">      
-      <van-tabs v-model="active">
-        <van-tab title="上架中">
-        <div class="list" v-for="(item,index) of suplist" :key="index" >
-          <div class="list-content">
-            <div class="list-ing">
+        <van-tabs v-model="active">
+            <van-tab title="已发布">
+            <div class="list" v-for="(item,index) of lists" :key="index" >
+                <div class="list-content">
+            <!-- <div class="list-ing">
               <img src="http://img5.imgtn.bdimg.com/it/u=3865526395,2512926950&fm=11&gp=0.jpg" alt="">
-            </div>
+            </div> -->
             <div class="list-right">
-              <h4> {{ item.fruitName }} </h4>
-              <p> 300km <i class="fas fa-map-marker-alt"> </i> <span></span> {{ item.area }} </p> 
-             
-              <p class="price">{{item.price}} 斤 / 件</p>
-
+              <h4> {{ item.Product }} </h4>             
+             <p>主要产地：全国</p>
+              <p class="">需求数量：200斤</p>
+                 <p>  <i class="fas fa-map-marker-alt"> </i> <span></span> {{ item.location }} </p> 
               <div class="list-top">
               
-                <van-cell  @click="SoldOut(index)" :round=true>下架</van-cell>
+                <van-cell  @click="SoldOut(index)" :round=true>撤销</van-cell>
                 <van-cell   :round=true>修改</van-cell>
                 <van-cell  @click="showPopup(index)" :round=true>删除</van-cell>
                 <van-popup v-model="xiajia">
-                <p class="hint"> 确认下架吗？ </p>
+                <p class="hint"> 确认撤销吗？ </p>
                 <div>
                   <van-button type="danger" class="button determine"  @click = "remove( activeIndex )">确定</van-button>
                   <van-button type="warning" class="button deselect"  @click = "Cancel">取消</van-button>
@@ -45,33 +44,36 @@
 
                 </van-popup>
               </div>
+            </div>
+            <div class="list-rights">
+                <p class="process">采购中</p>
+                <span>2条报价 <i class="fas fa-chevron-right"></i></span>           
+                 
             </div>
           </div>
         </div>
       <div v-if = "!checkLisit" class="checkLisit">
           
       </div>
-            
-        </van-tab>
-        <van-tab title="下架中"> 
-          <div class="list" v-for="(item,index) of suplist" :key="index" >
-          <div class="list-content">
-            <div class="list-ing">
+            </van-tab>
+            <van-tab title="已撤销">
+                 <div class="list" v-for="(item,index) of lists" :key="index" >
+                <div class="list-content">
+            <!-- <div class="list-ing">
               <img src="http://img5.imgtn.bdimg.com/it/u=3865526395,2512926950&fm=11&gp=0.jpg" alt="">
-            </div>
+            </div> -->
             <div class="list-right">
-              <h4> {{ item.fruitName }} </h4>
-              <p> 300km <i class="fas fa-map-marker-alt"> </i> <span></span> {{ item.area }} </p> 
-             
-              <p class="price">{{item.price}} 斤 / 件</p>
-
+              <h4> {{ item.Product }} </h4>             
+             <p>主要产地：全国</p>
+              <p class="">需求数量：200斤</p>
+                 <p>  <i class="fas fa-map-marker-alt"> </i> <span></span> {{ item.location }} </p> 
               <div class="list-top">
               
-                <van-cell  @click="SoldOut(index)" :round=true>下架</van-cell>
+                <van-cell  @click="SoldOut(index)" :round=true>重新发布</van-cell>
                 <van-cell   :round=true>修改</van-cell>
                 <van-cell  @click="showPopup(index)" :round=true>删除</van-cell>
                 <van-popup v-model="xiajia">
-                <p class="hint"> 确认下架吗？ </p>
+                <p class="hint"> 确认撤销吗？ </p>
                 <div>
                   <van-button type="danger" class="button determine"  @click = "remove( activeIndex )">确定</van-button>
                   <van-button type="warning" class="button deselect"  @click = "Cancel">取消</van-button>
@@ -88,97 +90,107 @@
                 </van-popup>
               </div>
             </div>
-          </div>
-        </div>
-        <div v-if = "!checkLisit" class="checkLisit">
-          
-        </div>
-            </van-tab>
-        <van-tab title="未通过"> 
-          <div class="list" v-for="(item,index) of suplist" :key="index" >
-          <div class="list-content">
-            <div class="list-ing">
-              <img src="http://img5.imgtn.bdimg.com/it/u=3865526395,2512926950&fm=11&gp=0.jpg" alt="">
-            </div>
-            <div class="list-right">
-              <h4> {{ item.fruitName }} </h4>
-              <p> 300km <i class="fas fa-map-marker-alt"> </i> <span></span> {{ item.area }} </p> 
-             
-              <p class="price">{{item.price}} 斤 / 件</p>
-
-              <div class="list-top">
-              
-                <van-cell  @click="SoldOut(index)" :round=true>下架</van-cell>
-                <van-cell   :round=true>修改</van-cell>
-                <van-cell  @click="showPopup(index)" :round=true>删除</van-cell>
-                <van-popup v-model="xiajia">
-                <p class="hint"> 确认下架吗？ </p>
-                <div>
-                  <van-button type="danger" class="button determine"  @click = "remove( activeIndex )">确定</van-button>
-                  <van-button type="warning" class="button deselect"  @click = "Cancel">取消</van-button>
-                </div>
-
-                </van-popup>
-                <van-popup v-model="show">
-                <p class="hint"> 确认删除吗？ </p>
-                <div>
-                  <van-button type="danger" class="button determine"  @click = "remove( activeIndex )">确定</van-button>
-                  <van-button type="warning" class="button deselect"  @click = "closeFlag">取消</van-button>
-                </div>
-
-                </van-popup>
-              </div>
+            <div class="list-rights">
+                <p class="process">已取消</p>
+                <span>报价 <i class="fas fa-chevron-right"></i></span>           
+                 
             </div>
           </div>
         </div>
-        <div v-if = "!checkLisit" class="checkLisit">
+      <div v-if = "!checkLisit" class="checkLisit">
           
-        </div>
+      </div>
             </van-tab>
-        <van-tab title="审核中">
-          <div class="list" v-for="(item,index) of suplist" :key="index" >
-          <div class="list-content">
-            <div class="list-ing">
-              <img src="http://img5.imgtn.bdimg.com/it/u=3865526395,2512926950&fm=11&gp=0.jpg" alt="">
-            </div>
-            <div class="list-right">
-              <h4> {{ item.fruitName }} </h4>
-              <p> 300km <i class="fas fa-map-marker-alt"> </i> <span></span> {{ item.area }} </p> 
-             
-              <p class="price">{{item.price}} 斤 / 件</p>
+            <van-tab title="未通过">
+            <div class="list" v-for="(item,index) of lists" :key="index" >
+                <div class="list-content">
+                <!-- <div class="list-ing">
+                    <img src="http://img5.imgtn.bdimg.com/it/u=3865526395,2512926950&fm=11&gp=0.jpg" alt="">
+                </div> -->
+                <div class="list-right">
+                    <h4> {{ item.Product }} </h4>             
+                    <p>主要产地：全国</p>
+                    <p class="">需求数量：200斤</p>
+                        <p>  <i class="fas fa-map-marker-alt"> </i> <span></span> {{ item.location }} </p> 
+                    <div class="list-top">
+                    
+                    <van-cell  @click="SoldOut(index)" :round=true>重新发布</van-cell>
+                    <van-cell   :round=true>修改</van-cell>
+                    <van-cell  @click="showPopup(index)" :round=true>删除</van-cell>
+                    <van-popup v-model="xiajia">
+                    <p class="hint"> 确认撤销吗？ </p>
+                    <div>
+                        <van-button type="danger" class="button determine"  @click = "remove( activeIndex )">确定</van-button>
+                        <van-button type="warning" class="button deselect"  @click = "Cancel">取消</van-button>
+                    </div>
 
-              <div class="list-top">
-              
-                <van-cell  @click="SoldOut(index)" :round=true>下架</van-cell>
-                <van-cell   :round=true>修改</van-cell>
-                <van-cell  @click="showPopup(index)" :round=true>删除</van-cell>
-                <van-popup v-model="xiajia">
-                <p class="hint"> 确认下架吗？ </p>
-                <div>
-                  <van-button type="danger" class="button determine"  @click = "remove( activeIndex )">确定</van-button>
-                  <van-button type="warning" class="button deselect"  @click = "Cancel">取消</van-button>
+                    </van-popup>
+                    <van-popup v-model="show">
+                    <p class="hint"> 确认删除吗？ </p>
+                    <div>
+                        <van-button type="danger" class="button determine"  @click = "remove( activeIndex )">确定</van-button>
+                        <van-button type="warning" class="button deselect"  @click = "closeFlag">取消</van-button>
+                    </div>
+
+                    </van-popup>
+                    </div>
                 </div>
-
-                </van-popup>
-                <van-popup v-model="show">
-                <p class="hint"> 确认删除吗？ </p>
-                <div>
-                  <van-button type="danger" class="button determine"  @click = "remove( activeIndex )">确定</van-button>
-                  <van-button type="warning" class="button deselect"  @click = "closeFlag">取消</van-button>
+                <div class="list-rights">
+                    <p class="process">已取消</p>
+                          
+                        
                 </div>
-
-                </van-popup>
-              </div>
-            </div>
-          </div>
+                </div>
+                <div class="list-bottom"><p>未通过原因：您上传的图片及描述都与选择的品种不符，请删除后重新发布，谢谢。</p></div>
         </div>
-        <div v-if = "!checkLisit" class="checkLisit">
-          
-        </div>
+        <div v-if = "!checkLisit" class="checkLisit"></div>
             </van-tab>
-      </van-tabs>
+            <van-tab title="审核中">
+                 <div class="list" v-for="(item,index) of lists" :key="index" >
+                <div class="list-content">
+                <!-- <div class="list-ing">
+                    <img src="http://img5.imgtn.bdimg.com/it/u=3865526395,2512926950&fm=11&gp=0.jpg" alt="">
+                </div> -->
+                <div class="list-right">
+                    <h4> {{ item.Product }} </h4>             
+                    <p>主要产地：全国</p>
+                    <p class="">需求数量：200斤</p>
+                        <p>  <i class="fas fa-map-marker-alt"> </i> <span></span> {{ item.location }} </p> 
+                    <div class="list-top">
+                    
+                    <van-cell  @click="SoldOut(index)" :round=true>重新发布</van-cell>
+                    <van-cell   :round=true>修改</van-cell>
+                    <van-cell  @click="showPopup(index)" :round=true>删除</van-cell>
+                    <van-popup v-model="xiajia">
+                    <p class="hint"> 确认撤销吗？ </p>
+                    <div>
+                        <van-button type="danger" class="button determine"  @click = "remove( activeIndex )">确定</van-button>
+                        <van-button type="warning" class="button deselect"  @click = "Cancel">取消</van-button>
+                    </div>
+
+                    </van-popup>
+                    <van-popup v-model="show">
+                    <p class="hint"> 确认删除吗？ </p>
+                    <div>
+                        <van-button type="danger" class="button determine"  @click = "remove( activeIndex )">确定</van-button>
+                        <van-button type="warning" class="button deselect"  @click = "closeFlag">取消</van-button>
+                    </div>
+
+                    </van-popup>
+                    </div>
+                </div>
+                <div class="list-rights">
+                    <p class="process">审核中</p>
+                          
+                        
+                </div>
+                </div>                
+        </div>
+        <div v-if = "!checkLisit" class="checkLisit"></div>
+            </van-tab>
+</van-tabs>
     </div>
-   <footer>               <div>发布新供应 </div>             </footer> 
+   <footer><div>发布新采购 </div></footer> 
   </div>
 </template>
 <script>
@@ -269,37 +281,11 @@ export default {
 
 <style lang="scss" scoped>
 
-.supply1{
-   
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  // .van-nav-bar{
- 
-  // }
-  // header{
-  //   height: .4rem;
-  //   width: 100%;
-  //   display: flex;
-  //   justify-content: space-between;
-  //   align-items: center;
-  //   font-size: .2rem;
-  //   font-weight: 600;
-  //   padding: .1rem .1rem;
-  //   border-bottom: 0.2px solid #ccc;
-  //   p{
-     
-  //     font-weight: bold;
-  //   }
-  //   h2{
-  //     display: flex;
-  //     flex: 1;
-  //     justify-content: center;
-       
-  //   }
-    
-  // }
-  }
+.procurement{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
  .content{
    flex: 1;
    overflow: hidden;
@@ -346,7 +332,7 @@ img{
   .list-top{
     display: flex;
     justify-content:space-between;
-    margin-top: .13rem;
+    // margin-top: .13rem;
     align-items: center;
     h4{
       font-size: .14rem;
@@ -391,8 +377,35 @@ img{
     }
     
   }
-}
 
+ .list-rights{
+     display: flex;
+     flex: 1;
+     flex-direction: column;
+     align-items: center;
+     p{
+         border: 1px solid #ccc;
+         padding:.03rem .1rem;
+         border-radius: .1rem;
+         background:rgb(76,199,155);
+         color: #d7f0e6;
+
+     }
+     span{
+         margin-top: .2rem;
+        //  font-weight: 600;
+         color: red;
+     }
+ }
+}
+.list-bottom{
+    margin-top: .1rem;
+    padding: 0 .12rem;
+    color: red;
+    p{
+        line-height: .2rem
+    }
+}
 
  
 .van-popup{
@@ -414,6 +427,8 @@ img{
 .van-cell{
     
   margin: .1rem  .1rem 0;
+  margin-left: 0;
+  width: auto;
   
    font-weight: bold;
    border-radius: .1rem;
