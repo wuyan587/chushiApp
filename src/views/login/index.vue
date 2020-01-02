@@ -11,9 +11,9 @@
           <input
             type="text"
             name=""
-            id="phoneNumber"
+            id="phone"
             placeholder="请输入手机号码"
-            @keyup.enter="pic"
+            @blur="phone"
           />
           <button class="btn3">xxx</button>
         </div>
@@ -54,9 +54,9 @@
       </div>
       <div class="info">
         <h3>第三方账号登录</h3>
-        <a href>
+        <!-- <a href> -->
           <img src="~assets/images/weixin.png" alt class="p1" />
-        </a>
+        <!-- </a> -->
         <h3 class="weixin">微信登录</h3>
         <p class="s2">
           登录注册表示您同意
@@ -76,8 +76,7 @@ export default {
       timer: null,
       testcode: "获取字符",
       count: 0,
-      color: "",
-      
+      color: ""
     };
   },
   methods: {
@@ -148,7 +147,7 @@ export default {
       let pic = document.querySelector("#pic");
       if (pic.value == this.testcode && this.count == 0) {
         this.count++;
-        this.testcode = "字符输入正确";
+        this.testcode = "字符正确";
       } else {
         this.testcode = "请重新输入";
         pic.value = "";
@@ -158,17 +157,23 @@ export default {
     check() {
       let check = document.querySelector("#check");
       if (check.value == 101) {
-      this.count++      
+        this.count++;
       }
     },
-  login(){
-    if(this.count==2){
-      this.$router.push('/user')
-    }else{
-      alert('验证码错误')
+    login() {
+      if (this.count == 2) {
+        this.$router.push("/user");
+      } else {
+        alert("图片字符或验证码错误");
+      }
+    },
+    phone() {
+      let phone = document.querySelector("#phone");
+      if (!/^1[34578]\d{9}$/.test(phone.value)) {
+        alert("电话号码格式不对!");
+        phone.value = "";
+      }
     }
-  }
-
   }
 };
 </script>
@@ -224,7 +229,15 @@ export default {
 } */
 input {
   border: none;
+  background-color: transparent;
 }
+input:-webkit-autofill {
+  transition: background-color 5000s ease-in-out 0s;
+}
+/* input::-webkit-inner-spin-button {
+  height: auto;
+  -webkit-appearance: none;
+} */
 .fa {
   margin: 0 0.1rem;
 }
@@ -252,6 +265,8 @@ input {
   color: white;
   line-height: 0.33rem;
   text-align: center;
+  user-select: none;
+  font-size: 0.18rem;
 }
 .btn3 {
   visibility: hidden;

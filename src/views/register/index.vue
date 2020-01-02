@@ -8,18 +8,30 @@
       <div class="shuru">
         <div>
           <i class="fa fa-mobile fa-2x"></i>
-          <input type="text" name="" id="number" placeholder="请输入手机号码" />
+          <input
+            type="text"
+            name=""
+            id="phone"
+            placeholder="请输入手机号码"
+            @blur="phone"
+          />
           <button class="btn3">xxx</button>
         </div>
         <hr />
         <div class="l1">
           <i class="fa fa-envelope-open fa-2x"></i>
-          <input type="text" name="" id="yz" placeholder="请输入验证码" />
-          <button class="btn2" @click="send($event)">{{zt}}</button>
+          <input
+            type="text"
+            name=""
+            id="check"
+            placeholder="请输入验证码"
+            @blur="check"
+          />
+          <button class="btn2" @click="send($event)">{{ zt }}</button>
         </div>
         <hr />
         <div class="l2">
-          <button class="btn1">下一步</button>
+          <button class="btn1" @click="next">下一步</button>
         </div>
       </div>
       <div class="forget">
@@ -47,41 +59,62 @@ export default {
     return {
       zt: "获取验证码",
       flag: true,
-      timer: null
+      timer: null,
+      count:0
     };
   },
   methods: {
-        send($event) {
-      console.dir($event.target)
+    send($event) {
+      console.dir($event.target);
       $event.target.disabled = true;
       let times = 60;
-      let btn =document.querySelector('.btn2');
+      let btn = document.querySelector(".btn2");
       this.timer = setInterval(() => {
-        if(times>0&&times<=60){this.zt = "已发送("+times-- +")";
-        btn.style.background='rgb(216, 216, 216)';
-        }
-        else{
+        if (times > 0 && times <= 60) {
+          this.zt = "已发送(" + times-- + ")";
+          btn.style.background = "rgb(216, 216, 216)";
+        } else {
           $event.target.disabled = false;
-          this.zt="获取验证码";
+          this.zt = "获取验证码";
           clearInterval(this.timer);
-              this.timer = null;
-             btn.style.background='rgb(76, 199, 155)'; 
+          this.timer = null;
+          btn.style.background = "rgb(76, 199, 155)";
         }
-        
       }, 1000);
     },
-    goback(){
-      this.$router.go( -1 );
+    goback() {
+      this.$router.go(-1);
     },
-    login(){
-      this.$router.push('./login')
+    login() {
+      this.$router.push("./login");
+    },
+    check() {
+      let check = document.querySelector("#check");
+      if (check.value == 101) {
+        this.count++;
+      }
+    },
+    phone() {
+      let phone = document.querySelector("#phone");
+      if (!/^1[34578]\d{9}$/.test(phone.value)) {
+        alert("电话号码格式不对!");
+        phone.value = "";
+      }
+    },
+    next(){
+      if (this.count == 1) {
+        this.$router.push("/login");
+      } else {
+        alert("验证码错误");
+      }
     }
+
   }
 };
 </script>
 
-<style  scoped>
-header{
+<style scoped>
+header {
   height: 6.67rem;
   overflow: hidden;
 }
@@ -108,7 +141,7 @@ header{
   height: 6.67rem;
   background: rgb(248, 248, 248);
 }
-.l1{
+.l1 {
   display: flex;
 }
 .l2 {
@@ -135,7 +168,15 @@ header{
 } */
 input {
   border: none;
+  background-color: transparent;
 }
+input:-webkit-autofill {
+  transition: background-color 5000s ease-in-out 0s;
+}
+/* input::-webkit-inner-spin-button {
+  height: auto;
+  -webkit-appearance: none;
+} */
 .fa {
   margin: 0 0.1rem;
 }
