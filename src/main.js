@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './routers'
 import store from './store'
+import axios from '@/utils/request'
 import {
     Popup,
     Search,
@@ -31,7 +32,8 @@ import {
     GoodsAction,
     GoodsActionButton,
     Tag,
-    Area
+    Area,
+    NavBar
 } from 'vant'
 import './utils/rem'
 
@@ -66,7 +68,8 @@ const vantObj={
     GoodsAction,
     GoodsActionButton,
     Tag,
-    Area
+    Area,
+    NavBar
 }
 
     for(let key in vantObj){
@@ -74,7 +77,7 @@ const vantObj={
     }
 
 Vue.config.productionTip = false
-
+Vue.prototype.$request=axios;
 
 new Vue({
     router,

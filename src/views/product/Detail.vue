@@ -86,6 +86,7 @@
   </div>
 </template>
 <script>
+import { mapState,mapMutations } from 'vuex'
 export default {
   data() {
     return {
@@ -93,6 +94,7 @@ export default {
     };
   },
   methods: {
+    ...mapMutations(['addbuyitems']),
     goBack() {
       history.back();
     },
@@ -102,21 +104,28 @@ export default {
       })
     },
     toShopCart(){
+      // this.$store.state.pub.Mine.
+      this.$store.commit('addbuyitems',{
+        ...this.$route.query
+      })
       this.$router.push({
         name: 'shopcart',
-              params: {
-                id: this.$route.params.id
-              },
-              query: {
-                ...this.$route.query
-              }
+              // params: {
+              //   id: this.$route.params.id
+              // },
+              // query: {
+              //   ...this.$route.query
+              // }
       })
     }
   },
   computed: {
     details() {
       return this.$route.query;
-    }
+    },
+    ...mapState([
+      'pub'
+    ])
     
   }
 };

@@ -1,7 +1,7 @@
 <template>
   <div class='search'>
     <div class="search_top">
-      <p><i class="fas fa-angle-left"></i></p>
+      <p @click="goback"><i class="fas fa-angle-left"></i></p>
        <div class="search_r">
         <van-search
        v-model="value"
@@ -16,11 +16,14 @@
   
 </div>
 <DropdownMenu></DropdownMenu>
+<shoplist></shoplist>
+
   </div>
 </template>
 
 <script>
 import DropdownMenu from './dropdownMenu'
+import shoplist from './shoplist'
 export default {
   data(){
     return {
@@ -28,13 +31,15 @@ export default {
     }
   },
   components:{
-    DropdownMenu
+    DropdownMenu,shoplist
   },
 methods:{
   onSearch(){
-    console.log(this.value);
-    
-  }
+    console.log(this.value); 
+  },
+    goback(){
+       this.$router.go(-1)
+    }
 }
 }
 </script>
@@ -47,7 +52,7 @@ methods:{
   flex-direction: column;
   justify-content: flex-start;
   .search_top{
-    height: 0.64rem;
+    height: 0.72rem;
   display: flex;
   flex-direction:row;
    justify-content: space-between;

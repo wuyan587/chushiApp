@@ -1,9 +1,9 @@
 <template>
   <div class="pub_purchase">
       <van-cell-group>
-        <van-cell title-class="titles" value-class="text" title="货品名称" :value="fruitDetil.fruitName" />
-        <van-cell title-class="titles" value-class="text" title="规格" value="内容" />
-        <van-cell title-class="titles" value-class="text" title="标题预览" value="内容" />
+        <van-cell title-class="titles" value-class="text" title="货品名称" :value="fruit.fruitName" />
+        <van-cell title-class="titles" value-class="text" title="规格" :value="fruitSpecification" />
+        <van-cell title-class="titles" value-class="text" title="标题预览" :value="fruit.fruitName" />
       </van-cell-group>
        <van-cell-group>
         <van-field label="采购数量" label-class="titles suffix_num" v-model="value" placeholder="请输入用户名" />
@@ -13,7 +13,7 @@
       </van-cell-group>
        <van-cell-group>
         <van-field
-          v-model="message"
+          v-model="fruit.detail"
           label-class="titles"
           rows="2"
           label="其他要求(选填)"
@@ -45,8 +45,17 @@ export default {
     data(){
         return {
             value:'',
-            message:'',
             sms:'',    //短信验证
+        }
+    },
+    computed:{
+      fruit(){
+        return this.$store.state.release.fruit;
+        },
+      fruitSpecification(){
+        let str='';
+        str=  Object.values(this.$store.state.release.fruit.fruitSpecification).join(',')
+        return str
         }
     }
 }

@@ -35,7 +35,8 @@ const pDetail = ()=>
 const Quotation = ()=>
     import( /*采购详情*/ 'views/purchaser/quotation.vue' )
     //77
-
+const Mysupply= ()=>
+    import( /*我的供应*/ '../views/mine/supply1.vue' )
 
 
 const routerTable = [
@@ -118,10 +119,6 @@ const routerTable = [
         component: Register
     },
     {
-        path: '/login',
-        component: Login
-    },
-    {
         path: '/search',
         component: Search,
     },{
@@ -132,6 +129,15 @@ const routerTable = [
           include: 'Login'
       }
     }
+    ,{
+        path:'/my_supply',
+        component:Mysupply,
+        name: 'my_supply',
+        meta: {
+          include: 'my_supply'
+      }
+    }
+
 ]
 
 export default routerTable

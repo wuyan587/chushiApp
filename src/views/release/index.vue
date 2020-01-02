@@ -2,12 +2,13 @@
   <div class='release'>
     <header v-if='num<5'>
       <van-search placeholder="请输入搜索关键词" v-model="value" v-if='num==1' />
-      <div class="top" v-else> <i class="fas fa-chevron-left" @click='num--'> </i> <span>{{fruit.fruitName?fruit.fruitName:''}}</span></div>
+      <div class="top" v-else-if='num==2'> <i class="fas fa-chevron-left" @click='des'> </i> <span>{{fruit.fruitType?fruit.fruitType:''}}</span></div>
+      <div class="top" v-else> <i class="fas fa-chevron-left" @click='des'> </i> <span>{{fruit.fruitName?fruit.fruitName:''}}</span></div>
     </header>
     <section>
-      <Content :findex='num' @reset='reset' @getitem='getitem' />
+      <Content  />
     </section>
-    <van-button type="primary" v-if='num<5' size="large" round @click='num++'>
+    <van-button type="primary" v-if='num<5' size="large" round @click='add'>
       <span v-if='num==1'>选择完成，下一步</span> 
       <span v-else> 下一步 </span>
       </van-button>
@@ -16,27 +17,38 @@
 
 <script>
 import Content from './content'
+import { mapMutations } from 'vuex'
 export default {
     data(){
       return {
         value:'',
-        num:1,
-        fruit:{}
       }
     },
     components:{
       Content
     },
     methods:{
-      reset(){
-        this.num=1;
+      ...mapMutations(['add','des']),
+      add(){
+        this.$store.commit('add');
       },
-      getitem(val){
-        this.fruit=val;
+      des(){
+        this.$store.commit('des');
       }
     },
     watch:{
       
+    },
+    mounted(){
+      // console.log(this.$store.state.release.fruit)
+    },
+    computed:{
+      fruit(){
+        return this.$store.state.release.fruit;
+      },
+      num(){
+        return this.$store.state.release.flagNum
+      }
     }
 }
 </script>
