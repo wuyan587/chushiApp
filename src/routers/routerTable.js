@@ -32,8 +32,11 @@ const Purchase1 = () =>
     import ( /* 我的 */ '../views/supplier/Purchase1.vue')
 const pDetail = ()=>
     import( /*采购详情*/ 'views/purchaser/index.vue' )
+const Quotation = ()=>
+    import( /*采购详情*/ 'views/purchaser/quotation.vue' )
     //77
-
+const Mysupply= ()=>
+    import( /*我的供应*/ '../views/mine/supply1.vue' )
 
 
 const routerTable = [
@@ -62,6 +65,12 @@ const routerTable = [
         path: '/purchase/detail',
         component: pDetail,
         name: 'pdetail',
+
+    },
+    {
+        path: '/purchase/detail/quotation',
+        component: Quotation,
+        name: 'quotation',
 
     },
     {
@@ -120,6 +129,15 @@ const routerTable = [
           include: 'Login'
       }
     }
+    ,{
+        path:'/my_supply',
+        component:Mysupply,
+        name: 'my_supply',
+        meta: {
+          include: 'my_supply'
+      }
+    }
+
 ]
 
 export default routerTable

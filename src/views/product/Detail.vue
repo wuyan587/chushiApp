@@ -80,17 +80,21 @@
       <p>询价时请将产品编号报告对方</p>
     </div>
     <van-goods-action>
-      <van-goods-action-button color="#81d8b9" type="warning" text="加入进货单" />
+      <van-goods-action-button color="#81d8b9" type="warning" text="加入进货单" @click='toShopCart'/>
       <van-goods-action-button color="#4cc79b" type="danger" text="立即询价"  />
     </van-goods-action>
   </div>
 </template>
 <script>
+import { mapState,mapMutations } from 'vuex'
 export default {
   data() {
-    return {};
+    return {
+      
+    };
   },
   methods: {
+    ...mapMutations(['addbuyitems']),
     goBack() {
       history.back();
     },
@@ -98,12 +102,31 @@ export default {
       this.$router.push({
         name:'supplier'
       })
+    },
+    toShopCart(){
+      // this.$store.state.pub.Mine.
+      this.$store.commit('addbuyitems',{
+        ...this.$route.query
+      })
+      this.$router.push({
+        name: 'shopcart',
+              // params: {
+              //   id: this.$route.params.id
+              // },
+              // query: {
+              //   ...this.$route.query
+              // }
+      })
     }
   },
   computed: {
     details() {
       return this.$route.query;
-    }
+    },
+    ...mapState([
+      'pub'
+    ])
+    
   }
 };
 </script>

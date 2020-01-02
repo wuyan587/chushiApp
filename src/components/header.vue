@@ -1,7 +1,7 @@
 <template>
   <header>
       <img src="@/assets/images/logo.png" alt="">
-      <div class="search">
+      <div class="search" @click="gosearch">
           <i class="fas fa-search"></i>
           <p>搜好货</p>
       </div>
@@ -14,7 +14,9 @@
 
 <script>
 export default {
-
+methods:{
+    gosearch(){this.$router.push('/search')}
+}
 }
 </script>
 
