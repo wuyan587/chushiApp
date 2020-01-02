@@ -13,6 +13,7 @@
             name=""
             id="phone"
             placeholder="请输入手机号码"
+            v-model="userphone"
             @blur="phone"
           />
           <button class="btn3">xxx</button>
@@ -25,6 +26,7 @@
             name=""
             id="pic"
             placeholder="请输入图片中的字符"
+            v-model="picnum"
             @blur="pic"
           />
           <div class="btn4" @click="num" :style="{ background: color }">
@@ -39,9 +41,16 @@
             name=""
             id="check"
             placeholder="请输入验证码"
+            v-model="checknum"
             @blur="check"
           />
-          <button class="btn2" @click="send($event)">{{ zt }}</button>
+          <button
+            class="btn2"
+            @click="send($event)"
+            :style="{ background: bcd }"
+          >
+            {{ zt }}
+          </button>
         </div>
         <hr />
         <div class="l2">
@@ -55,7 +64,7 @@
       <div class="info">
         <h3>第三方账号登录</h3>
         <!-- <a href> -->
-          <img src="~assets/images/weixin.png" alt class="p1" />
+        <img src="~assets/images/weixin.png" alt class="p1" />
         <!-- </a> -->
         <h3 class="weixin">微信登录</h3>
         <p class="s2">
@@ -68,6 +77,7 @@
 </template>
 
 <script>
+import swal from "sweetalert";
 export default {
   data() {
     return {
@@ -76,25 +86,29 @@ export default {
       timer: null,
       testcode: "获取字符",
       count: 0,
-      color: ""
+      count1: 0,
+      count2: 0,
+      color: "",
+      bcd: "rgb(76, 199, 155)",
+      userphone: "",
+      checknum: "",
+      picnum: ""
     };
   },
   methods: {
     send($event) {
-      // console.dir($event.target);
       $event.target.disabled = true;
       let times = 60;
-      let btn = document.querySelector(".btn2");
       this.timer = setInterval(() => {
         if (times > 0 && times <= 60) {
           this.zt = "已发送(" + times-- + ")";
-          btn.style.background = "rgb(216, 216, 216)";
+          this.bcd = "rgb(216, 216, 216)";
         } else {
           $event.target.disabled = false;
           this.zt = "获取验证码";
           clearInterval(this.timer);
           this.timer = null;
-          btn.style.background = "rgb(76, 199, 155)";
+          this.bcd = "rgb(76, 199, 155)";
         }
       }, 1000);
     },
@@ -110,17 +124,18 @@ export default {
       }
 
       function getColor() {
-        var randomNumber; //保存随机数
-        var color = "#"; //定义变量 连接字符串
+        //生成随机颜色
+        var randomNumber;
+        var color = "#";
         for (var i = 0; i < 6; i++) {
-          //循环6次
-          randomNumber = parseInt(Math.random() * 16); // 生成一个0-15的随机数、
-          color += randomNumber.toString(16); //字符串拼接
+          randomNumber = parseInt(Math.random() * 16);
+          color += randomNumber.toString(16);
         }
         return color;
       }
 
       function sj() {
+        //生成随机4位图片验证码
         let code = "";
         for (var i = 0; i < 4; i++) {
           var type = getNumber(1, 3);
@@ -144,34 +159,36 @@ export default {
     },
 
     pic() {
-      let pic = document.querySelector("#pic");
-      if (pic.value == this.testcode && this.count == 0) {
-        this.count++;
-        this.testcode = "字符正确";
+      if (this.picnum == this.testcode) {
+        if (this.count1 < 1) {
+          this.count1++;
+          this.testcode = "字符正确";
+        }else{
+          this.testcode = "字符正确";
+        }
       } else {
+        this.picnum = "";
         this.testcode = "请重新输入";
-        pic.value = "";
       }
     },
 
     check() {
-      let check = document.querySelector("#check");
-      if (check.value == 101) {
-        this.count++;
+      if (this.checknum == 101 && this.count2 < 1) {
+        this.count2++;
       }
     },
     login() {
-      if (this.count == 2) {
+      if (this.count && this.count1 && this.count2) {
         this.$router.push("/user");
       } else {
-        alert("图片字符或验证码错误");
+        swal("抱歉", "您的登录选项输入有误，请再检查一下!", "warning");
       }
     },
     phone() {
-      let phone = document.querySelector("#phone");
-      if (!/^1[34578]\d{9}$/.test(phone.value)) {
-        alert("电话号码格式不对!");
-        phone.value = "";
+      if (!/^1[34578]\d{9}$/.test(this.userphone)) {
+        swal("抱歉", "您输入的电话号码格式不对!", "warning");
+      } else {
+        if (this.count < 1) this.count++;
       }
     }
   }

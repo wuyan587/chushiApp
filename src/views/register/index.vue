@@ -13,6 +13,7 @@
             name=""
             id="phone"
             placeholder="请输入手机号码"
+            v-model="userphone"
             @blur="phone"
           />
           <button class="btn3">xxx</button>
@@ -25,6 +26,7 @@
             name=""
             id="check"
             placeholder="请输入验证码"
+             v-model="checknum"
             @blur="check"
           />
           <button class="btn2" @click="send($event)">{{ zt }}</button>
@@ -54,13 +56,17 @@
 </template>
 
 <script>
+import swal from "sweetalert";
 export default {
   data() {
     return {
       zt: "获取验证码",
       flag: true,
       timer: null,
-      count:0
+      userphone: "",
+      checknum: "",
+      count:0,
+      count2:0
     };
   },
   methods: {
@@ -89,23 +95,22 @@ export default {
       this.$router.push("./login");
     },
     check() {
-      let check = document.querySelector("#check");
-      if (check.value == 101) {
-        this.count++;
+      if (this.checknum == 101 && this.count2 < 1) {
+        this.count2++;
       }
     },
     phone() {
-      let phone = document.querySelector("#phone");
-      if (!/^1[34578]\d{9}$/.test(phone.value)) {
-        alert("电话号码格式不对!");
-        phone.value = "";
+      if (!/^1[34578]\d{9}$/.test(this.userphone)) {
+        swal("抱歉", "您输入的电话号码格式不对!", "warning");
+      } else {
+        if (this.count < 1) this.count++;
       }
     },
     next(){
-      if (this.count == 1) {
+     if (this.count && this.count2) {
         this.$router.push("/login");
       } else {
-        alert("验证码错误");
+        swal("抱歉", "您的注册选项输入有误，请再检查一下!", "warning");
       }
     }
 
