@@ -18,7 +18,7 @@ const release={
             sup:'',
             detail:'',
             img:'',
-            imgs:''
+            imgs:[]
         },
         flagNum:1
     },
