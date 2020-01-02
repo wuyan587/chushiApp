@@ -77,8 +77,8 @@ export default {
     login(){
       this.$router.push('./login')
     },
-    reg(){
-      this.$request({
+   async reg(){
+       let result=await this.$request({
         url:'/register',
         method:'post',
         data:{
@@ -89,6 +89,9 @@ export default {
           'Content-Type':'application/json'
         }
       })
+      if(result.data.state&&result.data.state==3){
+        alert('用户名重复了'+result.data.info);
+      }
     }
   }
 };

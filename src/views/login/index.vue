@@ -152,7 +152,7 @@ export default {
           password:'123'
         },
         headers:{
-                    'Content-Type':'application/json'
+                   'Content-Type':'application/json' 
         }
       })
     console.log(result);
