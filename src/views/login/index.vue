@@ -145,14 +145,21 @@ export default {
     },
     async login(){
      let result= await this.$request({
-        url:'/users',
-        params:{
+        url:'/login',
+        method:'post',
+        data:{
           username:this.phone,
-          password:123
+          password:'123'
+        },
+        headers:{
+                    'Content-Type':'application/json'
         }
       })
     console.log(result);
-    this.$store.commit('login',result.data[0]);
+    if(result.data.state&&result.data.state==2)
+      alert('？我怀疑你真的有号吗');
+    else 
+      this.$store.commit('login',result.data[0]);
     }
   }
   // pic(){

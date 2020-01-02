@@ -79,14 +79,14 @@ export default {
     },
     reg(){
       this.$request({
-        url:'/users',
+        url:'/register',
         method:'post',
         data:{
           username:this.phone,
-          password:123
+          password:'123'
         },
         headers:{
-          'Content-Type':'application/x-www-form-urlencoded'
+          'Content-Type':'application/json'
         }
       })
     }
