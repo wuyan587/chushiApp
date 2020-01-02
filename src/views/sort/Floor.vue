@@ -75,8 +75,21 @@ export default {
       { sid:6,
         url:"https://img.alicdn.com/imgextra/i3/2053469401/O1CN0120xXfv2JJhzih36oA_!!2053469401.png",title:"葡萄"}]}]
    }
- }
+ },
+ props:['floors'],
+  computed:{
+        floorsData(){
+            return this.items&&this.items
+        }
+        
+        
+    },
+      updated(){
+    console.log(this.floorsData);
+    
   }
+  }
+
 
 </script>
 <style lang='scss' scoped>

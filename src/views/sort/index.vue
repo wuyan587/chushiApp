@@ -6,7 +6,7 @@
      
 
   <template slot="content">
- <Floor></Floor>
+ <Floor :floors="items"></Floor>
   </template> 
 </van-tree-select>
      </div>
@@ -21,11 +21,14 @@ export default {
     return {
          activeKey: 0,
       activeIndex: 0,
-      items: [{ text: '分组 1'}, { text: '分组 2'}]
+   items: [{ text: '分组 1' }, { text: '分组 2' }]
     }
     },
     components:{
       searchBox,Floor
+    },
+    mounted(){
+
     }
   
 }
