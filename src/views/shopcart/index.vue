@@ -72,7 +72,7 @@ export default {
     },
     lists(){
       console.log(this.$route.query)
-      return this.$store.state.pub.Mine.buylist;
+      return this.$store.state.pub.Mine.buylist&&this.$store.state.pub.Mine.buylist||[];
     }
   }
 };
