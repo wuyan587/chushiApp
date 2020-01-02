@@ -190,7 +190,18 @@ export default {
       if(this.token){
       this.$dialog.confirm({
       message: '您确定要退出登录么？'
-      }).then(()=>{
+      }).then(async ()=>{
+        let obj=this.$store.state.pub.Mine;
+        let result=await this.$request({
+                url:'/update',
+                method:'post',
+                data:obj,
+                headers:{
+                    'Content-Type':'application/json'
+                  }
+            })
+        console.log(result.data);
+        
         remove('token');
         this.cog();
         this.$toast({
