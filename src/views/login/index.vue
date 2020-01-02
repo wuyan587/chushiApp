@@ -96,6 +96,7 @@ export default {
     };
   },
   methods: {
+    ...mapMutations(['login']),
     send($event) {
       $event.target.disabled = true;
       let times = 60;
