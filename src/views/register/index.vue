@@ -78,6 +78,7 @@ export default {
       this.$router.push('./login')
     },
    async reg(){
+     if(this.phone!=''){
        let result=await this.$request({
         url:'/register',
         method:'post',
@@ -92,6 +93,10 @@ export default {
       if(result.data.state&&result.data.state==3){
         alert('用户名重复了'+result.data.info);
       }
+     }else{
+       alert('?');
+     }
+       
     }
   }
 };
