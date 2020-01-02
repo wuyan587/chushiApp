@@ -1,7 +1,7 @@
 <template>
   <div class="supply1">
     <header>
-      <p> &lt; </p>
+      <p @click="goback"> &lt; </p>
       <h2> <span> 我的供应 </span> </h2>
     </header>
     <div class="content">      
@@ -275,6 +275,11 @@ export default {
       this.closeFlag()
       console.log(this)
     },
+    goback(){
+      // console.log(this.$router)
+      // this.$router.back()
+      this.$router.go(-1)
+    }
    
   },
   computed:{
@@ -424,11 +429,11 @@ img{
    border-radius: .1rem;
    padding:.05rem;
    background:#4cc79b;
-   .van-cell__value--alone{
-     text-align: center;
-     line-height: 0.17rem;
-     color: #d7f0e6;
-     padding: .02rem .05rem
+  .van-cell__value--alone{
+    text-align: center;
+    line-height: 0.17rem;
+    color: #d7f0e6;
+    padding: .02rem .05rem
    }
 }
 

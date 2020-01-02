@@ -205,9 +205,7 @@ height: 100%
     }
   }
 }
-.van-popup{
-  // background: none;
-}
+
 .checkLisit{
   height: 5rem;
   width:100%; 
