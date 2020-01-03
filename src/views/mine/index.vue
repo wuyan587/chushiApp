@@ -1,14 +1,14 @@
 <template>
   <div class="mine">
     <div class="mine_top">
-			<div class="setting-module"><i @click="cog" class="fas fa-cog"></i></div>
-			<van-popup 
-			v-model="showcog"
+      <div class="setting-module"><i @click="cog" class="fas fa-cog"></i></div>
+      <van-popup 
+      v-model="showcog"
       close-icon="arrow-left"
       close-icon-position="top-left"
       position="left"
       :style="{ height: '100%',width:'100%'}"
-			>
+      >
      <div style="margin:10px">
          <van-cell 
          icon="arrow-left"
@@ -25,31 +25,6 @@
          :title-style="{'text-align':'left','font-size':'.14rem'}"
          @click="showsuggestion"
           />
-         <van-popup 
-          v-model="suggestion"
-          close-icon="arrow-left"
-          close-icon-position="top-left"
-          position="left"
-          :style="{ height: '100%',width:'100%'}"
-          >
-          <div style="margin:10px">
-         <van-cell 
-         icon="arrow-left"
-         center
-         arrow-direction="left"
-         title="意见反馈" value="" 
-         class="mine_top_setting"
-         @click="showsuggestion"
-         />
-         <div class="suggestion_textarea" >
-          <input type="" name="" style="border: none;width: 100%" placeholder="我们想听听您的心声,如果愿意,您也可以留下联系方式,我们期待与您的真诚沟通
-          ">
-          <div>
-            <van-uploader v-model="fileList" multiple />
-          </div>
-         </div>
-         </div>
-         </van-popup>
          <van-cell 
          is-link
          left
@@ -77,11 +52,47 @@
          <div class="user_right"><i class="fas fa-angle-right"></i></div>
       </div> 
       <van-popup 
-      v-model="showPersonal"
-      position="left"
-      :closeable="true"
-      :style="{ height: '100%',width:'100%' }"
-      >内容</van-popup>
+            v-model="showPersonal"
+            close-icon="arrow-left"
+            close-icon-position="top-left"
+            position="left"
+            :style="{ height: '100%',width:'100%','background-color':'#f5f5f5'}"
+            >
+             <van-cell 
+             icon="arrow-left"
+             center
+             arrow-direction="left"
+             title="个人信息"
+             class=""
+             @click="closePersonal"
+             />
+             <div class="my_detail" >
+              <div class="my_detail_headimg">
+                <span>头像</span>
+                <div @click="showpreviewheadimg">
+                  <img :src="user.img" class="headimg_size">
+                   <van-image-preview
+                v-model="showheadimg"
+                :images="user.images"
+                >
+                </van-image-preview>
+                </div>
+               
+              </div>
+              <div class="my_detail_group" >
+                <van-cell is-link title="身份" :value="user.groupid" @click="changegroupid"/>
+                <van-cell is-link title="称呼" :value="user.name"  @click="changename"/>
+                <van-cell is-link title="联系方式" :value="user.phone" @click="changephone"/>
+              </div>
+              <div class="my_detail_group">
+                <van-cell is-link title="主营业务" :value="user.introduce" />
+                <van-cell is-link title="绑定微信" value="1325465459" />
+              </div>
+               <div class="my_detail_group">
+                <van-cell is-link title="退出账户" value="" @click="logout"/>
+              </div>
+        </div>
+      </van-popup>
       <div class="mine_operation">
         <div class="mine_operation_detail">
           <img src="~assets/images/supply.jpg" alt="" @click="my_supply">
@@ -91,7 +102,7 @@
           <img src="~assets/images/purchase.jpg" alt="">
           <span> 我的采购 </span>
         </div>
-        <div class="mine_operation_detail">
+        <div class="mine_operation_detail" @click="my_shop">
           <img src="~assets/images/shop.jpg" alt="">
           <span> 我的店铺 </span>
         </div>
@@ -99,12 +110,12 @@
   </div>
   <div class="mine_bottom">
       <div class="mine_CellGroup">
-         <van-cell is-link @click="showPopup">
+        <van-cell is-link  @click="my_realname">
           <div><van-icon name="coupon-o" class="ver_middle"/>实名认证</div>
          <span class="check_auth" :class="[{active : user.realname_auth}]">
          {{user.realname_auth&&'认证成功'||'立即认证'}}</span>
          </van-cell>
-          <van-cell is-link @click="showPopup">
+          <van-cell is-link @click="my_business">
            <div><van-icon name="balance-list-o" class="ver_middle"/>企业认证 </div>
          <span class="check_auth" :class="[{active : user.business_auth}]">
          {{user.business_auth&&'认证成功'||'立即认证'}}</span>
@@ -116,7 +127,7 @@
           <van-cell is-link @click="showPopup"><div><van-icon name="bill-o" class="ver_middle"/>我的报价</div></van-cell>
       </div>
       <div class="mine_CellGroup">
-          <van-cell is-link @click="showPopup">
+          <van-cell is-link  @click="showsuggestion">
           <div><van-icon name="envelop-o" class="ver_middle"/>意见反馈</div></van-cell>
           <van-cell is-link @click="showPopup">
             <div><van-icon name="manager-o" class="ver_middle" />专属客服</div><p class="customer_service" v-if='user.customer_service'>{{user.customer_service}}</p></van-cell>
@@ -134,12 +145,12 @@ export default {
       showcog:false,//个人设置弹出层flag
       token:'',//用户token
       show:false,//测试弹出层
-      suggestion:false,//意见反馈弹出层
+      showheadimg:false,
       fileList: [
-        { url: 'https://img.yzcdn.cn/vant/leaf.jpg' },
         // Uploader 根据文件后缀来判断是否为图片文件
         // 如果图片 URL 中不包含类型信息，可以添加 isImage 标记来声明
       ],
+      images:[],
       user: {
         img:'',  //头像
         name:'',//姓名
@@ -147,7 +158,9 @@ export default {
         groupid:'',//分组 种植户 养殖户
         customer_service:'',//客服
         realname_auth:'',//实名验证
-        business_auth:''//企业验证
+        business_auth:'',//企业验证
+        phone:'',
+        wechat:''
       }
     }
   },
@@ -156,19 +169,23 @@ export default {
    if(this.token){
      this.user={
       img:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1577507829105&di=627d71aa4a1bd01206771ef65ff01c12&imgtype=0&src=http%3A%2F%2Fimg.qqzhi.com%2Fuploads%2F2018-12-30%2F134534410.jpg',
+      images:[
+      'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1577507829105&di=627d71aa4a1bd01206771ef65ff01c12&imgtype=0&src=http%3A%2F%2Fimg.qqzhi.com%2Fuploads%2F2018-12-30%2F134534410.jpg'],
       name:'居食坊有限公司',
       introduce:'主营牛肉,羊肉,猪肉',
-      groupid:'种植户',
+      groupid:'个体种植户',
       customer_service:'小红',
       realname_auth:1,
-      business_auth:0
+      business_auth:0,
+      phone:1325465459,
+      wechat:1325465459
     }
     }    
   },
   methods: {
     //齿轮弹出层触发
-		cog(){
-			this.showcog = !this.showcog;
+    cog(){
+      this.showcog = !this.showcog;
     },
     //个人中心弹出层触发
     personal() {
@@ -179,12 +196,18 @@ export default {
         this.$router.push('/login')
       }
     },
+    closePersonal(){
+      this.showPersonal = false;
+    },
     //意见反馈弹出层
     showsuggestion(){
-      this.suggestion = !this.suggestion;
+      this.$router.push('/suggestion')
     },
     showPopup() {
       this.show = true;
+    },
+    showpreviewheadimg(){
+      this.showheadimg=true;//显示弹窗 头像
     },
     logout(){
       if(this.token){
@@ -205,8 +228,26 @@ export default {
         this.$toast('您还未登录');
      }},
      my_supply(){
-      this.$router.push('my_supply');
-  }
+      this.$router.push('my_supply');//跳转我的供应
+     },
+     my_shop(){
+      this.$router.push('my_shop'); //跳转我的店铺
+     },
+     changegroupid(){
+      this.$router.push({name: 'changegroupid',params: {groupid: this.user.groupid}})//修改身份
+     },
+     changename(){
+      this.$router.push({name: 'changename',params: {name: this.user.name}})//修改昵称
+     },
+     changephone(){
+      this.$router.push({name: 'changephone',params: {phone: this.user.phone}})//修改手机
+     },
+     my_realname(){
+      this.$router.push('realname_auth');//实名验证
+     },
+     my_business(){
+      this.$router.push('business_auth');//企业认证
+     }
   }
   
 }
@@ -224,9 +265,9 @@ $themecolor:#C0F8D1;
   background-repeat: no-repeat;
   background-size: contain;
   padding:.06rem .18rem 0;
-	&	.setting-module{
-		height:.3rem;
-		display:flex;
+  & .setting-module{
+    height:.3rem;
+    display:flex;
     justify-content: flex-end;
     & .fa-cog{
     color: white;
@@ -235,7 +276,7 @@ $themecolor:#C0F8D1;
     width: .18rem;
     font-size: .18rem
     }
-	}
+  }
 }
 .user_info_box{
   display:flex;
@@ -345,5 +386,27 @@ $themecolor:#C0F8D1;
     border-radius: 5%;
     background-color: #ffffff;
     box-shadow: 8px 1px 10px 7px #f6f6f6;
+}
+.fileimg{
+  display:flex
+}
+.my_detail{
+  & .my_detail_headimg{
+    display:flex;
+    margin-bottom:.18rem;
+    padding: 10px 16px;
+    justify-content: space-between;
+    align-items: center;
+    background:white;
+    & .headimg_size{
+      height:.5rem;
+      width:.5rem;
+      border-radius:50%;
+    }
+  }
+  & .my_detail_group{
+    text-align:left;
+    margin-bottom:.18rem
+  }
 }
 </style>
