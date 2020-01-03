@@ -93,6 +93,16 @@ export default {
       
     };
   },
+  beforeRouteLeave(to, from, next) {
+    if (to.path == "/shopcart") {
+      this.$toast.success("已加入货单");
+      setTimeout(() => {
+        next();
+      }, 3000);
+    } else {
+      next();
+    }
+  },
   methods: {
     ...mapMutations(['addbuyitems']),
     goBack() {

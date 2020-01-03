@@ -1,3 +1,5 @@
+
+
 const Home = () =>
     import ( /* 首页 */ '../views/home/index.vue')
 const Sort = () =>
@@ -108,7 +110,7 @@ const routerTable = [
     }, {
         path: '/shopcart',
         component: Shopcart,
-        name: 'shopcart'
+        name: 'shopcart',
     }, {
         path: '/user',
         component: Mine,

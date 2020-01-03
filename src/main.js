@@ -3,6 +3,8 @@ import App from './App.vue'
 import router from './routers'
 import store from './store'
 import axios from '@/utils/request'
+import '@/routers/globalRouter'
+
 import {
     Popup,
     Search,

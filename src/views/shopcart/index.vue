@@ -1,17 +1,16 @@
 <template>
   <div class="shopcart">
     <h3>货单</h3>
-    <div class="list" v-for='(item,index) of lists' :key='(item.id+index)'>
+    <div class="list" v-for="(item,index) of lists" :key="(item.id+index)">
       <div class="list-top">
         <h4>供应商名字</h4>
         <van-cell @click="showPopup(index)" :round="true">x</van-cell>
         <van-popup v-model="show">
-          <p class="hint"> 确认删除吗？ </p>
+          <p class="hint">确认删除吗？</p>
           <div>
-            <van-button type="danger" class="button determine"  @click = "remove( activeIndex )">确定</van-button>
-            <van-button type="warning" class="button deselect"  @click = "closeFlag">取消</van-button>
+            <van-button type="danger" class="button determine" @click="remove( activeIndex )">确定</van-button>
+            <van-button type="warning" class="button deselect" @click="closeFlag">取消</van-button>
           </div>
-
         </van-popup>
       </div>
       <div class="list-content">
@@ -39,18 +38,19 @@
 </template>
 
 <script>
-import {mapMutations} from 'vuex'
+import { mapMutations } from "vuex";
 export default {
   data() {
     return {
       show: false,
       flag: false, // 控制删除的用户交互
       activeIndex: 0,
-      activeType: "all",
+      activeType: "all"
     };
   },
+  
   methods: {
-    ...mapMutations(['removebuyitems']),
+    ...mapMutations(["removebuyitems"]),
     showPopup(index) {
       this.show = true;
       this.activeIndex = index;
@@ -60,7 +60,7 @@ export default {
       this.show = false;
     },
     remove(index) {
-      this.$store.commit('removebuyitems',index);
+      this.$store.commit("removebuyitems", index);
       // this.lists.splice(index, 1);
       this.closeFlag();
       console.log(this);
@@ -70,8 +70,8 @@ export default {
     checkLisit() {
       return this.lists.length != 0;
     },
-    lists(){
-      console.log(this.$route.query)
+    lists() {
+      console.log(this.$route.query);
       return this.$store.state.pub.Mine.buylist;
     }
   }
@@ -191,16 +191,14 @@ height: 100%
   }
 }
 
+.van-popup {
+  border-radius: 0.2rem;
 
-.van-popup{
-  border-radius: .2rem;
-  
-  .hint{
-  margin: .2rem .4rem
-}
-  div{
-    margin: .1rem;
-     
+  .hint {
+    margin: 0.2rem 0.4rem;
+  }
+  div {
+    margin: 0.1rem;
   }
 }
 </style>
