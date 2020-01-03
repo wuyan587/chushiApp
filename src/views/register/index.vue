@@ -29,7 +29,8 @@
              v-model="checknum"
             @blur="check"
           />
-          <button class="btn2" @click="send($event)">{{ zt }}</button>
+          <button class="btn2" @click="send($event)"
+           :style="{ background: bcd }">{{ zt }}</button>
         </div>
         <hr />
         <div class="l2">
@@ -38,7 +39,7 @@
       </div>
       <div class="forget">
         <a @click="login">已有账号</a>
-        <a href>关于我们</a>
+        <a href="javascript:;">关于我们</a>
       </div>
       <!-- <div class="info">
         <h3>第三方账号登录</h3>
@@ -66,27 +67,50 @@ export default {
       userphone: "",
       checknum: "",
       count:0,
-      count2:0
+      bcd: "rgb(76, 199, 155)",
+      count2:0,
+      result: ""
     };
   },
   methods: {
-    send($event) {
-      console.dir($event.target);
-      $event.target.disabled = true;
-      let times = 60;
-      let btn = document.querySelector(".btn2");
-      this.timer = setInterval(() => {
-        if (times > 0 && times <= 60) {
-          this.zt = "已发送(" + times-- + ")";
-          btn.style.background = "rgb(216, 216, 216)";
-        } else {
-          $event.target.disabled = false;
-          this.zt = "获取验证码";
-          clearInterval(this.timer);
-          this.timer = null;
-          btn.style.background = "rgb(76, 199, 155)";
-        }
-      }, 1000);
+    async send($event) {
+      // 请求数据
+      if (this.count) {
+        const { userphone } = this;
+        let result = await this.$request({
+          url: "/getcode",
+          method: "POST",
+          data: {
+            userphone
+          },
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          }
+        });
+        this.result = result.data.data;
+        this.$dialog.alert({
+          message: "您的验证码为" + this.result
+        });
+        // 按钮计时器
+        $event.target.disabled = true;
+        let times = 60;
+        this.timer = setInterval(() => {
+          if (times > 0 && times <= 60) {
+            this.zt = "已发送(" + times-- + ")";
+            this.bcd = "rgb(216, 216, 216)";
+          } else {
+            $event.target.disabled = false;
+            this.zt = "获取验证码";
+            clearInterval(this.timer);
+            this.timer = null;
+            this.bcd = "rgb(76, 199, 155)";
+          }
+        }, 1000);
+      }else{
+        this.$dialog.alert({
+          message: "您的手机号码输入有误"
+        });
+      }
     },
     goback() {
       this.$router.go(-1);
@@ -95,7 +119,8 @@ export default {
       this.$router.push("./login");
     },
     check() {
-      if (this.checknum == 101 && this.count2 < 1) {
+      // console.log(this.result)
+      if (this.checknum == this.result && this.count2 < 1) {
         this.count2++;
       }
     },
@@ -180,6 +205,9 @@ header {
 input {
   border: none;
   background-color: transparent;
+}
+input:-webkit-autofill{
+    box-shadow: 0 0 0 38px white inset;
 }
 input:-webkit-autofill {
   transition: background-color 5000s ease-in-out 0s;

@@ -58,7 +58,7 @@
         </div>
       </div>
       <div class="forget">
-        <a href>忘记密码</a>
+        <a href="javascrit:;">忘记密码</a>
         <a @click="regist">立即注册</a>
       </div>
       <div class="info">
@@ -93,26 +93,49 @@ export default {
       bcd: "rgb(76, 199, 155)",
       userphone: "",
       checknum: "",
-      picnum: ""
+      picnum: "",
+      result: ""
     };
   },
   methods: {
-    // ...mapMutations(['login']),
-    send($event) {
-      $event.target.disabled = true;
-      let times = 60;
-      this.timer = setInterval(() => {
-        if (times > 0 && times <= 60) {
-          this.zt = "已发送(" + times-- + ")";
-          this.bcd = "rgb(216, 216, 216)";
-        } else {
-          $event.target.disabled = false;
-          this.zt = "获取验证码";
-          clearInterval(this.timer);
-          this.timer = null;
-          this.bcd = "rgb(76, 199, 155)";
-        }
-      }, 1000);
+    async send($event) {
+      // 请求数据
+      if (this.count) {
+        const { userphone } = this;
+        let result = await this.$request({
+          url: "/getcode",
+          method: "POST",
+          data: {
+            userphone
+          },
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          }
+        });
+        this.result = result.data.data;
+        this.$dialog.alert({
+          message: "您的验证码为" + this.result
+        });
+        // 按钮计时器
+        $event.target.disabled = true;
+        let times = 60;
+        this.timer = setInterval(() => {
+          if (times > 0 && times <= 60) {
+            this.zt = "已发送(" + times-- + ")";
+            this.bcd = "rgb(216, 216, 216)";
+          } else {
+            $event.target.disabled = false;
+            this.zt = "获取验证码";
+            clearInterval(this.timer);
+            this.timer = null;
+            this.bcd = "rgb(76, 199, 155)";
+          }
+        }, 1000);
+      }else{
+        this.$dialog.alert({
+          message: "您的手机号码输入有误"
+        });
+      }
     },
     goback() {
       this.$router.go(-1);
@@ -175,29 +198,28 @@ export default {
     },
 
     check() {
-      if (this.checknum == 101 && this.count2 < 1) {
+      // console.log(this.result)
+      if (this.checknum == this.result && this.count2 < 1) {
         this.count2++;
-      }
-    },
-    login() {
-      if (this.count && this.count1 && this.count2) {
-        this.$router.push("/user");
-      } else {
-        // swal("抱歉", "您的登录选项输入有误，请再检查一下!", "warning");
-        // Dialog({ message: "您的登录选项输入有误，请再检查一下!" });
-        this.$dialog.alert({
-          message: "您的登录选项输入有误，请再检查一下!"
-        });
       }
     },
     phone() {
       if (!/^1[34578]\d{9}$/.test(this.userphone)) {
-        // swal("抱歉", "您输入的电话号码格式不对!", "warning");
         this.$dialog.alert({
           message: "您输入的电话号码格式不对!"
         });
       } else {
         if (this.count < 1) this.count++;
+      }
+    },
+
+    login() {
+      if (this.count && this.count1 && this.count2) {
+        this.$router.push("/user");
+      } else {
+        this.$dialog.alert({
+          message: "您的登录选项输入有误，请再检查一下!"
+        });
       }
     }
   }
@@ -249,21 +271,22 @@ export default {
   padding: 0.25rem;
   overflow: hidden;
 }
-/* .shuru div {
-  width: 2.8rem;
-  height: 0.62rem;
-} */
+
 input {
   border: none;
-  background-color: transparent;
+  background-color: white !important
+ 
+}
+input:-webkit-autofill{
+    box-shadow: 0 0 0 38px white inset;
 }
 input:-webkit-autofill {
   transition: background-color 5000s ease-in-out 0s;
 }
-/* input::-webkit-inner-spin-button {
+input::-webkit-inner-spin-button {
   height: auto;
   -webkit-appearance: none;
-} */
+}
 .fa {
   margin: 0 0.1rem;
 }
@@ -285,7 +308,7 @@ input:-webkit-autofill {
 .btn4 {
   width: 0.93rem;
   height: 0.33rem;
-  /* border-radius: 0.16rem; */
+ 
   background: rgb(160, 160, 160);
   display: inline-block;
   color: white;
@@ -318,7 +341,7 @@ input:-webkit-autofill {
   margin-top: 0.8rem;
   width: 2.9rem;
   height: 1.7rem;
-  /* background: blueviolet; */
+  
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -326,7 +349,7 @@ input:-webkit-autofill {
 }
 .fa-weixin {
   color: rgb(0, 200, 0);
-  /* background: black; */
+ 
   font-size: 0.5rem;
 }
 .p1 {
