@@ -94,7 +94,8 @@ export default {
       userphone: "",
       checknum: "",
       picnum: "",
-      result: ""
+      result: "",
+      loginstate: ""
     };
   },
   methods: {
@@ -131,7 +132,7 @@ export default {
             this.bcd = "rgb(76, 199, 155)";
           }
         }, 1000);
-      }else{
+      } else {
         this.$dialog.alert({
           message: "您的手机号码输入有误"
         });
@@ -213,9 +214,28 @@ export default {
       }
     },
 
-    login() {
+    async login() {
       if (this.count && this.count1 && this.count2) {
-        this.$router.push("/user");
+        // 请求数据
+        const { userphone } = this;
+        let result1 = await this.$request({
+          url: "/login",
+          method: "POST",
+          data: {
+            userphone
+          },
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          }
+        });
+        this.loginstate = result1.data.code;
+        if (this.loginstate) {
+          this.$dialog.alert({
+            message: "您未注册,请先注册账号"
+          });
+        }else{
+           this.$router.push("/user");
+        }
       } else {
         this.$dialog.alert({
           message: "您的登录选项输入有误，请再检查一下!"
@@ -274,11 +294,10 @@ export default {
 
 input {
   border: none;
-  background-color: white !important
- 
+  background-color: white !important;
 }
-input:-webkit-autofill{
-    box-shadow: 0 0 0 38px white inset;
+input:-webkit-autofill {
+  box-shadow: 0 0 0 38px white inset;
 }
 input:-webkit-autofill {
   transition: background-color 5000s ease-in-out 0s;
@@ -308,7 +327,7 @@ input::-webkit-inner-spin-button {
 .btn4 {
   width: 0.93rem;
   height: 0.33rem;
- 
+
   background: rgb(160, 160, 160);
   display: inline-block;
   color: white;
@@ -341,7 +360,7 @@ input::-webkit-inner-spin-button {
   margin-top: 0.8rem;
   width: 2.9rem;
   height: 1.7rem;
-  
+
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -349,7 +368,7 @@ input::-webkit-inner-spin-button {
 }
 .fa-weixin {
   color: rgb(0, 200, 0);
- 
+
   font-size: 0.5rem;
 }
 .p1 {

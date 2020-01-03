@@ -69,7 +69,8 @@ export default {
       count:0,
       bcd: "rgb(76, 199, 155)",
       count2:0,
-      result: ""
+      result: "",
+      registstate:""
     };
   },
   methods: {
@@ -134,11 +135,30 @@ export default {
         if (this.count < 1) this.count++;
       }
     },
-    next(){
+    async next(){
      if (this.count && this.count2) {
-        this.$router.push("/user");
+        // 请求数据
+        const { userphone } = this;
+        let result1 = await this.$request({
+          url: "/register",
+          method: "POST",
+          data: {
+            userphone
+          },
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          }
+        });
+        console.log(result1)
+        this.registstate = result1.data.code;
+        if (!this.registstate) {
+          this.$dialog.alert({
+            message: "您已经注册过，请直接登录"
+          });
+        }else{
+           this.$router.push("/user");
+        }
       } else {
-        // swal("抱歉", "您的注册选项输入有误，请再检查一下!", "warning");
         this.$dialog.alert({
           message: "您的注册选项输入有误，请再检查一下!"
         });
