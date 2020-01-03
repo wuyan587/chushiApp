@@ -37,13 +37,11 @@ const Quotation = ()=>
     //77
 const Mysupply= ()=>
     import( /*我的供应*/ '../views/mine/supply1.vue' )
-<<<<<<< HEAD
 const Myprovide= ()=>
     import( /*我的采购*/ '../views/mine/procurement.vue')
 
 
 
-=======
 const Myshop= ()=>
     import( /*我的店铺*/ '../views/mine/myshop.vue' )
 const Suggestion= ()=>
@@ -58,7 +56,6 @@ const RealnameAuth= ()=>
     import( /*实名认证*/ '../views/mine/detail/realname_auth.vue' )
 const BusinessAuth= ()=>
     import( /*企业认证*/ '../views/mine/detail/business_auth.vue' )    
->>>>>>> master
 const routerTable = [
     {
         path: '/',
@@ -159,71 +156,67 @@ const routerTable = [
       }
     },
     {
-<<<<<<< HEAD
         path:'/my_provide',
         component:Myprovide,
         name: 'my_provide',
         meta: {
           include: 'my_provide'
       }
-    }
-=======
-        path:'/my_shop',
-        component:Myshop,
-        name: 'my_shop',
-        meta: {
-          include: 'my_shop'
-      }
-    },
-    {
-        path:'/suggestion',
-        component:Suggestion,
-        name: 'suggestion',
-        meta: {
-          include: 'suggestion'
-      }
-    },
-    {
-        path:'/changename',
-        component:Changename,
-        name: 'changename',
-        meta: {
-          include: 'changename'
-      }
-    },
-    {
-        path:'/changegroupid',
-        component:Changegroupid,
-        name: 'changegroupid',
-        meta: {
-          include: 'changegroupid'
-      }
-    },
-    {
-        path:'/changephone',
-        component:Changephone,
-        name: 'changephone',
-        meta: {
-          include: 'changephone'
-      }
-    },
-     {
-        path:'/realname_auth',
-        component:RealnameAuth,
-        name: 'realname_auth',
-        meta: {
-          include: 'realname_auth'
-      }
-    },
-     {
-        path:'/business_auth',
-        component:BusinessAuth,
-        name: 'business_auth',
-        meta: {
-          include: 'business_auth'
-      }
-    },
->>>>>>> master
+    },{path:'/my_shop',
+    component:Myshop,
+    name: 'my_shop',
+    meta: {
+      include: 'my_shop'
+  }
+},
+{
+    path:'/suggestion',
+    component:Suggestion,
+    name: 'suggestion',
+    meta: {
+      include: 'suggestion'
+  }
+},
+{
+    path:'/changename',
+    component:Changename,
+    name: 'changename',
+    meta: {
+      include: 'changename'
+  }
+},
+{
+    path:'/changegroupid',
+    component:Changegroupid,
+    name: 'changegroupid',
+    meta: {
+      include: 'changegroupid'
+  }
+},
+{
+    path:'/changephone',
+    component:Changephone,
+    name: 'changephone',
+    meta: {
+      include: 'changephone'
+  }
+},
+ {
+    path:'/realname_auth',
+    component:RealnameAuth,
+    name: 'realname_auth',
+    meta: {
+      include: 'realname_auth'
+  }
+},
+ {
+    path:'/business_auth',
+    component:BusinessAuth,
+    name: 'business_auth',
+    meta: {
+      include: 'business_auth'
+  }
+},
 
 ]
 

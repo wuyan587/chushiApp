@@ -87,25 +87,6 @@
               <img :src="user.img" class="headimg_size" />
               <van-image-preview v-model="showheadimg" :images="user.images"></van-image-preview>
             </div>
-<<<<<<< HEAD
-         </div>
-         <div class="user_right"><i class="fas fa-angle-right"></i></div>
-      </div> 
-      <van-popup 
-      v-model="showPersonal"
-      position="left"
-      :closeable="true"
-      :style="{ height: '100%',width:'100%' }"
-      >内容</van-popup>
-      <div class="mine_operation" >
-        <div class="mine_operation_detail" @click="my_supply">
-          <img src="~assets/images/supply.jpg" alt="" >
-          <span> 我的供应 </span>
-        </div>
-        <div class="mine_operation_detail" @click="my_procurement">
-          <img src="~assets/images/purchase.jpg" alt="" >
-          <span> 我的采购 </span>
-=======
           </div>
           <div class="my_detail_group">
             <van-cell is-link title="身份" :value="user.groupid" @click="changegroupid" />
@@ -127,9 +108,8 @@
           <span>我的供应</span>
         </div>
         <div class="mine_operation_detail">
-          <img src="~assets/images/purchase.jpg" alt />
+          <img src="~assets/images/purchase.jpg" alt @click="my_procurement"/>
           <span>我的采购</span>
->>>>>>> master
         </div>
         <div class="mine_operation_detail" @click="my_shop">
           <img src="~assets/images/shop.jpg" alt />
@@ -288,13 +268,10 @@ export default {
     }
     },
      my_supply(){
-<<<<<<< HEAD
-      this.$router.push('my_supply');
-    },
-    my_procurement(){
-      this.$router.push('my_provide')
-=======
       this.$router.push('my_supply');//跳转我的供应
+     },
+     my_procurement(){
+       this.$router.push('my_provide');//跳转我的供应
      },
      my_shop(){
       this.$router.push('my_shop'); //跳转我的店铺
@@ -318,7 +295,6 @@ export default {
   computed:{
     token(){
       return this.$store.state.pub.Mine._id&&this.$store.state.pub.Mine._id
->>>>>>> master
     }
   }
 }
