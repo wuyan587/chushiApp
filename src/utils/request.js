@@ -5,7 +5,7 @@
     * 函数  √
 */
 import axios from 'axios'
-const baseURL = 'http://localhost:3000' // 本地启动
+const baseURL = 'http://10.31.154.141:3000' // 本地启动
 // const baseURL = 'http://10.31.154.189:3000' // 公司局域网启动
 // const baseURL = 'http://10.31.154.110:3000' // 测试环境
 // const baseURL = 'http://10.31.154.456:3000' // 上线环境

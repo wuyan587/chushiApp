@@ -13,6 +13,7 @@
             name=""
             id="phoneNumber"
             placeholder="请输入手机号码"
+            v-model="phone"
           />
           <button class="btn3">xxx</button>
         </div>
@@ -42,7 +43,7 @@
         </div>
         <hr />
         <div class="l2">
-          <button class="btn1">登录</button>
+          <button class="btn1" @click="login">登录</button>
         </div>
       </div>
       <div class="forget">
@@ -65,6 +66,8 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+import { setCookie } from '@/utils/cookie.js'
 export default {
   data() {
     return {
@@ -72,10 +75,12 @@ export default {
       flag: true,
       timer: null,
       testcode: "获取字符",
-      count: 0
+      count: 0,
+      phone:''
     };
   },
   methods: {
+    ...mapMutations(['login']),
     send($event) {
       // console.dir($event.target);
       $event.target.disabled = true;
@@ -138,6 +143,25 @@ export default {
       }
 
       this.testcode = sj();
+    },
+    async login(){
+     let result= await this.$request({
+        url:'/login',
+        method:'post',
+        data:{
+          username:this.phone,
+          password:'123'
+        },
+        headers:{
+                   'Content-Type':'application/json' 
+        }
+      })
+    console.log(result);
+    if(result.data.state&&result.data.state==2)
+      alert('？我怀疑你真的有号吗');
+    else 
+      this.$store.commit('login',result.data[0]);
+      setCookie('token','1111',100);
     }
   }
   // pic(){
