@@ -28,7 +28,7 @@
       </van-cell-group>
       <van-cell-group>
         <p style='padding:0.1rem 0.15rem;' class="titles">产品主图</p>
-        <van-uploader v-model="fileList" multiple />
+        <van-uploader v-model="fruit.imgs"  multiple />
       </van-cell-group>
       <!-- 弹出层 -->
         <van-popup
@@ -71,7 +71,7 @@ export default {
             num: "",
             price:'',
             message: "",
-            fileList: [],
+            // fileList: [],
             Specification:'',
             show:false,
             areaList,
@@ -153,7 +153,8 @@ export default {
                 flag:false
               },
 
-            ]
+            ],
+            imglist:[],
         }
     },
     mounted(){
@@ -182,7 +183,7 @@ export default {
      closeChose(){
        this.supList=this.suplist.filter(item=>item.flag);
        this.show=false;
-     }
+     },
     },
     computed:{
       area(){
