@@ -8,5 +8,15 @@ module.exports={
             .set('@',path.join(__dirname,'./src'))
             .set('views',path.join(__dirname,'./src/views'))
             .set('routers',path.join(__dirname,'./src/routers'))
-    }
+    }, 
+    devServer:{
+        open:true,
+        proxy:{
+            '/mybatis-plus-0.0.1-SNAPSHOT':{
+                target:'http://139.129.228.232:84',
+                changeOrigin:true
+            },
+        }
+    },
+    
 }
