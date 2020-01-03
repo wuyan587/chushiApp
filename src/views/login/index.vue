@@ -77,8 +77,13 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 // import swal from "sweetalert";
 // import { Dialog } from 'vant';
+=======
+import { mapMutations } from 'vuex'
+import { setCookie } from '@/utils/cookie.js'
+>>>>>>> master
 export default {
   data() {
     return {
@@ -168,6 +173,7 @@ export default {
         } else {
           this.testcode = "字符正确";
         }
+<<<<<<< HEAD
       } else {
         this.picnum = "";
         this.testcode = "请重新输入";
@@ -199,6 +205,15 @@ export default {
       } else {
         if (this.count < 1) this.count++;
       }
+=======
+      })
+    console.log(result);
+    if(result.data.state&&result.data.state==2)
+      alert('？我怀疑你真的有号吗');
+    else 
+      this.$store.commit('login',result.data[0]);
+      setCookie('token','1111',100);
+>>>>>>> master
     }
   }
 };

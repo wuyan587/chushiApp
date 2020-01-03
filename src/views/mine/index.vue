@@ -126,13 +126,13 @@
 </template>
 
 <script>
-import { getCookie,remove } from '@/utils/cookie.js'
+// import { getCookie,remove } from '@/utils/cookie.js'
 export default {
   data() {
     return {
       showPersonal: false, //个人中心弹出层flag
       showcog:false,//个人设置弹出层flag
-      token:'',//用户token
+      // token:'',//用户token
       show:false,//测试弹出层
       suggestion:false,//意见反馈弹出层
       fileList: [
@@ -152,7 +152,7 @@ export default {
     }
   },
   mounted(){
-   this.token=getCookie('token');//查看token是否存在 
+  //  this.token=getCookie('token');//查看token是否存在 
    if(this.token){
      this.user={
       img:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1577507829105&di=627d71aa4a1bd01206771ef65ff01c12&imgtype=0&src=http%3A%2F%2Fimg.qqzhi.com%2Fuploads%2F2018-12-30%2F134534410.jpg',
@@ -202,7 +202,7 @@ export default {
             })
         console.log(result.data);
         
-        remove('token');
+        // remove('token');
         this.cog();
         this.$toast({
           message: '正在前往首页...',
@@ -217,9 +217,13 @@ export default {
      }},
      my_supply(){
       this.$router.push('my_supply');
+  },
+  },
+  computed:{
+    token(){
+      return this.$store.state.pub.Mine._id&&this.$store.state.pub.Mine._id
+    }
   }
-  }
-  
 }
 </script>
 
