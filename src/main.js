@@ -33,7 +33,8 @@ import {
     GoodsActionButton,
     Tag,
     Area,
-    NavBar
+    NavBar,
+    ImagePreview
 } from 'vant'
 import './utils/rem'
 import './routers/globalRouter'
@@ -69,7 +70,8 @@ const vantObj={
     GoodsActionButton,
     Tag,
     Area,
-    NavBar
+    NavBar,
+    ImagePreview
 }
 
     for(let key in vantObj){
