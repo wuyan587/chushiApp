@@ -77,7 +77,8 @@
 </template>
 
 <script>
-import swal from "sweetalert";
+// import swal from "sweetalert";
+// import { Dialog } from 'vant';
 export default {
   data() {
     return {
@@ -164,7 +165,7 @@ export default {
         if (this.count1 < 1) {
           this.count1++;
           this.testcode = "字符正确";
-        }else{
+        } else {
           this.testcode = "字符正确";
         }
       } else {
@@ -182,12 +183,19 @@ export default {
       if (this.count && this.count1 && this.count2) {
         this.$router.push("/user");
       } else {
-        swal("抱歉", "您的登录选项输入有误，请再检查一下!", "warning");
+        // swal("抱歉", "您的登录选项输入有误，请再检查一下!", "warning");
+        // Dialog({ message: "您的登录选项输入有误，请再检查一下!" });
+        this.$dialog.alert({
+          message: "您的登录选项输入有误，请再检查一下!"
+        });
       }
     },
     phone() {
       if (!/^1[34578]\d{9}$/.test(this.userphone)) {
-        swal("抱歉", "您输入的电话号码格式不对!", "warning");
+        // swal("抱歉", "您输入的电话号码格式不对!", "warning");
+        this.$dialog.alert({
+          message: "您输入的电话号码格式不对!"
+        });
       } else {
         if (this.count < 1) this.count++;
       }

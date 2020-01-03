@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import swal from "sweetalert";
+// import swal from "sweetalert";
 export default {
   data() {
     return {
@@ -101,16 +101,22 @@ export default {
     },
     phone() {
       if (!/^1[34578]\d{9}$/.test(this.userphone)) {
-        swal("抱歉", "您输入的电话号码格式不对!", "warning");
+        // swal("抱歉", "您输入的电话号码格式不对!", "warning");
+        this.$dialog.alert({
+          message: "您输入的电话号码格式不对!"
+        });
       } else {
         if (this.count < 1) this.count++;
       }
     },
     next(){
      if (this.count && this.count2) {
-        this.$router.push("/login");
+        this.$router.push("/user");
       } else {
-        swal("抱歉", "您的注册选项输入有误，请再检查一下!", "warning");
+        // swal("抱歉", "您的注册选项输入有误，请再检查一下!", "warning");
+        this.$dialog.alert({
+          message: "您的注册选项输入有误，请再检查一下!"
+        });
       }
     }
 
