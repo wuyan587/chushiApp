@@ -238,8 +238,9 @@ export default {
 
           break;
           case 'supply': //发布供应完毕
-          var nobj=JSON.parse(JSON.stringify(this.fruitinfo));
-          this.$store.commit('addsupitems',nobj);
+          this.fruitinfo.sid=Math.round(Math.random()*10000);
+            var nobj=JSON.parse(JSON.stringify(this.fruitinfo));
+            this.$store.commit('addsupitems',nobj);
           break;
         }
       }
