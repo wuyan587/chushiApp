@@ -26,6 +26,9 @@ const pub={
         },
         removebuyitems(state,index){ //移除货单
             state.Mine.buylist.splice(index,1)
+        },
+        login(state,val){
+            state.Mine=val;
         }
     }
 }

@@ -70,9 +70,9 @@ export default {
     checkLisit() {
       return this.lists.length != 0;
     },
-    lists() {
-      console.log(this.$route.query);
-      return this.$store.state.pub.Mine.buylist;
+    lists(){
+      console.log(this.$route.query)
+      return this.$store.state.pub.Mine.buylist&&this.$store.state.pub.Mine.buylist||[];
     }
   }
 };

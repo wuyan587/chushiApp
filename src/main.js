@@ -38,7 +38,7 @@ import {
     NavBar
 } from 'vant'
 import './utils/rem'
-
+import './routers/globalRouter'
 //把在上面应用的vant模块直接复制到这个vantObj里就行了
 
 const vantObj={

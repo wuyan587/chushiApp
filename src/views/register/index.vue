@@ -8,7 +8,7 @@
       <div class="shuru">
         <div>
           <i class="fa fa-mobile fa-2x"></i>
-          <input type="text" name="" id="" placeholder="请输入手机号码" />
+          <input type="text" v-model="phone" name="" id="" placeholder="请输入手机号码" />
           <button class="btn3">xxx</button>
         </div>
         <hr />
@@ -19,7 +19,7 @@
         </div>
         <hr />
         <div class="l2">
-          <button class="btn1">下一步</button>
+          <button class="btn1" @click='reg'>下一步</button>
         </div>
       </div>
       <div class="forget">
@@ -47,7 +47,8 @@ export default {
     return {
       zt: "获取验证码",
       flag: true,
-      timer: null
+      timer: null,
+      phone:'',
     };
   },
   methods: {
@@ -75,6 +76,27 @@ export default {
     },
     login(){
       this.$router.push('./login')
+    },
+   async reg(){
+     if(this.phone!=''){
+       let result=await this.$request({
+        url:'/register',
+        method:'post',
+        data:{
+          username:this.phone,
+          password:'123'
+        },
+        headers:{
+          'Content-Type':'application/json'
+        }
+      })
+      if(result.data.state&&result.data.state==3){
+        alert('用户名重复了'+result.data.info);
+      }
+     }else{
+       alert('?');
+     }
+       
     }
   }
 };
