@@ -9,6 +9,7 @@
     >
       <template slot="content">
       <!-- 内容 -->
+          <Floor :index='activeIndex' />
       </template>
     </van-tree-select>
       <!-- 2级发布 -->
@@ -51,6 +52,7 @@
 <script>
 import PubSupply from './supply'
 import PubPurchase from './purchase'
+import Floor from './Floor'
 import { mapMutations } from 'vuex'
 export default {
   // props: ["findex"],
@@ -160,7 +162,8 @@ export default {
   },
   components:{
     PubSupply,
-    PubPurchase 
+    PubPurchase,
+    Floor
   },
   methods: {
       ...mapMutations(['setType','setName','setSpecification','reset','addpuritems','addsupitems']),
@@ -251,6 +254,19 @@ export default {
         // this.$set(this.fruitDetil,'fruitType',this.fruitstype[this.typeflag].name);
         // this.$emit('getitem',this.fruitDetil)
     }
+  },
+  async mounted(){
+    let result =await this.$request({
+      url:'selectProductLevel',
+      params:{
+        fid:0
+      }
+    })
+    result=result.data;
+    result.forEach(item=>{
+      item.text=item.tname;
+    })
+    this.items=result;
   }
 }
 </script>

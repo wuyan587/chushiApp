@@ -49,6 +49,17 @@ export default {
       activeType: "all",
     };
   },
+  async mounted(){
+    let re=await this.$request({
+      url:'/selectAll',
+      method:'post',
+      headers:{
+                   'Content-Type':'application/x-www-form-urlencoded' 
+        }
+
+    })
+    console.log(re);
+  },
   methods: {
     ...mapMutations(['removebuyitems']),
     showPopup(index) {
