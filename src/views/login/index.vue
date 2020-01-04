@@ -107,7 +107,7 @@ export default {
           url: "/getcode",
           method: "POST",
           data: {
-            userphone
+            phoneNum: userphone
           },
           headers: {
             "Content-Type": "application/x-www-form-urlencoded"
@@ -142,7 +142,10 @@ export default {
       this.$router.go(-1);
     },
     regist() {
-      this.$router.push("./register");
+      (this.userphone = ""),
+        (this.checknum = ""),
+        (this.picnum = ""),
+        this.$router.push("./register");
     },
     num() {
       function getNumber(min, max) {
@@ -222,7 +225,7 @@ export default {
           url: "/login",
           method: "POST",
           data: {
-            userphone
+            phoneNum: userphone
           },
           headers: {
             "Content-Type": "application/x-www-form-urlencoded"
@@ -233,8 +236,11 @@ export default {
           this.$dialog.alert({
             message: "您未注册,请先注册账号"
           });
-        }else{
-           this.$router.push("/user");
+        } else {
+          (this.userphone = ""),
+            (this.checknum = ""),
+            (this.picnum = ""),
+            this.$router.push("/user");
         }
       } else {
         this.$dialog.alert({

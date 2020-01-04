@@ -26,11 +26,16 @@
             name=""
             id="check"
             placeholder="请输入验证码"
-             v-model="checknum"
+            v-model="checknum"
             @blur="check"
           />
-          <button class="btn2" @click="send($event)"
-           :style="{ background: bcd }">{{ zt }}</button>
+          <button
+            class="btn2"
+            @click="send($event)"
+            :style="{ background: bcd }"
+          >
+            {{ zt }}
+          </button>
         </div>
         <hr />
         <div class="l2">
@@ -66,11 +71,11 @@ export default {
       timer: null,
       userphone: "",
       checknum: "",
-      count:0,
+      count: 0,
       bcd: "rgb(76, 199, 155)",
-      count2:0,
+      count2: 0,
       result: "",
-      registstate:""
+      registstate: ""
     };
   },
   methods: {
@@ -82,7 +87,7 @@ export default {
           url: "/getcode",
           method: "POST",
           data: {
-            userphone
+            phoneNum: userphone
           },
           headers: {
             "Content-Type": "application/x-www-form-urlencoded"
@@ -107,7 +112,7 @@ export default {
             this.bcd = "rgb(76, 199, 155)";
           }
         }, 1000);
-      }else{
+      } else {
         this.$dialog.alert({
           message: "您的手机号码输入有误"
         });
@@ -117,7 +122,7 @@ export default {
       this.$router.go(-1);
     },
     login() {
-      this.$router.push("./login");
+      (this.userphone = ""), (this.checknum = ""), this.$router.push("./login");
     },
     check() {
       // console.log(this.result)
@@ -135,28 +140,29 @@ export default {
         if (this.count < 1) this.count++;
       }
     },
-    async next(){
-     if (this.count && this.count2) {
+    async next() {
+      if (this.count && this.count2) {
         // 请求数据
         const { userphone } = this;
         let result1 = await this.$request({
           url: "/register",
           method: "POST",
           data: {
-            userphone
+            phoneNum: userphone
           },
           headers: {
             "Content-Type": "application/x-www-form-urlencoded"
           }
         });
-        console.log(result1)
         this.registstate = result1.data.code;
-        if (!this.registstate) {
+        if (this.registstate) {
           this.$dialog.alert({
             message: "您已经注册过，请直接登录"
           });
-        }else{
-           this.$router.push("/user");
+        } else {
+          (this.userphone = ""),
+            (this.checknum = ""),
+            this.$router.push("/user");
         }
       } else {
         this.$dialog.alert({
@@ -164,7 +170,6 @@ export default {
         });
       }
     }
-
   }
 };
 </script>
@@ -226,8 +231,8 @@ input {
   border: none;
   background-color: transparent;
 }
-input:-webkit-autofill{
-    box-shadow: 0 0 0 38px white inset;
+input:-webkit-autofill {
+  box-shadow: 0 0 0 38px white inset;
 }
 input:-webkit-autofill {
   transition: background-color 5000s ease-in-out 0s;
