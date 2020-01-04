@@ -201,7 +201,14 @@ export default {
       return this.$store.state.release.flagNum;
     },
     fruitinfo(){
-      return this.$store.state.release.fruit;
+
+      switch(this.$route.query.type){
+        case 'supply':
+          return this.$store.state.release.fruit;
+        case 'purchase':
+          return this.$store.state.release.purfruit;
+      }
+      return false;
     },
     typeFlag(){
       return (sid,val)=>{
@@ -238,12 +245,14 @@ export default {
       else if (this.findex>=5){
         switch(this.$route.query.type){
           case 'purchase': //发布采购完毕
-
+          this.fruitinfo.sid=Math.round(Math.random()*10000);
+          var nobj1=JSON.parse(JSON.stringify(this.fruitinfo));
+          this.$store.commit('addpuritems',nobj1);
           break;
           case 'supply': //发布供应完毕
           this.fruitinfo.sid=Math.round(Math.random()*10000);
-            var nobj=JSON.parse(JSON.stringify(this.fruitinfo));
-            this.$store.commit('addsupitems',nobj);
+            var nobj2=JSON.parse(JSON.stringify(this.fruitinfo));
+            this.$store.commit('addsupitems',nobj2);
           break;
         }
       }

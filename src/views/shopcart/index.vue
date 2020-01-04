@@ -177,17 +177,13 @@ height: 100%
       font-weight: bold;
     }
   }
-}
-.van-popup {
-  background: none;
-}
+} 
 .checkLisit {
   height: 5rem;
   width: 100%;
   background: url("~@/assets/images/bg2.jpg") 0.1rem 2rem no-repeat;
   background-size: 100%;
 }
-
 .van-cell {
   width: 0.2rem;
   height: 0.2rem;

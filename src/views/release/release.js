@@ -20,17 +20,41 @@ const release={
             img:'',
             imgs:[]
         },
+        purfruit:{
+            sid:'',
+            fruitType:'',
+            fruitName:'',
+            fruitSpecification:{
+                reserve:'',
+                model:'',
+                weight:'',
+                paste:'',
+                pack:''
+            },
+            fruitTitle:'',
+            num:'',
+            area:'',
+            from:'',
+            detail:'',
+            phone:''
+        },
         flagNum:1
     },
     mutations:{
         setType(state,val){
             state.fruit.fruitType=val;
+            state.purfruit.fruitType=val;
+
         },
         setName(state,val){
             state.fruit.fruitName=val;
+            state.purfruit.fruitName=val;
+
         },
         setSpecification(state,val){
             state.fruit.fruitSpecification=val;
+            state.purfruit.fruitSpecification=val;
+
         },
         add(state){
             state.flagNum++;
@@ -46,6 +70,7 @@ const release={
             switch(arr[0]){
                 case 'area':
                     state.fruit.area=arr[1];
+                    state.purfruit.area=arr[1];
                 break;
                 case 'sup':
                     state.fruit.sup=arr[1];
@@ -55,6 +80,9 @@ const release={
                 break;
                 case 'imgs':
                     state.fruit.imgs=arr[1];
+                break;
+                case 'from':
+                    state.purfruit.from=arr[1];
                 break;
             }
             
