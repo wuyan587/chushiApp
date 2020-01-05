@@ -6,7 +6,7 @@
         <van-search
        v-model="value"
       placeholder="请输入搜索内容"
-       show-action
+      show-action
      shape="round"
          @search="onSearch"
 >
@@ -34,8 +34,16 @@ export default {
     DropdownMenu,shoplist
   },
 methods:{
-  onSearch(){
-    console.log(this.value); 
+  async onSearch(){
+    // console.log(this.value); 
+    const result=await this.$request({
+      url:'/search',
+      params:{
+        searchContent:this.value
+      }
+    })
+    console.log(result);
+    
   },
     goback(){
        this.$router.go(-1)
@@ -46,6 +54,10 @@ methods:{
 
 <style lang="scss" scoped>
 @import '@/assets/stylesheets/borderstyle.scss';
+.van-search{
+  background: none!important
+}
+//  van-search--show-action
 .search{
   display: flex;
   height: 100%;
@@ -56,7 +68,7 @@ methods:{
   display: flex;
   flex-direction:row;
    justify-content: space-between;
-    border:0 0 1px 0 , blue ;
+    border:0 0 1px 0 ,#d8d8d8;
 p{
  width: .5rem;
 

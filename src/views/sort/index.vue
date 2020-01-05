@@ -9,7 +9,7 @@
       class="active"
     >
       <template slot="content">
-        <Floor :floors="items"></Floor>
+        <Floor :index="activeIndex"></Floor>
       </template>
     </van-tree-select>
   </div>
@@ -33,18 +33,36 @@ export default {
     },
     async mounted(){
 const result=await request({
-  url:'/selectAllProduct',
-  method:'POST',
-   headers: { 'content-type': 'application/x-www-form-urlencoded' }
+  url:'/selectProductLevel',
+  // method:'POST',
+  //  headers: { 'content-type': 'application/json' },
+   params:{
+     fid:1
+   }
 
 })
-console.log(result)
-    }
+console.log(result);
+
+// this.items=result.data
+ const data=result.data.map(item=>{
+item.text=item.tname
+return item
+})
+ this.items=data
+console.log(result);
+
     
     
   
+},
+  computed:{
+        floorsData(){
+            return this.result.data
+        }
+        
+        
+    },
 }
-
 
 
 </script>

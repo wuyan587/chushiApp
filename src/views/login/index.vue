@@ -67,6 +67,7 @@
 
 <script>
 import { mapMutations } from 'vuex'
+import { setCookie } from '@/utils/cookie.js'
 export default {
   data() {
     return {
@@ -160,6 +161,7 @@ export default {
       alert('？我怀疑你真的有号吗');
     else 
       this.$store.commit('login',result.data[0]);
+      setCookie('token','1111',100);
     }
   }
   // pic(){
