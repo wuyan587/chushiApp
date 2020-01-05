@@ -1,6 +1,7 @@
 const release={
     state:{
         fruit:{
+            tid:'',
             sid:'',
             fruitType:'',
             fruitName:'',
@@ -18,9 +19,13 @@ const release={
             sup:'',
             detail:'',
             img:'',
-            imgs:[]
+            imgs:[],
+            user:'',
+            pass:true,
+            pub:false
         },
         purfruit:{
+            tid:'',
             sid:'',
             fruitType:'',
             fruitName:'',
@@ -36,14 +41,19 @@ const release={
             area:'',
             from:'',
             detail:'',
-            phone:''
+            phone:'',
+            user:'',
+            pass:true,
+            pub:false
         },
         flagNum:1
     },
     mutations:{
-        setType(state,val){
-            state.fruit.fruitType=val;
-            state.purfruit.fruitType=val;
+        setType(state,arr){
+            state.fruit.tid=arr[0];
+            state.purfruit.tid=arr[0];
+            state.fruit.fruitType=arr[1];
+            state.purfruit.fruitType=arr[1];
 
         },
         setName(state,val){
@@ -66,7 +76,6 @@ const release={
             state.flagNum=1;
         },
         setval(state,arr){
-            
             switch(arr[0]){
                 case 'area':
                     state.fruit.area=arr[1];
@@ -84,8 +93,25 @@ const release={
                 case 'from':
                     state.purfruit.from=arr[1];
                 break;
+                case 'user':
+                    state.fruit.user=arr[1];
+                    state.purfruit.user=arr[1];
+                break;
             }
             
+        },
+        setinfo(state,arr){
+            switch(arr[0]){
+                case 'supply':
+                    state.fruit=arr[1];
+                break;
+                case 'purchase':
+                    state.purfruit=arr[1];
+                break;
+            }
+        },
+        setnum(state,num){
+            state.flagNum=num;
         }
     },
     actions:{

@@ -3,7 +3,12 @@
       <van-cell-group>
         <van-cell title-class="titles" value-class="text" title="货品名称" :value="fruit.fruitName" />
         <van-cell title-class="titles" value-class="text" title="规格" :value="fruitSpecification" />
-        <van-cell title-class="titles" value-class="text" title="标题预览" :value="fruit.fruitName" />
+        <van-cell title-class="titles" value-class="text" title="标题预览" :value="fruit.fruitName" >
+        <template slot="default">
+            <span class="custom-title">{{fruit.fruitName}}</span>
+            <input type="text" class="ftitle" v-model="fruit.fruitTitle" placeholder="请输入标题">
+        </template>
+        </van-cell>
       </van-cell-group>
        <van-cell-group>
         <van-field label="采购数量" label-class="titles suffix_num" v-model="fruit.num" placeholder="请输入数量" />
@@ -143,6 +148,10 @@ export default {
 }}
 </script>
 
-<style>
-
+<style scoped>
+.ftitle{
+  border: 0;
+  padding: 0 0.05rem;
+  color:rgb(14, 13, 13);
+}
 </style>

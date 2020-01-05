@@ -52,6 +52,7 @@ methods:{
   flex-direction: column;
   justify-content: flex-start;
   .search_top{
+    background: white;
     height: 0.72rem;
   display: flex;
   flex-direction:row;
@@ -67,6 +68,9 @@ p{
 .search_r{
   flex: 1
 }
+}
+.van-search{
+  height: 100%;
 }
 }
 

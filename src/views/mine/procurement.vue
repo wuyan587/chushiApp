@@ -11,71 +11,69 @@
     <!-- </header> -->
     <div class="content">      
         <van-tabs v-model="active">
-            <van-tab title="已发布">
-            <div class="list" v-for="(item,index) of lists" :key="index" >
-                <div class="list-content">
-            <!-- <div class="list-ing">
-              <img src="http://img5.imgtn.bdimg.com/it/u=3865526395,2512926950&fm=11&gp=0.jpg" alt="">
-            </div> -->
-            <div class="list-right">
-              <h4> {{ item.Product }} </h4>             
-             <p>主要产地：全国</p>
-              <p class="">需求数量：200斤</p>
-                 <p>  <i class="fas fa-map-marker-alt"> </i> <span></span> {{ item.location }} </p> 
-              <div class="list-top">
-              
-                <van-cell  @click="SoldOut(index)" :round=true>撤销</van-cell>
-                <van-cell   :round=true>修改</van-cell>
-                <van-cell  @click="showPopup(index)" :round=true>删除</van-cell>
-                <van-popup v-model="xiajia">
-                <p class="hint"> 确认撤销吗？ </p>
-                <div>
-                  <van-button type="danger" class="button determine"  @click = "remove( activeIndex )">确定</van-button>
-                  <van-button type="warning" class="button deselect"  @click = "Cancel">取消</van-button>
-                </div>
+          <van-tab title="已发布">
+            <div class="list" v-for="(item,index) of purlist" :key="item.sid" >
+              <div class="list-content">
+                <!-- <div class="list-ing">
+                  <img src="http://img5.imgtn.bdimg.com/it/u=3865526395,2512926950&fm=11&gp=0.jpg" alt="">
+                </div> -->
+                <div class="list-right">
+                  <h4> {{ item.fruitName+item.fruitTitle }} </h4>             
+                <p>主要产地：{{item.from}}</p>
+                  <p class="">需求数量：{{item.num}}斤</p>
+                    <p>  <i class="fas fa-map-marker-alt"> </i> <span></span> {{ item.area }} </p> 
+                  <div class="list-top">
+                  
+                    <van-cell  @click="item.pub=false" :round=true>撤销</van-cell>
+                    <van-cell   :round=true @click="change(index,item.sid)">修改</van-cell>
+                    <van-cell  @click="showPopup(index)" :round=true>删除</van-cell>
+                    <van-popup v-model="xiajia">
+                    <p class="hint"> 确认撤销吗？ </p>
+                    <div>
+                      <van-button type="danger" class="button determine"  @click = "remove( activeIndex,item.sid )">确定</van-button>
+                      <van-button type="warning" class="button deselect"  @click = "Cancel">取消</van-button>
+                    </div>
 
-                </van-popup>
-                <van-popup v-model="show">
-                <p class="hint"> 确认删除吗？ </p>
-                <div>
-                  <van-button type="danger" class="button determine"  @click = "remove( activeIndex )">确定</van-button>
-                  <van-button type="warning" class="button deselect"  @click = "closeFlag">取消</van-button>
-                </div>
+                    </van-popup>
+                    <van-popup v-model="show">
+                    <p class="hint"> 确认删除吗？ </p>
+                    <div>
+                      <van-button type="danger" class="button determine"  @click = "remove( activeIndex,item.sid )">确定</van-button>
+                      <van-button type="warning" class="button deselect"  @click = "closeFlag">取消</van-button>
+                    </div>
 
-                </van-popup>
+                    </van-popup>
+                  </div>
+                </div>
+                <div class="list-rights">
+                    <p class="process">采购中</p>
+                    <span>2条报价 <i class="fas fa-chevron-right"></i></span>           
+                </div>
               </div>
             </div>
-            <div class="list-rights">
-                <p class="process">采购中</p>
-                <span>2条报价 <i class="fas fa-chevron-right"></i></span>           
-                 
+            <div v-if = "!checkLisit" class="checkLisit">    
             </div>
-          </div>
-        </div>
-      <div v-if = "!checkLisit" class="checkLisit">
-          
-      </div>
-            </van-tab>
-            <van-tab title="已撤销">
-                 <div class="list" v-for="(item,index) of lists" :key="index" >
-                <div class="list-content">
-            <!-- <div class="list-ing">
-              <img src="http://img5.imgtn.bdimg.com/it/u=3865526395,2512926950&fm=11&gp=0.jpg" alt="">
-            </div> -->
-            <div class="list-right">
-              <h4> {{ item.Product }} </h4>             
-             <p>主要产地：全国</p>
-              <p class="">需求数量：200斤</p>
-                 <p>  <i class="fas fa-map-marker-alt"> </i> <span></span> {{ item.location }} </p> 
+          </van-tab>
+      <van-tab title="已撤销">
+                          <div class="list" v-for="(item,index) of purlist" :key="item.sid" >
+              <div class="list-content">
+                <!-- <div class="list-ing">
+                  <img src="http://img5.imgtn.bdimg.com/it/u=3865526395,2512926950&fm=11&gp=0.jpg" alt="">
+                </div> -->
+                <div class="list-right">
+                  <h4> {{ item.fruitName+item.fruitTitle }} </h4>             
+                <p>主要产地：{{item.from}}</p>
+                  <p class="">需求数量：{{item.num}}斤</p>
+                    <p>  <i class="fas fa-map-marker-alt"> </i> <span></span> {{ item.area }} </p> 
               <div class="list-top">
               
-                <van-cell  @click="SoldOut(index)" :round=true>重新发布</van-cell>
-                <van-cell   :round=true>修改</van-cell>
+                <van-cell  @click="item.pub=true" :round=true>重新发布</van-cell>
+                <van-cell   :round=true @click="change(index,item.sid)">修改</van-cell>
                 <van-cell  @click="showPopup(index)" :round=true>删除</van-cell>
                 <van-popup v-model="xiajia">
                 <p class="hint"> 确认撤销吗？ </p>
                 <div>
-                  <van-button type="danger" class="button determine"  @click = "remove( activeIndex )">确定</van-button>
+                  <van-button type="danger" class="button determine"  @click = "remove( activeIndex,item.sid )">确定</van-button>
                   <van-button type="warning" class="button deselect"  @click = "Cancel">取消</van-button>
                 </div>
 
@@ -83,7 +81,7 @@
                 <van-popup v-model="show">
                 <p class="hint"> 确认删除吗？ </p>
                 <div>
-                  <van-button type="danger" class="button determine"  @click = "remove( activeIndex )">确定</van-button>
+                  <van-button type="danger" class="button determine"  @click = "remove( activeIndex,item.sid )">确定</van-button>
                   <van-button type="warning" class="button deselect"  @click = "closeFlag">取消</van-button>
                 </div>
 
@@ -102,25 +100,25 @@
       </div>
             </van-tab>
             <van-tab title="未通过">
-            <div class="list" v-for="(item,index) of lists" :key="index" >
-                <div class="list-content">
+                    <div class="list" v-for="(item,index) of purlist" :key="item.sid" >
+              <div class="list-content">
                 <!-- <div class="list-ing">
-                    <img src="http://img5.imgtn.bdimg.com/it/u=3865526395,2512926950&fm=11&gp=0.jpg" alt="">
+                  <img src="http://img5.imgtn.bdimg.com/it/u=3865526395,2512926950&fm=11&gp=0.jpg" alt="">
                 </div> -->
                 <div class="list-right">
-                    <h4> {{ item.Product }} </h4>             
-                    <p>主要产地：全国</p>
-                    <p class="">需求数量：200斤</p>
-                        <p>  <i class="fas fa-map-marker-alt"> </i> <span></span> {{ item.location }} </p> 
+                  <h4> {{ item.fruitName+item.fruitTitle }} </h4>             
+                <p>主要产地：{{item.from}}</p>
+                  <p class="">需求数量：{{item.num}}斤</p>
+                    <p>  <i class="fas fa-map-marker-alt"> </i> <span></span> {{ item.area }} </p> 
                     <div class="list-top">
                     
-                    <van-cell  @click="SoldOut(index)" :round=true>重新发布</van-cell>
-                    <van-cell   :round=true>修改</van-cell>
+                    <van-cell  @click="item.pub=true" :round=true>重新发布</van-cell>
+                    <van-cell   :round=true @click="change(index,item.sid)">修改</van-cell>
                     <van-cell  @click="showPopup(index)" :round=true>删除</van-cell>
                     <van-popup v-model="xiajia">
                     <p class="hint"> 确认撤销吗？ </p>
                     <div>
-                        <van-button type="danger" class="button determine"  @click = "remove( activeIndex )">确定</van-button>
+                        <van-button type="danger" class="button determine"  @click = "remove( activeIndex,item.sid )">确定</van-button>
                         <van-button type="warning" class="button deselect"  @click = "Cancel">取消</van-button>
                     </div>
 
@@ -128,7 +126,7 @@
                     <van-popup v-model="show">
                     <p class="hint"> 确认删除吗？ </p>
                     <div>
-                        <van-button type="danger" class="button determine"  @click = "remove( activeIndex )">确定</van-button>
+                        <van-button type="danger" class="button determine"  @click = "remove( activeIndex,item.sid )">确定</van-button>
                         <van-button type="warning" class="button deselect"  @click = "closeFlag">取消</van-button>
                     </div>
 
@@ -146,25 +144,25 @@
         <div v-if = "!checkLisit" class="checkLisit"></div>
             </van-tab>
             <van-tab title="审核中">
-                 <div class="list" v-for="(item,index) of lists" :key="index" >
-                <div class="list-content">
+                          <div class="list" v-for="(item,index) of purlist" :key="item.sid" >
+              <div class="list-content">
                 <!-- <div class="list-ing">
-                    <img src="http://img5.imgtn.bdimg.com/it/u=3865526395,2512926950&fm=11&gp=0.jpg" alt="">
+                  <img src="http://img5.imgtn.bdimg.com/it/u=3865526395,2512926950&fm=11&gp=0.jpg" alt="">
                 </div> -->
                 <div class="list-right">
-                    <h4> {{ item.Product }} </h4>             
-                    <p>主要产地：全国</p>
-                    <p class="">需求数量：200斤</p>
-                        <p>  <i class="fas fa-map-marker-alt"> </i> <span></span> {{ item.location }} </p> 
+                  <h4> {{ item.fruitName+item.fruitTitle }} </h4>             
+                <p>主要产地：{{item.from}}</p>
+                  <p class="">需求数量：{{item.num}}斤</p>
+                    <p>  <i class="fas fa-map-marker-alt"> </i> <span></span> {{ item.area }} </p> 
                     <div class="list-top">
                     
-                    <van-cell  @click="SoldOut(index)" :round=true>重新发布</van-cell>
-                    <van-cell   :round=true>修改</van-cell>
+                    <van-cell  @click="item.pub=true" :round=true>重新发布</van-cell>
+                    <van-cell   :round=true @click="change(index,item.sid)">修改</van-cell>
                     <van-cell  @click="showPopup(index)" :round=true>删除</van-cell>
                     <van-popup v-model="xiajia">
                     <p class="hint"> 确认撤销吗？ </p>
                     <div>
-                        <van-button type="danger" class="button determine"  @click = "remove( activeIndex )">确定</van-button>
+                        <van-button type="danger" class="button determine"  @click = "remove( activeIndex,item.sid )">确定</van-button>
                         <van-button type="warning" class="button deselect"  @click = "Cancel">取消</van-button>
                     </div>
 
@@ -172,7 +170,7 @@
                     <van-popup v-model="show">
                     <p class="hint"> 确认删除吗？ </p>
                     <div>
-                        <van-button type="danger" class="button determine"  @click = "remove( activeIndex )">确定</van-button>
+                        <van-button type="danger" class="button determine"  @click = "remove( activeIndex,item.sid )">确定</van-button>
                         <van-button type="warning" class="button deselect"  @click = "closeFlag">取消</van-button>
                     </div>
 
@@ -190,10 +188,11 @@
             </van-tab>
 </van-tabs>
     </div>
-   <footer><div>发布新采购 </div></footer> 
+   <footer><router-link to='/release?type=purchase' tag='div'>发布新采购 </router-link></footer> 
   </div>
 </template>
 <script>
+import { mapMutations } from "vuex";
 export default {
    
   data(){
@@ -240,11 +239,8 @@ export default {
     }     
   },
     methods: {
-      SoldOut(index){
-         this.xiajia = true;
-       this.activeIndex = index 
-
-      },
+      ...mapMutations(['removebuyitems','setinfo','setnum']),
+     
     goback(){  //返回按钮
       this.$router.go(-1);
     },
@@ -261,19 +257,40 @@ export default {
       this.xiajia = false 
       
     },
-    remove ( index ) {
-      this.lists.splice( index, 1 )
+    remove ( index,sid ) {
+      this.$store.commit('removebuyitems',['purchase',sid]);
       this.closeFlag()
-      console.log(this)
+    },
+    change(index,sid){
+      this.$store.commit('setinfo',['purchase',this.purlist[index]])
+      this.$store.commit('removebuyitems',['purchase',sid]);
+      this.$store.commit('setnum',4);
+      this.$router.push({
+        name:'release',
+        query:{
+          type:'purchase',
+        }
+      })
+
     }
    
   },
   computed:{
-     checkLisit () {
+    checkLisit () {
       return this.lists.length !=0 
     },
-    suplist(){
-      return this.$store.state.pub.Mine.supplylist;
+    purlist(){
+      switch(this.active){
+          case 0:
+            return this.$store.state.pub.Mine.purchaselist.filter(item=>item.pub&&item.pass);
+          case 1: 
+            return this.$store.state.pub.Mine.purchaselist.filter(item=>!item.pub&&item.pass);
+          case 2: 
+            return this.$store.state.pub.Mine.purchaselist.filter(item=>item.pass);
+          case 3: 
+            return this.$store.state.pub.Mine.purchaselist.filter(item=>!item.pass);
+      }
+      return this.$store.state.pub.Mine.purchaselist;
     }
   }
 }

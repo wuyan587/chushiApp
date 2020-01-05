@@ -3,7 +3,7 @@
    <div v-for="(item) of goodslist" :key="item.sid" class="hot">
               <p>{{item.name}}</p>
      <ul>
-           <li v-for="(ele) of item.list" :key="ele.tid">
+           <li v-for="(ele) of item.list" :key="ele.tid" @click="chose([ele.tid,ele.tname])">
              <a>
                  <img :src="ele.url" alt="">
                 <span>{{ele.tname}}</span>
@@ -15,7 +15,7 @@
        <p>{{item.name}}</p>
       <ul>
         <li v-for="(ele) of item.list" :key="ele.sid">
-         <a href="#"><strong>{{ele.title}}</strong></a>
+         <a href="javascript:;"><strong>{{ele.title}}</strong></a>
         </li>
       
       </ul>
@@ -23,6 +23,7 @@
  </div>
 </template>
 <script>
+import { mapMutations } from 'vuex'
 export default {
   props:['index'],
   data(){
@@ -74,7 +75,8 @@ export default {
       { sid:5,
         url:"https://img.alicdn.com/imgextra/i3/2053469401/O1CN0120xXfv2JJhzih36oA_!!2053469401.png",title:"葡萄"},
       { sid:6,
-        url:"https://img.alicdn.com/imgextra/i3/2053469401/O1CN0120xXfv2JJhzih36oA_!!2053469401.png",title:"葡萄"}]}]
+        url:"https://img.alicdn.com/imgextra/i3/2053469401/O1CN0120xXfv2JJhzih36oA_!!2053469401.png",title:"葡萄"}]}],
+      fruitType:''
    }
  },
  async mounted(){
@@ -102,6 +104,12 @@ export default {
     // this.items=result;
     console.log(result);
     this.goodslist[0].list=result;
+   }
+ },
+ methods:{
+   ...mapMutations(['setType']),
+   chose(val){
+     this.$store.commit('setType',val);
    }
  }
   }

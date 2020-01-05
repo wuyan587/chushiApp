@@ -4,7 +4,7 @@
     <div class="list" v-for='(item,index) of lists' :key='(item.id+index)'>
       <div class="list-top">
         <h4>供应商名字</h4>
-        <van-cell @click="showPopup(index)" :round="true">x</van-cell>
+        <van-cell @click="showPopup(item.sid)" :round="true">x</van-cell>
         <van-popup v-model="show">
           <p class="hint"> 确认删除吗？ </p>
           <div>
@@ -62,16 +62,16 @@ export default {
   },
   methods: {
     ...mapMutations(['removebuyitems']),
-    showPopup(index) {
+    showPopup(sid) {
       this.show = true;
-      this.activeIndex = index;
+      this.activeIndex = sid;
       console.log(this);
     },
     closeFlag() {
       this.show = false;
     },
-    remove(index) {
-      this.$store.commit('removebuyitems',index);
+    remove(sid) {
+      this.$store.commit('removebuyitems',['buy',sid]);
       // this.lists.splice(index, 1);
       this.closeFlag();
       console.log(this);

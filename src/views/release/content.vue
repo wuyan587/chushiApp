@@ -15,7 +15,7 @@
       <!-- 2级发布 -->
     <div v-else-if="findex==2">
       <ul class="fruits">
-        <li :class="{ 'active':fruitsflag==index }" v-for="(item,index) of fruitsitems" @click="fruitChose(index)" :key="item.sid">{{item.name}}</li>
+        <li :class="{ 'active':fruitsflag==index }" v-for="(item,index) of fruitsitems" @click="fruitChose(index)" :key="item.tid">{{item.tname}}</li>
       </ul>
     </div>
       <!-- 3级发布 -->
@@ -166,7 +166,7 @@ export default {
     Floor
   },
   methods: {
-      ...mapMutations(['setType','setName','setSpecification','reset','addpuritems','addsupitems']),
+      ...mapMutations(['setType','setName','setSpecification','reset','addpuritems','addsupitems','setval']),
       finish(){
           // this.$emit('reset');
           this.$store.commit('reset');
@@ -235,14 +235,25 @@ export default {
   watch:{
     findex(){
       // console.log(this.fruitDetil);
-      if(this.findex==2)
+      if(this.findex==2){
+        this.$request({
+          url:'/selectProductLevel',
+          params:{
+            fid:this.$store.state.release.fruit.tid
+          }
+        }).then((data)=>{
+         this.fruitsitems=data.data;
+        })
+      }
       //  this.$store.commit('setType',this.fruitstype[this.typeflag].name) 
-      ''
       else if (this.findex==3)
-       this.$store.commit('setName',this.fruitsitems[this.fruitsflag].name)
+       this.$store.commit('setName',this.fruitsitems[this.fruitsflag].tname)
       else if (this.findex==4)
        this.$store.commit('setSpecification',this.typeflag)
       else if (this.findex>=5){
+        this.$store.commit('setval',['user',this.$store.state.pub.Mine.sid]);
+        this.fruitinfo.pub=false;
+        this.fruitinfo.pass=true;
         switch(this.$route.query.type){
           case 'purchase': //发布采购完毕
           this.fruitinfo.sid=Math.round(Math.random()*10000);
