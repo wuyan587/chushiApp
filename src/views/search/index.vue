@@ -16,7 +16,7 @@
   
 </div>
 <DropdownMenu></DropdownMenu>
-<shoplist></shoplist>
+<shoplist ></shoplist>
 
   </div>
 </template>

@@ -26,7 +26,7 @@
                   
                     <van-cell  @click="item.pub=false" :round=true>撤销</van-cell>
                     <van-cell   :round=true @click="change(index,item.sid)">修改</van-cell>
-                    <van-cell  @click="showPopup(index)" :round=true>删除</van-cell>
+                    <van-cell  @click="showPopup(index,item.sid)" :round=true>删除</van-cell>
                     <van-popup v-model="xiajia">
                     <p class="hint"> 确认撤销吗？ </p>
                     <div>
@@ -69,7 +69,7 @@
               
                 <van-cell  @click="item.pub=true" :round=true>重新发布</van-cell>
                 <van-cell   :round=true @click="change(index,item.sid)">修改</van-cell>
-                <van-cell  @click="showPopup(index)" :round=true>删除</van-cell>
+                <van-cell  @click="showPopup(index,item.sid)" :round=true>删除</van-cell>
                 <van-popup v-model="xiajia">
                 <p class="hint"> 确认撤销吗？ </p>
                 <div>
@@ -114,7 +114,7 @@
                     
                     <van-cell  @click="item.pub=true" :round=true>重新发布</van-cell>
                     <van-cell   :round=true @click="change(index,item.sid)">修改</van-cell>
-                    <van-cell  @click="showPopup(index)" :round=true>删除</van-cell>
+                    <van-cell  @click="showPopup(index,item.sid)" :round=true>删除</van-cell>
                     <van-popup v-model="xiajia">
                     <p class="hint"> 确认撤销吗？ </p>
                     <div>
@@ -158,7 +158,7 @@
                     
                     <van-cell  @click="item.pub=true" :round=true>重新发布</van-cell>
                     <van-cell   :round=true @click="change(index,item.sid)">修改</van-cell>
-                    <van-cell  @click="showPopup(index)" :round=true>删除</van-cell>
+                    <van-cell  @click="showPopup(index,item.sid)" :round=true>删除</van-cell>
                     <van-popup v-model="xiajia">
                     <p class="hint"> 确认撤销吗？ </p>
                     <div>
