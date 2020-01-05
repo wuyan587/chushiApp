@@ -30,7 +30,7 @@
                     <van-popup v-model="xiajia">
                     <p class="hint"> 确认撤销吗？ </p>
                     <div>
-                      <van-button type="danger" class="button determine"  @click = "remove( activeIndex,item.sid )">确定</van-button>
+                      <van-button type="danger" class="button determine"  @click = "remove( activeIndex,activeSid )">确定</van-button>
                       <van-button type="warning" class="button deselect"  @click = "Cancel">取消</van-button>
                     </div>
 
@@ -38,7 +38,7 @@
                     <van-popup v-model="show">
                     <p class="hint"> 确认删除吗？ </p>
                     <div>
-                      <van-button type="danger" class="button determine"  @click = "remove( activeIndex,item.sid )">确定</van-button>
+                      <van-button type="danger" class="button determine"  @click = "remove( activeIndex,activeSid )">确定</van-button>
                       <van-button type="warning" class="button deselect"  @click = "closeFlag">取消</van-button>
                     </div>
 
@@ -73,7 +73,7 @@
                 <van-popup v-model="xiajia">
                 <p class="hint"> 确认撤销吗？ </p>
                 <div>
-                  <van-button type="danger" class="button determine"  @click = "remove( activeIndex,item.sid )">确定</van-button>
+                  <van-button type="danger" class="button determine"  @click = "remove( activeIndex,activeSid )">确定</van-button>
                   <van-button type="warning" class="button deselect"  @click = "Cancel">取消</van-button>
                 </div>
 
@@ -81,7 +81,7 @@
                 <van-popup v-model="show">
                 <p class="hint"> 确认删除吗？ </p>
                 <div>
-                  <van-button type="danger" class="button determine"  @click = "remove( activeIndex,item.sid )">确定</van-button>
+                  <van-button type="danger" class="button determine"  @click = "remove( activeIndex,activeSid )">确定</van-button>
                   <van-button type="warning" class="button deselect"  @click = "closeFlag">取消</van-button>
                 </div>
 
@@ -118,7 +118,7 @@
                     <van-popup v-model="xiajia">
                     <p class="hint"> 确认撤销吗？ </p>
                     <div>
-                        <van-button type="danger" class="button determine"  @click = "remove( activeIndex,item.sid )">确定</van-button>
+                        <van-button type="danger" class="button determine"  @click = "remove( activeIndex,activeSid )">确定</van-button>
                         <van-button type="warning" class="button deselect"  @click = "Cancel">取消</van-button>
                     </div>
 
@@ -126,7 +126,7 @@
                     <van-popup v-model="show">
                     <p class="hint"> 确认删除吗？ </p>
                     <div>
-                        <van-button type="danger" class="button determine"  @click = "remove( activeIndex,item.sid )">确定</van-button>
+                        <van-button type="danger" class="button determine"  @click = "remove( activeIndex,activeSid )">确定</van-button>
                         <van-button type="warning" class="button deselect"  @click = "closeFlag">取消</van-button>
                     </div>
 
@@ -162,7 +162,7 @@
                     <van-popup v-model="xiajia">
                     <p class="hint"> 确认撤销吗？ </p>
                     <div>
-                        <van-button type="danger" class="button determine"  @click = "remove( activeIndex,item.sid )">确定</van-button>
+                        <van-button type="danger" class="button determine"  @click = "remove( activeIndex,activeSid )">确定</van-button>
                         <van-button type="warning" class="button deselect"  @click = "Cancel">取消</van-button>
                     </div>
 
@@ -170,7 +170,7 @@
                     <van-popup v-model="show">
                     <p class="hint"> 确认删除吗？ </p>
                     <div>
-                        <van-button type="danger" class="button determine"  @click = "remove( activeIndex,item.sid )">确定</van-button>
+                        <van-button type="danger" class="button determine"  @click = "remove( activeIndex,activeSid )">确定</van-button>
                         <van-button type="warning" class="button deselect"  @click = "closeFlag">取消</van-button>
                     </div>
 
@@ -203,7 +203,7 @@ export default {
         activeIndex: 0,
         activeType: 'all',
         active:2,
-        
+        activeSid:'',
      lists:[
         { id:1,
           Supplier:'供应商名字',
@@ -244,10 +244,11 @@ export default {
     goback(){  //返回按钮
       this.$router.go(-1);
     },
-    showPopup(index) {
+    showPopup(index,sid) {
       this.show = true;
        this.activeIndex = index 
         console.log(this)
+        this.activeSid=sid;
     },
      closeFlag () {
       this.show = false 

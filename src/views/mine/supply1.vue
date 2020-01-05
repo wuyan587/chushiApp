@@ -12,7 +12,7 @@
     <div class="content">      
       <van-tabs v-model="active">
         <van-tab title="上架中" >
-        <div class="list" v-for="(item,index) of suplist" :key="index" >
+        <div class="list" v-for="(item,index) of suplist" :key="item.sid" >
           <div class="list-content">
             <div class="list-ing">
               <img src="http://img5.imgtn.bdimg.com/it/u=3865526395,2512926950&fm=11&gp=0.jpg" alt="">
@@ -39,7 +39,7 @@
                 <van-popup v-model="show">
                 <p class="hint"> 确认删除吗？ </p>
                 <div>
-                  <van-button type="danger" class="button determine"  @click = "remove( activeIndex ,item.sid)">确定</van-button>
+                  <van-button type="danger" class="button determine"  @click = "remove( activeIndex ,activeSid )">确定</van-button>
                   <van-button type="warning" class="button deselect"  @click = "closeFlag">取消</van-button>
                 </div>
 
@@ -53,7 +53,7 @@
             
         </van-tab>
         <van-tab title="下架中"> 
-          <div class="list" v-for="(item,index) of suplist" :key="index" >
+          <div class="list" v-for="(item,index) of suplist" :key="item.sid" >
           <div class="list-content">
             <div class="list-ing">
               <img src="http://img5.imgtn.bdimg.com/it/u=3865526395,2512926950&fm=11&gp=0.jpg" alt="">
@@ -80,7 +80,7 @@
                 <van-popup v-model="show">
                 <p class="hint"> 确认删除吗？ </p>
                 <div>
-                  <van-button type="danger" class="button determine"  @click = "remove( activeIndex ,item.sid)">确定</van-button>
+                  <van-button type="danger" class="button determine"  @click = "remove( activeIndex ,activeSid )">确定</van-button>
                   <van-button type="warning" class="button deselect"  @click = "closeFlag">取消</van-button>
                 </div>
 
@@ -94,7 +94,7 @@
         </div>
             </van-tab>
         <van-tab title="未通过"> 
-          <div class="list" v-for="(item,index) of suplist" :key="index" >
+          <div class="list" v-for="(item,index) of suplist" :key="item.sid" >
           <div class="list-content">
             <div class="list-ing">
               <img src="http://img5.imgtn.bdimg.com/it/u=3865526395,2512926950&fm=11&gp=0.jpg" alt="">
@@ -121,7 +121,7 @@
                 <van-popup v-model="show">
                 <p class="hint"> 确认删除吗？ </p>
                 <div>
-                  <van-button type="danger" class="button determine"  @click = "remove( activeIndex,item.sid )">确定</van-button>
+                  <van-button type="danger" class="button determine"  @click = "remove( activeIndex,activeSid  )">确定</van-button>
                   <van-button type="warning" class="button deselect"  @click = "closeFlag">取消</van-button>
                 </div>
 
@@ -135,7 +135,7 @@
         </div>
             </van-tab>
         <van-tab title="审核中">
-          <div class="list" v-for="(item,index) of suplist" :key="index" >
+          <div class="list" v-for="(item,index) of suplist" :key="item.sid" >
           <div class="list-content">
             <div class="list-ing">
               <img src="http://img5.imgtn.bdimg.com/it/u=3865526395,2512926950&fm=11&gp=0.jpg" alt="">
@@ -162,7 +162,7 @@
                 <van-popup v-model="show">
                 <p class="hint"> 确认删除吗？ </p>
                 <div>
-                  <van-button type="danger" class="button determine"  @click = "remove( activeIndex ,item.sid)">确定</van-button>
+                  <van-button type="danger" class="button determine"  @click = "remove( activeIndex ,activeSid )">确定</van-button>
                   <van-button type="warning" class="button deselect"  @click = "closeFlag">取消</van-button>
                 </div>
 

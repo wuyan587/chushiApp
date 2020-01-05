@@ -103,10 +103,10 @@ const release={
         setinfo(state,arr){
             switch(arr[0]){
                 case 'supply':
-                    state.fruit=arr[1];
+                    state.fruit=JSON.parse(JSON.stringify( arr[1]));
                 break;
                 case 'purchase':
-                    state.purfruit=arr[1];
+                    state.purfruit=JSON.parse(JSON.stringify( arr[1]));
                 break;
             }
         },
