@@ -36,7 +36,7 @@ const pub={
                     //     }
                             
                     // })
-                    state.Mine.buylist=state.Mine.buylist.filter(item=>item.sid!=arr[1])
+                    state.Mine.buylist=state.Mine.buylist.filter(item=>item.pid!=arr[1])
                     break;
                 case 'supply':
                     // state.Mine.supplylist.forEach((item,index)=>{

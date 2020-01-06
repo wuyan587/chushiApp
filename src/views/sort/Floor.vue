@@ -3,10 +3,10 @@
    <div v-for="(item) of goodslist" :key="item.sid" class="hot">
               <p>{{item.name}}</p>
      <ul>
-           <li v-for="(ele) of item.list" :key="ele.sid">
+           <li v-for="(ele) of item.list" :key="ele.tid">
              <a>
                  <img :src="ele.url" alt="">
-                <span>{{ele.title}}</span>
+                <span>{{ele.tname}}</span>
               </a>
           </li>
      </ul>
@@ -24,7 +24,8 @@
 </template>
 <script>
 export default {
- data(){
+  props:['index'],
+  data(){
    return {
      goodslist:[
 
@@ -75,6 +76,33 @@ export default {
       { sid:6,
         url:"https://img.alicdn.com/imgextra/i3/2053469401/O1CN0120xXfv2JJhzih36oA_!!2053469401.png",title:"葡萄"}]}]
    }
+ },
+ async mounted(){
+    let result =await this.$request({
+      url:'selectProductLevel',
+      params:{
+        fid:this.index+1
+      }
+    })
+    result=result.data;
+    this.goodslist[0].list=result;
+  },
+ watch:{
+  async index(){
+      let result =await this.$request({
+      url:'selectProductLevel',
+      params:{
+        fid:this.index+1
+      }
+    })
+    result=result.data;
+    // result.forEach(item=>{
+    //   item.text=item.tname;
+    // })
+    // this.items=result;
+    console.log(result);
+    this.goodslist[0].list=result;
+   }
  }
   }
 
@@ -95,8 +123,10 @@ export default {
    flex-wrap :wrap;
    li{
       width :33.33%;
+      margin-bottom: 0.1rem;
+    display: flex;
        a{
-  display :flex;
+     display :flex;
      flex-direction :column;
      justify-content :center;
   img {
