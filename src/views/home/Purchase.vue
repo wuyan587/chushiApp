@@ -1,14 +1,11 @@
 <template>
   <ul class="purchase">
-   <li v-for="item of dataList" :key="item.id">
+   <li v-for="(item,index) of dataList" :key="item.name">
       <router-link
             :to = "{
               name: 'pdetail',
-              params: {
-                id: item.id
-              },
               query: {
-                ...item
+                fid:index+1
               }
             }"
           >
@@ -16,16 +13,16 @@
         <p class="buy">采购</p>
         <h3>{{item.name}}</h3>
       </div>
-      <p class="city">期望产地：浙江省宁波市</p>
-      <p class="quality">品质要求：纯天然 无添加 保质保量</p>
+      <p class="city">期望产地：{{item.origin}}</p>
+      <p class="quality">品质要求：{{item.quality}}</p>
       <div class="address">
         <p>300km</p>
         <i class="fas fa-map-marker-alt"></i>
-        <p>浙江杭州市</p>
+        <p>{{item.province+item.city}}</p>
         <p class="ctf">企业认证</p>
         <p class="ctf">实名认证</p>
       </div>
-      <p class="quantity">20000斤</p>
+      <p class="quantity">{{item.demand}}斤</p>
       </router-link>
     </li>
   </ul>
@@ -35,18 +32,7 @@ export default {
   data(){
     return{
       dataList:[
-        {
-          id: 1,
-          name: "湖南特产绿心猕猴桃",
-        },
-        {
-          id: 2,
-          name: "湖南特产绿心猕猴桃",
-        },
-        {
-          id: 3,
-          name: "湖南特产绿心猕猴桃",
-        }
+        
       ]
 
     }
@@ -57,7 +43,14 @@ export default {
     //     name:'pdetail'
     //   })
     // }
-  }
+  },
+  async mounted(){
+    let result =await this.$request({
+      url:'/selectAllUserProcure',
+    })
+    result=result.data;
+    this.dataList=result;
+  },
 }
 </script>
 <style scoped>

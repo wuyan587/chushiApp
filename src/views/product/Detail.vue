@@ -2,17 +2,17 @@
   <div class="detail">
     <div class="photo">
       <i class="fas fa-arrow-circle-left" @click="goBack"></i>
-      <img src="@/assets/images/banner3.png" alt />
+      <img :src="details.image" alt />
     </div>
     <div class="detail_list">
       <h3>{{details.name}}</h3>
       <div class="address">
-        <p>{{details.km}}</p>
+        <p>3000km</p>
         <i class="fas fa-map-marker-alt"></i>
-        <p>{{details.address}}</p>
+        <p>{{details.province+details.city}}</p>
       </div>
       <div class="price">
-        <p class="unit_price">{{details.price}}斤/元</p>
+        <p class="unit_price">{{details.supplyPrice}}斤/元</p>
         <p class="method">300斤起批</p>
         <p class="retail">零批</p>
         <p class="ship">包邮</p>
@@ -35,7 +35,7 @@
       <div class="shopinfo" @click='goSupplier'>
         <div class="shopname">
           <p class="farm">养殖户</p>
-          <h3>宁波居食坊</h3>
+          <h3>{{details.userNick}}</h3>
         </div>
         <div class="comp">
           <p>实名</p>
@@ -44,14 +44,17 @@
       </div>
     </div>
     <div class="description">
-      <p>描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述</p>
+      <p>{{details.proDesc}}</p>
     </div>
     <ul class="bigPic">
       <li>
-        <img src="@/assets/images/10.png" alt />
+        <img :src="details.proImg1" alt />
       </li>
       <li>
-        <img src="@/assets/images/10.png" alt />
+        <img :src="details.proImg2"  alt />
+      </li>
+      <li>
+        <img :src="details.proImg3"  alt />
       </li>
     </ul>
     <div class="similar">
@@ -90,7 +93,7 @@ import { mapState,mapMutations } from 'vuex'
 export default {
   data() {
     return {
-      
+        details:''
     };
   },
   methods: {
@@ -105,9 +108,7 @@ export default {
     },
     toShopCart(){
       // this.$store.state.pub.Mine.
-      this.$store.commit('addbuyitems',{
-        ...this.$route.query
-      })
+      this.$store.commit('addbuyitems',this.details)
       this.$router.push({
         name: 'shopcart',
               // params: {
@@ -120,14 +121,25 @@ export default {
     }
   },
   computed: {
-    details() {
-      return this.$route.query;
-    },
+    // details() {
+    //   return this.$route.query;
+    // },
     ...mapState([
       'pub'
     ])
     
-  }
+  },
+  async mounted(){
+    let result =await this.$request({
+      url:'selectProductDescPage',
+      params:{
+        pid:this.$route.query.fid
+      }
+    })
+    result=result.data;
+    this.details=result[0];
+    console.log(this.details);
+  },
 };
 </script>
 <style scoped>
@@ -150,7 +162,7 @@ export default {
   left: 0.2rem;
   top: 0.2rem;
   font-size: 0.3rem;
-  color: white;
+  color:#3bc191;
 }
 img {
   width: 3.75rem;
