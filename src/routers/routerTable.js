@@ -122,7 +122,8 @@ const routerTable = [
         name: 'sort'
     }, {
         path: '/release',
-        component: Release
+        component: Release,
+        name:'release'
     }, {
         path: '/shopcart',
         component: Shopcart,

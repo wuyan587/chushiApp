@@ -1,11 +1,11 @@
 <template>
   <ul class="supply">
-    <li v-for="item of dataList" :key="item.id">
+    <li v-for="item of dataList" :key="item.sid">
       <router-link
             :to = "{
               name: 'detail',
               params: {
-                id: item.id
+                id: item.sid
               },
               query: {
                 ...item
@@ -34,7 +34,7 @@ export default {
     return {
       dataList: [
         {
-          id: 1,
+          sid: 1,
           name: "湖南特产绿心猕猴桃",
           img: "~@/assets/images/10.png",
           km:'300km',
@@ -42,7 +42,7 @@ export default {
           price: 20
         },
         {
-          id: 2,
+          sid: 2,
           name: "湖南特产绿心猕猴桃",
           img: "@/assets/images/10.png",
           km:'300km',
@@ -50,7 +50,7 @@ export default {
           price: 20
         },
         {
-          id: 3,
+          sid: 3,
           name: "湖南特产绿心猕猴桃",
           img: "@/assets/images/10.png",
           km:'300km',
@@ -58,7 +58,7 @@ export default {
           price: 20
         },
         {
-          id: 4,
+          sid: 4,
           name: "湖南特产绿心猕猴桃",
           img: "@/assets/images/10.png",
           km:'300km',
@@ -67,7 +67,16 @@ export default {
         }
       ]
     };
-  }
+  },
+  mouted(){
+    this.$request({
+      url:'/selectAllUserSupply',
+
+    }).then((data)=>{
+      console.log(data);
+      
+    })
+  },
 };
 </script>
 
