@@ -3,11 +3,16 @@
       <van-cell-group>
         <van-cell title-class="titles" value-class="text" title="货品名称" :value="fruit.fruitName" />
         <van-cell title-class="titles" value-class="text" title="规格" :value="fruitSpecification" />
-        <van-cell title-class="titles" value-class="text" title="标题预览" :value="fruit.fruitName" />
+        <van-cell title-class="titles" value-class="text" title="标题预览" :value="fruit.fruitName"  >
+        <template slot="default">
+            <span class="custom-title">{{fruit.fruitName}}</span>
+            <input type="text" class="ftitle" v-model="fruit.fruitTitle" placeholder="请输入标题">
+        </template>
+  </van-cell>
       </van-cell-group>
       <van-cell-group>
-        <van-field label="单价" label-class="titles suffix_price" v-model="fruit.price" placeholder="请输入用户名" />
-        <van-field label="起批数量" label-class="titles suffix_num" v-model="fruit.num" placeholder="请输入用户名" />
+        <van-field label="单价" label-class="titles suffix_price" v-model="fruit.price" placeholder="请输入单价" />
+        <van-field label="起批数量" label-class="titles suffix_num" v-model="fruit.num" placeholder="请输入数量" />
         <van-cell title="发货地址" title-class="titles" value-class="text" is-link :value="area" @click="showArea" />
         <van-cell title="发货时间" title-class="titles" value-class="text" is-link value="现货" />
       </van-cell-group>
@@ -74,6 +79,7 @@ export default {
             // fileList: [],
             Specification:'',
             show:false,
+            titleshow:false,
             areaList,
             arealist:[],
             puptype:'area',
@@ -227,7 +233,14 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+.ftitle{
+  border: 0;
+  padding: 0 0.05rem;
+  color:rgb(14, 13, 13);
+}
 .van-cell__value{
+  color:black;
+  
   span{
     overflow: hidden;
     text-overflow:ellipsis;

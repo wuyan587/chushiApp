@@ -57,6 +57,17 @@ export default {
     //     name:'pdetail'
     //   })
     // }
+  },
+  async mounted(){
+   let result=await this.$request({
+      url:'selectAllProcure',
+      method:'post',
+      headers:{
+        'Content-Type':'applcation/json'
+      }
+    })
+  console.log(result);
+  
   }
 }
 </script>

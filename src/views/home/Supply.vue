@@ -67,7 +67,16 @@ export default {
         }
       ]
     };
-  }
+  },
+  mouted(){
+    this.$request({
+      url:'/selectAllUserSupply',
+
+    }).then((data)=>{
+      console.log(data);
+      
+    })
+  },
 };
 </script>
 

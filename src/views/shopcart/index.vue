@@ -4,7 +4,7 @@
     <div class="list" v-for='(item,index) of lists' :key='(item.id+index)'>
       <div class="list-top">
         <h4>供应商名字</h4>
-        <van-cell @click="showPopup(index)" :round="true">x</van-cell>
+        <van-cell @click="showPopup(item.sid)" :round="true">x</van-cell>
         <van-popup v-model="show">
           <p class="hint"> 确认删除吗？ </p>
           <div>
@@ -49,18 +49,29 @@ export default {
       activeType: "all",
     };
   },
+  async mounted(){
+    let re=await this.$request({
+      url:'/selectAll',
+      method:'post',
+      headers:{
+                   'Content-Type':'application/x-www-form-urlencoded' 
+        }
+
+    })
+    console.log(re);
+  },
   methods: {
     ...mapMutations(['removebuyitems']),
-    showPopup(index) {
+    showPopup(sid) {
       this.show = true;
-      this.activeIndex = index;
+      this.activeIndex = sid;
       console.log(this);
     },
     closeFlag() {
       this.show = false;
     },
-    remove(index) {
-      this.$store.commit('removebuyitems',index);
+    remove(sid) {
+      this.$store.commit('removebuyitems',['buy',sid]);
       // this.lists.splice(index, 1);
       this.closeFlag();
       console.log(this);
@@ -166,17 +177,13 @@ height: 100%
       font-weight: bold;
     }
   }
-}
-.van-popup {
-  background: none;
-}
+} 
 .checkLisit {
   height: 5rem;
   width: 100%;
   background: url("~@/assets/images/bg2.jpg") 0.1rem 2rem no-repeat;
   background-size: 100%;
 }
-
 .van-cell {
   width: 0.2rem;
   height: 0.2rem;
