@@ -9,12 +9,13 @@
     >
       <template slot="content">
       <!-- 内容 -->
+          <Floor :index='activeIndex' />
       </template>
     </van-tree-select>
       <!-- 2级发布 -->
     <div v-else-if="findex==2">
       <ul class="fruits">
-        <li :class="{ 'active':fruitsflag==index }" v-for="(item,index) of fruitsitems" @click="fruitChose(index)" :key="item.sid">{{item.name}}</li>
+        <li :class="{ 'active':fruitsflag==index }" v-for="(item,index) of fruitsitems" @click="fruitChose(index)" :key="item.tid">{{item.tname}}</li>
       </ul>
     </div>
       <!-- 3级发布 -->
@@ -51,6 +52,7 @@
 <script>
 import PubSupply from './supply'
 import PubPurchase from './purchase'
+import Floor from './Floor'
 import { mapMutations } from 'vuex'
 export default {
   // props: ["findex"],
@@ -160,10 +162,11 @@ export default {
   },
   components:{
     PubSupply,
-    PubPurchase 
+    PubPurchase,
+    Floor
   },
   methods: {
-      ...mapMutations(['setType','setName','setSpecification','reset','addpuritems','addsupitems']),
+      ...mapMutations(['setType','setName','setSpecification','reset','addpuritems','addsupitems','setval']),
       finish(){
           // this.$emit('reset');
           this.$store.commit('reset');
@@ -198,7 +201,14 @@ export default {
       return this.$store.state.release.flagNum;
     },
     fruitinfo(){
-      return this.$store.state.release.fruit;
+
+      switch(this.$route.query.type){
+        case 'supply':
+          return this.$store.state.release.fruit;
+        case 'purchase':
+          return this.$store.state.release.purfruit;
+      }
+      return false;
     },
     typeFlag(){
       return (sid,val)=>{
@@ -225,22 +235,35 @@ export default {
   watch:{
     findex(){
       // console.log(this.fruitDetil);
-      if(this.findex==2)
+      if(this.findex==2){
+        this.$request({
+          url:'/selectProductLevel',
+          params:{
+            fid:this.$store.state.release.fruit.tid
+          }
+        }).then((data)=>{
+         this.fruitsitems=data.data;
+        })
+      }
       //  this.$store.commit('setType',this.fruitstype[this.typeflag].name) 
-      ''
       else if (this.findex==3)
-       this.$store.commit('setName',this.fruitsitems[this.fruitsflag].name)
+       this.$store.commit('setName',this.fruitsitems[this.fruitsflag].tname)
       else if (this.findex==4)
        this.$store.commit('setSpecification',this.typeflag)
       else if (this.findex>=5){
+        this.$store.commit('setval',['user',this.$store.state.pub.Mine.sid]);
+        this.fruitinfo.pub=false;
+        this.fruitinfo.pass=true;
         switch(this.$route.query.type){
           case 'purchase': //发布采购完毕
-
+          this.fruitinfo.sid=Math.round(Math.random()*10000);
+          var nobj1=JSON.parse(JSON.stringify(this.fruitinfo));
+          this.$store.commit('addpuritems',nobj1);
           break;
           case 'supply': //发布供应完毕
           this.fruitinfo.sid=Math.round(Math.random()*10000);
-            var nobj=JSON.parse(JSON.stringify(this.fruitinfo));
-            this.$store.commit('addsupitems',nobj);
+            var nobj2=JSON.parse(JSON.stringify(this.fruitinfo));
+            this.$store.commit('addsupitems',nobj2);
           break;
         }
       }
@@ -251,6 +274,19 @@ export default {
         // this.$set(this.fruitDetil,'fruitType',this.fruitstype[this.typeflag].name);
         // this.$emit('getitem',this.fruitDetil)
     }
+  },
+  async mounted(){
+    let result =await this.$request({
+      url:'selectProductLevel',
+      params:{
+        fid:0
+      }
+    })
+    result=result.data;
+    result.forEach(item=>{
+      item.text=item.tname;
+    })
+    this.items=result;
   }
 }
 </script>

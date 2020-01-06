@@ -1,6 +1,6 @@
 <template>
   <div class="shoplist">
-    <div class="list" v-for="(item) of lists" :key="item.id" >
+    <div class="list" v-for="(item) of list" :key="item.id" >
       
 
           <div class="list-top">
@@ -36,32 +36,63 @@ export default {
           Supplier:'供应商名字',
         Product:'日本进口红富士',
         imgUrl:'http://img5.imgtn.bdimg.com/it/u=3865526395,2512926950&fm=11&gp=0.jpg',
-        Distance:'300km',
+        Distance:'200km',
         location:'浙江杭州市',
         price:'20斤/元'},
           { id:2,
           Supplier:'供应商名字',
         Product:'日本进口红富士',
         imgUrl:'http://img5.imgtn.bdimg.com/it/u=3865526395,2512926950&fm=11&gp=0.jpg',
-        Distance:'300km',
-        location:'浙江杭州市',
-        price:'20斤/元'},
+        Distance:'100km',
+        location:'浙江温州市',
+        price:'10斤/元'},
           { id:3,
           Supplier:'供应商名字',
         Product:'日本进口红富士',
         imgUrl:'http://img5.imgtn.bdimg.com/it/u=3865526395,2512926950&fm=11&gp=0.jpg',
-        Distance:'300km',
+        Distance:'150km',
         location:'浙江杭州市',
-        price:'20斤/元'},
+        price:'30斤/元'},
           { id:4,
           Supplier:'供应商名字',
         Product:'日本进口红富士',
         imgUrl:'http://img5.imgtn.bdimg.com/it/u=3865526395,2512926950&fm=11&gp=0.jpg',
         Distance:'300km',
         location:'浙江杭州市',
-        price:'20斤/元'},
+        price:'5斤/元'},
       ]
     }
+  },
+  computed:{
+    list(){
+      let arr=JSON.parse(JSON.stringify(this.lists));
+      switch(this.$store.state.search.typelist.type1){
+        case '全国':
+        break;
+        default:
+        arr=arr.filter(item=>item.location.match(this.$store.state.search.typelist.type1)!=null);
+        console.log(arr);
+        
+      }
+      switch(this.$store.state.search.typelist.type2){
+        case 'a':
+            return arr;
+        case 'b':
+          arr.sort((a,b)=>{
+            return parseInt(a.Distance)-parseInt(b.Distance);
+        
+          })
+          return arr;
+      case 'c':
+          arr.sort((a,b)=>{
+            return parseInt(a.price)-parseInt(b.price);
+        
+          })
+          return arr;
+      }
+      return '';
+    }
+
   }
 }
 </script>

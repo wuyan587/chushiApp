@@ -108,7 +108,7 @@
           <span>我的供应</span>
         </div>
         <div class="mine_operation_detail">
-          <img src="~assets/images/purchase.jpg" alt />
+          <img src="~assets/images/purchase.jpg" alt @click="my_procurement"/>
           <span>我的采购</span>
         </div>
         <div class="mine_operation_detail" @click="my_shop">
@@ -269,6 +269,9 @@ export default {
     },
      my_supply(){
       this.$router.push('my_supply');//跳转我的供应
+     },
+     my_procurement(){
+       this.$router.push('my_provide');//跳转我的供应
      },
      my_shop(){
       this.$router.push('my_shop'); //跳转我的店铺
