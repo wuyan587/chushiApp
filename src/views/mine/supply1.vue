@@ -177,7 +177,7 @@
             </van-tab>
       </van-tabs>
     </div>
-   <footer><router-link to='/release?type=supply' tag='div'>发布新采购 </router-link></footer> 
+   <footer><router-link to='/release?type=supply' tag='div'>发布新供应 </router-link></footer> 
   </div>
 </template>
 <script>

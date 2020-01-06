@@ -82,7 +82,9 @@ const routerTable = [
         path: '/purchase/detail',
         component: pDetail,
         name: 'pdetail',
-
+        meta:{
+            include:'pDetail'
+        }
     },
     {
         path: '/purchase/detail/quotation',
@@ -91,10 +93,12 @@ const routerTable = [
 
     },
     {
-        path: '/supply/detail',
+        path: '/supply/detail/',
         component: Detail,
         name: 'detail',
-
+        meta:{
+            include:'Detail'
+        }
     },
     {
         path: '/supplier',
