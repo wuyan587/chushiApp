@@ -1,7 +1,7 @@
 <template>
   <div class="layout">
     <!-- <Header/> -->
-    <keep-alive>
+    <keep-alive include="$route.meta.include">
       <router-view></router-view>
     </keep-alive>
 

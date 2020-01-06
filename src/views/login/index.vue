@@ -1,6 +1,6 @@
 <template>
   <header>
-    <div class="login">
+    <div v-if="fa" class="login">
       <div class="head">
         <i class="fa fa-angle-left" @click="goback"></i>
       </div>
@@ -73,15 +73,20 @@
         </p>
       </div>
     </div>
+    <div v-if="f" class="success">
+      <img src="~assets/images/supplysuccess.jpg" alt="" />
+      <h3>登录成功</h3>
+      <span> (<van-count-down @finish="finish" :time="time" format="ss" />)秒后跳转到我的 </span>
+    </div>
   </header>
 </template>
 
 <script>
-// import swal from "sweetalert";
-// import { Dialog } from 'vant';
+import {mapMutations} from 'vuex'
 export default {
   data() {
     return {
+      fa: true,
       zt: "获取验证码",
       flag: true,
       timer: null,
@@ -95,10 +100,13 @@ export default {
       checknum: "",
       picnum: "",
       result: "",
-      loginstate: ""
+      loginstate: "",
+      f: false,
+      time: 5 * 1000
     };
   },
   methods: {
+    ...mapMutations(['token']),
     async send($event) {
       // 请求数据
       if (this.count) {
@@ -216,7 +224,9 @@ export default {
         if (this.count < 1) this.count++;
       }
     },
-
+    finish(){
+            this.$router.push("/user");
+        },
     async login() {
       if (this.count && this.count1 && this.count2) {
         // 请求数据
@@ -237,10 +247,12 @@ export default {
             message: "您未注册,请先注册账号"
           });
         } else {
-          (this.userphone = ""),
-            (this.checknum = ""),
-            (this.picnum = ""),
-            this.$router.push("/user");
+          // (this.userphone = ""),
+          //   (this.checknum = ""),
+          //   (this.picnum = ""),
+            (this.fa = false),
+            (this.f = true),
+           this.$store.commit('token',this.userphone)
         }
       } else {
         this.$dialog.alert({
@@ -386,5 +398,32 @@ input::-webkit-inner-spin-button {
 }
 .s2 {
   margin-top: 0.45rem;
+}
+.success {
+  background: white;
+  position: absolute;
+  padding-top: 0.2rem;
+  width: 100%;
+  height: 100%;
+}
+
+.success h2 {
+  font-size: 0.2rem;
+  color: #4cc79b;
+}
+.success h3 {
+  font-size: 0.14rem;
+  margin-bottom: 0.25rem;
+}
+.success img {
+  margin-top: 0.3rem;
+  width: 2.15rem;
+  height: 0.92rem;
+  margin-bottom: 0.25rem;
+}
+
+.van-count-down {
+  display: inline-block;
+  color: #4cc79b;
 }
 </style>

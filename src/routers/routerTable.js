@@ -124,7 +124,11 @@ const routerTable = [
     }, {
         path: '/user',
         component: Mine,
-        name: 'user'
+        name: 'user',
+        meta:{
+            include:'Mine'
+        }
+
     },
     {
         path: '/register',
