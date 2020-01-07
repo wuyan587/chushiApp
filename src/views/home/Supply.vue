@@ -2,7 +2,7 @@
   <ul class="supply">
     <li v-for="item of dataList" :key="item.id">
       <router-link
-            :to = "{
+        :to="{
               name: 'detail',
               params: {
                 id: item.id
@@ -11,7 +11,7 @@
                 ...item
               }
             }"
-          >
+      >
         <img src="@/assets/images/10.png" alt />
         <h3>{{item.name}}</h3>
         <div class="address">
@@ -37,36 +37,47 @@ export default {
           id: 1,
           name: "湖南特产绿心猕猴桃",
           img: "~@/assets/images/10.png",
-          km:'300km',
-          address:'浙江杭州市',
+          km: "300km",
+          address: "浙江杭州市",
           price: 20
         },
         {
           id: 2,
           name: "湖南特产绿心猕猴桃",
           img: "@/assets/images/10.png",
-          km:'300km',
-          address:'浙江杭州市',
+          km: "300km",
+          address: "浙江杭州市",
           price: 20
         },
         {
           id: 3,
           name: "湖南特产绿心猕猴桃",
           img: "@/assets/images/10.png",
-          km:'300km',
-          address:'浙江杭州市',
+          km: "300km",
+          address: "浙江杭州市",
           price: 20
         },
         {
           id: 4,
           name: "湖南特产绿心猕猴桃",
           img: "@/assets/images/10.png",
-          km:'300km',
-          address:'浙江杭州市',
+          km: "300km",
+          address: "浙江杭州市",
           price: 20
         }
       ]
     };
+  },
+  async mounted() {
+    const result = await this.$request({
+      url: "/selectAllProcure",
+      method: "post",
+      data: {},
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    console.log(result);
   }
 };
 </script>
@@ -90,10 +101,9 @@ li {
   background: white;
   border-radius: 0.1rem;
   text-align: left;
-  
 }
 li a {
-  color: black
+  color: black;
 }
 img {
   width: 1.65rem;

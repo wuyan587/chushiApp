@@ -38,6 +38,9 @@ export default {
         {
           id: 1,
           name: "湖南特产绿心猕猴桃",
+          address:'浙江省宁波市',
+          quality:'纯天然 无添加 保质保量',
+          quantities:'20000斤',
         },
         {
           id: 2,
