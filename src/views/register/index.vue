@@ -1,6 +1,6 @@
 <template>
   <header>
-    <div class="login">
+    <div v-if="fa" class="login">
       <div class="head">
         <i class="fa fa-angle-left" @click="goback"></i>
       </div>
@@ -8,23 +8,43 @@
       <div class="shuru">
         <div>
           <i class="fa fa-mobile fa-2x"></i>
-          <input type="text" v-model="phone" name="" id="" placeholder="请输入手机号码" />
+          <input
+            type="text"
+            name=""
+            id="phone"
+            placeholder="请输入手机号码"
+            v-model="userphone"
+            @blur="phone"
+          />
           <button class="btn3">xxx</button>
         </div>
         <hr />
         <div class="l1">
           <i class="fa fa-envelope-open fa-2x"></i>
-          <input type="text" name="" id="" placeholder="请输入验证码" />
-          <button class="btn2" @click="send($event)">{{zt}}</button>
+          <input
+            type="text"
+            name=""
+            id="check"
+            placeholder="请输入验证码"
+            v-model="checknum"
+            @blur="check"
+          />
+          <button
+            class="btn2"
+            @click="send($event)"
+            :style="{ background: bcd }"
+          >
+            {{ zt }}
+          </button>
         </div>
         <hr />
         <div class="l2">
-          <button class="btn1" @click='reg'>下一步</button>
+          <button class="btn1" @click="next">下一步</button>
         </div>
       </div>
       <div class="forget">
         <a @click="login">已有账号</a>
-        <a href>关于我们</a>
+        <a href="javascript:;">关于我们</a>
       </div>
       <!-- <div class="info">
         <h3>第三方账号登录</h3>
@@ -38,72 +58,143 @@
         </p>
       </div> -->
     </div>
+    <div v-if="f" class="success">
+      <img src="~assets/images/supplysuccess.jpg" alt="" />
+      <h3>登录成功</h3>
+      <span>
+        (<van-count-down
+          @finish="finish"
+          :time="time"
+          format="ss"
+        />)秒后跳转到我的
+      </span>
+    </div>
   </header>
 </template>
 
 <script>
+// import swal from "sweetalert";
+import {mapMutations} from 'vuex'
 export default {
   data() {
     return {
       zt: "获取验证码",
       flag: true,
       timer: null,
-      phone:'',
+      userphone: "",
+      checknum: "",
+      count: 0,
+      bcd: "rgb(76, 199, 155)",
+      count2: 0,
+      result: "",
+      registstate: "",
+      fa: true,
+      f: false,
+      time: 5 * 1000
     };
   },
   methods: {
-        send($event) {
-      console.dir($event.target)
-      $event.target.disabled = true;
-      let times = 60;
-      let btn =document.querySelector('.btn2');
-      this.timer = setInterval(() => {
-        if(times>0&&times<=60){this.zt = "已发送("+times-- +")";
-        btn.style.background='rgb(216, 216, 216)';
-        }
-        else{
-          $event.target.disabled = false;
-          this.zt="获取验证码";
-          clearInterval(this.timer);
-              this.timer = null;
-             btn.style.background='rgb(76, 199, 155)'; 
-        }
-        
-      }, 1000);
-    },
-    goback(){
-      this.$router.go( -1 );
-    },
-    login(){
-      this.$router.push('./login')
-    },
-   async reg(){
-     if(this.phone!=''){
-       let result=await this.$request({
-        url:'/register',
-        method:'post',
-        data:{
-          username:this.phone,
-          password:'123'
-        },
-        headers:{
-          'Content-Type':'application/json'
-        }
-      })
-      if(result.data.state&&result.data.state==3){
-        alert('用户名重复了'+result.data.info);
+       ...mapMutations(['token']),
+    async send($event) {
+      // 请求数据
+      if (this.count) {
+        const { userphone } = this;
+        let result = await this.$request({
+          url: "/getcode",
+          method: "POST",
+          data: {
+            phoneNum: userphone
+          },
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          }
+        });
+        this.result = result.data.data;
+        this.$dialog.alert({
+          message: "您的验证码为" + this.result
+        });
+        // 按钮计时器
+        $event.target.disabled = true;
+        let times = 60;
+        this.timer = setInterval(() => {
+          if (times > 0 && times <= 60) {
+            this.zt = "已发送(" + times-- + ")";
+            this.bcd = "rgb(216, 216, 216)";
+          } else {
+            $event.target.disabled = false;
+            this.zt = "获取验证码";
+            clearInterval(this.timer);
+            this.timer = null;
+            this.bcd = "rgb(76, 199, 155)";
+          }
+        }, 1000);
+      } else {
+        this.$dialog.alert({
+          message: "您的手机号码输入有误"
+        });
       }
-     }else{
-       alert('?');
-     }
-       
+    },
+    goback() {
+      this.$router.go(-1);
+    },
+    login() {
+      (this.userphone = ""), (this.checknum = ""), this.$router.push("./login");
+    },
+    check() {
+      // console.log(this.result)
+      if (this.checknum == this.result && this.count2 < 1) {
+        this.count2++;
+      }
+    },
+    finish(){
+            this.$router.push("/user");
+        },
+    phone() {
+      if (!/^1[34578]\d{9}$/.test(this.userphone)) {
+        // swal("抱歉", "您输入的电话号码格式不对!", "warning");
+        this.$dialog.alert({
+          message: "您输入的电话号码格式不对!"
+        });
+      } else {
+        if (this.count < 1) this.count++;
+      }
+    },
+    async next() {
+      if (this.count && this.count2) {
+        // 请求数据
+        const { userphone } = this;
+        let result1 = await this.$request({
+          url: "/register",
+          method: "POST",
+          data: {
+            phoneNum: userphone
+          },
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          }
+        });
+        this.registstate = result1.data.code;
+        if (this.registstate) {
+          this.$dialog.alert({
+            message: "您已经注册过，请直接登录"
+          });
+        } else {
+        (this.fa = false),
+            (this.f = true),
+           this.$store.commit('token',this.userphone)
+        }
+      } else {
+        this.$dialog.alert({
+          message: "您的注册选项输入有误，请再检查一下!"
+        });
+      }
     }
   }
 };
 </script>
 
-<style  scoped>
-header{
+<style scoped>
+header {
   height: 6.67rem;
   overflow: hidden;
 }
@@ -130,7 +221,7 @@ header{
   height: 6.67rem;
   background: rgb(248, 248, 248);
 }
-.l1{
+.l1 {
   display: flex;
 }
 .l2 {
@@ -157,7 +248,18 @@ header{
 } */
 input {
   border: none;
+  background-color: transparent;
 }
+input:-webkit-autofill {
+  box-shadow: 0 0 0 38px white inset;
+}
+input:-webkit-autofill {
+  transition: background-color 5000s ease-in-out 0s;
+}
+/* input::-webkit-inner-spin-button {
+  height: auto;
+  -webkit-appearance: none;
+} */
 .fa {
   margin: 0 0.1rem;
 }
@@ -220,5 +322,32 @@ input {
 }
 .s2 {
   margin-top: 0.45rem;
+}
+.success {
+  background: white;
+  position: absolute;
+  padding-top: 0.2rem;
+  width: 100%;
+  height: 100%;
+}
+
+.success h2 {
+  font-size: 0.2rem;
+  color: #4cc79b;
+}
+.success h3 {
+  font-size: 0.14rem;
+  margin-bottom: 0.25rem;
+}
+.success img {
+  margin-top: 0.3rem;
+  width: 2.15rem;
+  height: 0.92rem;
+  margin-bottom: 0.25rem;
+}
+
+.van-count-down {
+  display: inline-block;
+  color: #4cc79b;
 }
 </style>

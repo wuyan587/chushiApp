@@ -25,7 +25,7 @@
       </div>
       <div class="second">
         <p>单次</p>
-        <p>{{detail.demand}}</p>
+        <p>{{detail.demand}}斤</p>
       </div>
     </div>
     <div class="details">
@@ -57,7 +57,9 @@
     confirmButtonColor='#4cc79b'
     cancelButtonText='暂不报价'
     cancelButtonColor='#81d8b9'
-    show-cancel-button></van-dialog>
+    show-cancel-button
+    @confirm='confirm'
+    ></van-dialog>
   </div>
 </template>
 <script>
@@ -73,11 +75,27 @@ export default {
       this.$router.go(-1);
     },
     toQuotation() {
-      this.show=true;
-      // this.$router.push({
-      //   name: 'quotation',
-      // });
+      if(this.flag){
+      this.$router.push({
+        name: 'quotation',
+        query:{
+          fid:this.$route.query.fid
+        }
+      });
+      }else{
+        this.show=true;
+      }
+       
       
+      
+    },
+    confirm(){
+      this.$router.push({
+        name:'release',
+        query:{
+          type:'supply',
+        }
+      })
     }
   },
   async mounted() {
@@ -86,11 +104,16 @@ export default {
     })
     result=result.data;
     this.list=result;
-    console.log(this.list);
   },
   computed:{
     detail(){
       return this.list[this.$route.query.fid-1];
+    },
+    flag(){
+      if(this.$store.state.pub.Mine.supplylist.some(item=>item.fruitName==this.detail.name))
+      return true;
+      else
+      return false;
     }
   }
 };

@@ -11,7 +11,8 @@ const pub={
             store:'',
             storeapprove:false,
             supplylist:[], //我的供应
-            buylist:[]//我的货单
+            buylist:[],//我的货单
+            token:'',
         }
     },
     mutations:{
@@ -66,6 +67,9 @@ const pub={
         },
         login(state,val){
             state.Mine=val;
+        },
+        token(state,val){
+            state.Mine.token=val
         }
     }
 }

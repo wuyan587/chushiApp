@@ -21,7 +21,7 @@
               <h4> {{ item.fruitName+item.fruitTitle }} </h4>
               <p> 300km <i class="fas fa-map-marker-alt"> </i> <span></span> {{ item.area }} </p> 
              
-              <p class="price">{{item.price}} 斤 / 件</p>
+              <p class="price">{{item.num}} 斤 / 件</p>
 
               <div class="list-top">
               
@@ -62,7 +62,7 @@
               <h4> {{ item.fruitName }} </h4>
               <p> 300km <i class="fas fa-map-marker-alt"> </i> <span></span> {{ item.area }} </p> 
              
-              <p class="price">{{item.price}} 斤 / 件</p>
+              <p class="price">{{item.num}} 斤 / 件</p>
 
               <div class="list-top">
               
@@ -103,7 +103,7 @@
               <h4> {{ item.fruitName }} </h4>
               <p> 300km <i class="fas fa-map-marker-alt"> </i> <span></span> {{ item.area }} </p> 
              
-              <p class="price">{{item.price}} 斤 / 件</p>
+              <p class="price">{{item.num}} 斤 / 件</p>
 
               <div class="list-top">
               
@@ -144,7 +144,7 @@
               <h4> {{ item.fruitName }} </h4>
               <p> 300km <i class="fas fa-map-marker-alt"> </i> <span></span> {{ item.area }} </p> 
              
-              <p class="price">{{item.price}} 斤 / 件</p>
+              <p class="price">{{item.num}} 斤 / 件</p>
 
               <div class="list-top">
               
