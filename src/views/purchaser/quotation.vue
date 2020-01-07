@@ -83,23 +83,20 @@ export default {
   },
   computed:{
     detail(){
-      return this.list[this.$route.query.fid-1];
+      return this.list[this.$route.query.fid-1]&&this.list[this.$route.query.fid-1]||'';
     },
     details(){
       let obj=this.$store.state.pub.Mine.supplylist.filter(item=>item.fruitName==this.detail.name)[0];
-      return obj;
+      return obj&&obj||'';
     },
     imgs(){
       let src='';
-      if(this.details.imgs.length!=0){
+      if(this.details&&this.details.imgs.length!=0){
         src=this.details.imgs[0].content;
       }else{
         src='';
-        //?imgs:'~@/assets/images/10.png'
-       
-        
       }
-      return src
+      return src;
     }
   }
 };

@@ -107,7 +107,7 @@ export default {
   },
   computed:{
     detail(){
-      return this.list[this.$route.query.fid-1];
+      return this.list[this.$route.query.fid-1]&&this.list[this.$route.query.fid-1]||'';
     },
     flag(){
       if(this.$store.state.pub.Mine.supplylist.some(item=>item.fruitName==this.detail.name))
