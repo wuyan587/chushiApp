@@ -1,7 +1,7 @@
 <template>
 <div class="dropdownMenu">
  <van-dropdown-menu active-color="#4cc79b">
-  <van-dropdown-item v-model="value1" :options="option1[1].children">
+  <van-dropdown-item :title='type.type1' :options="option1[1].children">
     <!-- <van-dropdown-menu>
 <van-dropdown-item v-model="value3" :options="items">
   </van-dropdown-item>
@@ -10,11 +10,12 @@
   :items="option1[1]"
   :active-id.sync="activeId"
   :main-active-index.sync="activeIndex"
+  @click-item='chosed'
 />
 
   
   </van-dropdown-item>
-  <van-dropdown-item v-model="value2" :options="option2" />
+  <van-dropdown-item v-model="type.type2" :options="option2" />
   <van-dropdown-item title="筛选" ref="item">
  <div>
    <p>认证</p>
@@ -74,7 +75,7 @@ export default {
       list:['包运费','支持零售'],
       option1: [[  { text: '全国', value: 0 },
         ],
-        [{text:'全国',value: 0},{
+        [{text:'全国',value: 0, children:[{text:'全国',id:1}]},{
         text:'浙江省',value: 1,
       children:[{text:'杭州',id:1},{text:'温州',id:2}]
       },
@@ -99,6 +100,7 @@ export default {
   methods: {
     onConfirm() {
       this.$refs.item.toggle();
+    
     },
       toggle(index) {
       this.$refs.checkboxes[index].toggle();
@@ -109,12 +111,20 @@ export default {
   changebtn2(){
     this.btnflag2=!this.btnflag2
 },
+chosed(d){
+  this.$store.state.search.typelist.type1=d.text;
+}
     
   },
   mounted(){
   //  const v=this.items.map(ele=>{
   //        return ele.value
   //      })
+  },
+  computed:{
+    type(){
+      return this.$store.state.search.typelist;
+    }
   }
 
 }

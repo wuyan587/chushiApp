@@ -6,7 +6,7 @@
         <van-search
        v-model="value"
       placeholder="请输入搜索内容"
-       show-action
+      show-action
      shape="round"
          @search="onSearch"
 >
@@ -16,7 +16,7 @@
   
 </div>
 <DropdownMenu></DropdownMenu>
-<shoplist></shoplist>
+<shoplist ></shoplist>
 
   </div>
 </template>
@@ -34,8 +34,9 @@ export default {
     DropdownMenu,shoplist
   },
 methods:{
-  onSearch(){
-    console.log(this.value); 
+  async onSearch(){
+    // console.log(this.value); 
+    this.$store.state.search.key=this.value;
   },
     goback(){
        this.$router.go(-1)
@@ -46,17 +47,22 @@ methods:{
 
 <style lang="scss" scoped>
 @import '@/assets/stylesheets/borderstyle.scss';
+.van-search{
+  background: none!important
+}
+//  van-search--show-action
 .search{
   display: flex;
   height: 100%;
   flex-direction: column;
   justify-content: flex-start;
   .search_top{
+    background: white;
     height: 0.72rem;
   display: flex;
   flex-direction:row;
    justify-content: space-between;
-    border:0 0 1px 0 , blue ;
+    border:0 0 1px 0 ,#d8d8d8;
 p{
  width: .5rem;
 
@@ -67,6 +73,9 @@ p{
 .search_r{
   flex: 1
 }
+}
+.van-search{
+  height: 100%;
 }
 }
 

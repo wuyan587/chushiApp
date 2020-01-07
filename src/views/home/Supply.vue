@@ -1,23 +1,20 @@
 <template>
   <ul class="supply">
-    <li v-for="item of dataList" :key="item.id">
+    <li v-for="item of dataList" :key="item.pid">
       <router-link
         :to="{
               name: 'detail',
-              params: {
-                id: item.id
-              },
               query: {
-                ...item
-              }
+                fid: item.pid
+              },
             }"
-      >
-        <img src="@/assets/images/10.png" alt />
+          >
+        <img :src="item.image" alt />
         <h3>{{item.name}}</h3>
         <div class="address">
-          <p>{{item.km}}</p>
+          <p>300km</p>
           <i class="fas fa-map-marker-alt"></i>
-          <p>{{item.address}}</p>
+          <p>浙江杭州市</p>
         </div>
         <div class="ctf">
           <p>企业认证</p>
@@ -33,52 +30,18 @@ export default {
   data() {
     return {
       dataList: [
-        {
-          id: 1,
-          name: "湖南特产绿心猕猴桃",
-          img: "~@/assets/images/10.png",
-          km: "300km",
-          address: "浙江杭州市",
-          price: 20
-        },
-        {
-          id: 2,
-          name: "湖南特产绿心猕猴桃",
-          img: "@/assets/images/10.png",
-          km: "300km",
-          address: "浙江杭州市",
-          price: 20
-        },
-        {
-          id: 3,
-          name: "湖南特产绿心猕猴桃",
-          img: "@/assets/images/10.png",
-          km: "300km",
-          address: "浙江杭州市",
-          price: 20
-        },
-        {
-          id: 4,
-          name: "湖南特产绿心猕猴桃",
-          img: "@/assets/images/10.png",
-          km: "300km",
-          address: "浙江杭州市",
-          price: 20
-        }
       ]
     };
   },
-  async mounted() {
-    const result = await this.$request({
-      url: "/selectAllProcure",
-      method: "post",
-      data: {},
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
+  async mounted(){
+    let result =await this.$request({
+      url:'selectAllProduct',
+    })
+    result=result.data;
+    this.dataList=result;
     console.log(result);
-  }
+    
+  },
 };
 </script>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="layout">
     <!-- <Header/> -->
-    <keep-alive>
+    <keep-alive include="$route.meta.include">
       <router-view></router-view>
     </keep-alive>
 
@@ -30,7 +30,7 @@ export default {
           this.$route.name == "detail"|| this.$route.name == "pdetail"||
           this.$route.name == "supply1"||this.$route.name == "purchase1"||this.$route.name == "quotation"||
           this.$route.path.match("/login" )||this.$route.path.match("/search")
-          ||this.$route.path.match("/register" )||this.$route.path.match("/my_supply" )||this.$route.path.match("/my_shop" )||this.$route.path.match("/suggestion" )||this.$route.path.match("/changephone" )||this.$route.path.match("/changename" )||this.$route.path.match("/changegroupid" )||this.$route.path.match("/realname_auth" )||this.$route.path.match("/business_auth" ))
+          ||this.$route.path.match("/register" )||this.$route.path.match("/my_supply" )||this.$route.path.match("/my_shop" )||this.$route.path.match("/suggestion" )||this.$route.path.match("/changephone" )||this.$route.path.match("/changename" )||this.$route.path.match("/changegroupid" )||this.$route.path.match("/realname_auth" )||this.$route.path.match("/business_auth" )||this.$route.path.match("/my_provide" ))
             this.flag=false;
           else 
             this.flag=true;

@@ -1,10 +1,10 @@
 <template>
   <div class="shopcart">
     <h3>货单</h3>
-    <div class="list" v-for='(item,index) of lists' :key='(item.id+index)'>
+    <div class="list" v-for='(item) of lists' :key='item.pid'>
       <div class="list-top">
-        <h4>供应商名字</h4>
-        <van-cell @click="showPopup(index)" :round="true">x</van-cell>
+        <h4>{{item.userNick}}</h4>
+        <van-cell @click="showPopup(item.pid)" :round="true">x</van-cell>
         <van-popup v-model="show">
           <p class="hint"> 确认删除吗？ </p>
           <div>
@@ -16,21 +16,21 @@
       </div>
       <div class="list-content">
         <div class="list-ing">
-          <img src="@/assets/images/10.png" alt />
+          <img :src="item.image" alt />
         </div>
         <div class="list-right">
           <h4>{{ item.name }}</h4>
           <p>
-            {{ item.km }}
+            3000km
             <i class="fas fa-map-marker-alt"></i>
             <span></span>
-            {{ item.address }}
+            {{item.province+item.city}}
           </p>
           <div>
             <van-button color="#aee6d2" plain>企业认证</van-button>
             <van-button color="#aee6d2" plain>实名认证</van-button>
           </div>
-          <p class="price">{{item.price}}元/斤</p>
+          <p class="price">{{item.supplyPrice}}元/斤</p>
         </div>
       </div>
     </div>
@@ -49,18 +49,29 @@ export default {
       activeType: "all",
     };
   },
+  async mounted(){
+    let re=await this.$request({
+      url:'/selectAll',
+      method:'post',
+      headers:{
+                   'Content-Type':'application/x-www-form-urlencoded' 
+        }
+
+    })
+    console.log(re);
+  },
   methods: {
     ...mapMutations(['removebuyitems']),
-    showPopup(index) {
+    showPopup(sid) {
       this.show = true;
-      this.activeIndex = index;
+      this.activeIndex = sid;
       console.log(this);
     },
     closeFlag() {
       this.show = false;
     },
-    remove(index) {
-      this.$store.commit('removebuyitems',index);
+    remove(sid) {
+      this.$store.commit('removebuyitems',['buy',sid]);
       // this.lists.splice(index, 1);
       this.closeFlag();
       console.log(this);
@@ -166,17 +177,13 @@ height: 100%
       font-weight: bold;
     }
   }
-}
-.van-popup {
-  background: none;
-}
+} 
 .checkLisit {
   height: 5rem;
   width: 100%;
   background: url("~@/assets/images/bg2.jpg") 0.1rem 2rem no-repeat;
   background-size: 100%;
 }
-
 .van-cell {
   width: 0.2rem;
   height: 0.2rem;
