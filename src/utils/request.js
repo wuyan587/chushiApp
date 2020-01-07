@@ -66,7 +66,7 @@ const request = ({
         switch (method.toUpperCase()) {
             case 'POST':
                 var realData = {}
-                if (headers['Content-Type'] == 'application/x-www-form-urlencoded') {
+                if (headers&&headers['Content-Type'] == 'application/x-www-form-urlencoded') {
                     // 表单提交
                     const p = new URLSearchParams()
                     for (let key in data) {
