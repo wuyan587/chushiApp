@@ -50,7 +50,7 @@ export default {
     };
   },
   async mounted(){
-    let re=await this.$request({
+    await this.$request({
       url:'/selectAll',
       method:'post',
       headers:{
