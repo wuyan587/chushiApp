@@ -238,7 +238,7 @@ export default {
        this.activeIndex = index 
        this.activeSid = sid;
 
-        console.log(this)
+        // console.log(this)
     },
      closeFlag () {
       this.show = false 

@@ -26,7 +26,7 @@ export default {
   },
   methods:{
     onSearch(){
-      console.log(this.value);
+      // console.log(this.value);
       
     }
   }

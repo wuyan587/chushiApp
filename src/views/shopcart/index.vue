@@ -58,14 +58,14 @@ export default {
         }
 
     })
-    console.log(re);
+    // console.log(re);
   },
   methods: {
     ...mapMutations(['removebuyitems']),
     showPopup(sid) {
       this.show = true;
       this.activeIndex = sid;
-      console.log(this);
+      // console.log(this);
     },
     closeFlag() {
       this.show = false;
@@ -74,7 +74,7 @@ export default {
       this.$store.commit('removebuyitems',['buy',sid]);
       // this.lists.splice(index, 1);
       this.closeFlag();
-      console.log(this);
+      // console.log(this);
     }
   },
   computed: {
@@ -82,7 +82,7 @@ export default {
       return this.lists.length != 0;
     },
     lists(){
-      console.log(this.$route.query)
+      // console.log(this.$route.query)
       return this.$store.state.pub.Mine.buylist&&this.$store.state.pub.Mine.buylist||[];
     }
   }

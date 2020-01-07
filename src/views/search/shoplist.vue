@@ -72,7 +72,7 @@ export default {
         break;
         default:
         arr=arr.filter(item=>item.location.match(this.$store.state.search.typelist.type1)!=null);
-        console.log(arr);
+        // console.log(arr);
       }
       switch(this.$store.state.search.typelist.type2){
         case 'a':

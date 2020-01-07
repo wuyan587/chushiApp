@@ -39,7 +39,7 @@ export default {
     })
     result=result.data;
     this.dataList=result;
-    console.log(result);
+    // console.log(result);
     
   },
 };

@@ -102,7 +102,7 @@ export default {
     //   item.text=item.tname;
     // })
     // this.items=result;
-    console.log(result);
+    // console.log(result);
     this.otherList[0].list=result;
    }
  },
@@ -110,7 +110,7 @@ export default {
    ...mapMutations(['setType']),
    chose(val){
      this.fruitType=val[1];
-     console.log(val,this.fruitType);
+    //  console.log(val,this.fruitType);
      
      this.$store.commit('setType',val);
    }

@@ -145,7 +145,7 @@ export default {
     })
     result=result.data;
     this.details=result[0];
-    console.log(this.details);
+    // console.log(this.details);
   },
 };
 </script>
