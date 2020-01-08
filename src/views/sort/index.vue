@@ -41,7 +41,7 @@ const result=await request({
    }
 
 })
-console.log(result);
+// console.log(result);
 
 // this.items=result.data
  const data=result.data.map(item=>{
@@ -49,7 +49,7 @@ item.text=item.tname
 return item
 })
  this.items=data
-console.log(result);
+// console.log(result);
 
     
     

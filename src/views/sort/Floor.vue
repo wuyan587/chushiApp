@@ -100,7 +100,7 @@ export default {
     //   item.text=item.tname;
     // })
     // this.items=result;
-    console.log(result);
+    // console.log(result);
     this.goodslist[0].list=result;
    }
  }

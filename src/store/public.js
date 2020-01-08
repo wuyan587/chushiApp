@@ -11,7 +11,8 @@ const pub={
             store:'',
             storeapprove:false,
             supplylist:[], //我的供应
-            buylist:[]//我的货单
+            buylist:[],//我的货单
+            token:'',
         }
     },
     mutations:{
@@ -36,7 +37,7 @@ const pub={
                     //     }
                             
                     // })
-                    state.Mine.buylist=state.Mine.buylist.filter(item=>item.sid!=arr[1])
+                    state.Mine.buylist=state.Mine.buylist.filter(item=>item.pid!=arr[1])
                     break;
                 case 'supply':
                     // state.Mine.supplylist.forEach((item,index)=>{
@@ -66,6 +67,9 @@ const pub={
         },
         login(state,val){
             state.Mine=val;
+        },
+        token(state,val){
+            state.Mine.token=val
         }
     }
 }

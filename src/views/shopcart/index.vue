@@ -1,10 +1,10 @@
 <template>
   <div class="shopcart">
     <h3>货单</h3>
-    <div class="list" v-for='(item,index) of lists' :key='(item.id+index)'>
+    <div class="list" v-for='(item) of lists' :key='item.pid'>
       <div class="list-top">
-        <h4>供应商名字</h4>
-        <van-cell @click="showPopup(item.sid)" :round="true">x</van-cell>
+        <h4>{{item.userNick}}</h4>
+        <van-cell @click="showPopup(item.pid)" :round="true">x</van-cell>
         <van-popup v-model="show">
           <p class="hint"> 确认删除吗？ </p>
           <div>
@@ -16,21 +16,21 @@
       </div>
       <div class="list-content">
         <div class="list-ing">
-          <img src="@/assets/images/10.png" alt />
+          <img :src="item.image" alt />
         </div>
         <div class="list-right">
           <h4>{{ item.name }}</h4>
           <p>
-            {{ item.km }}
+            3000km
             <i class="fas fa-map-marker-alt"></i>
             <span></span>
-            {{ item.address }}
+            {{item.province+item.city}}
           </p>
           <div>
             <van-button color="#aee6d2" plain>企业认证</van-button>
             <van-button color="#aee6d2" plain>实名认证</van-button>
           </div>
-          <p class="price">{{item.price}}元/斤</p>
+          <p class="price">{{item.supplyPrice}}元/斤</p>
         </div>
       </div>
     </div>
@@ -50,7 +50,7 @@ export default {
     };
   },
   async mounted(){
-    let re=await this.$request({
+    await this.$request({
       url:'/selectAll',
       method:'post',
       headers:{
@@ -58,14 +58,14 @@ export default {
         }
 
     })
-    console.log(re);
+    // console.log(re);
   },
   methods: {
     ...mapMutations(['removebuyitems']),
     showPopup(sid) {
       this.show = true;
       this.activeIndex = sid;
-      console.log(this);
+      // console.log(this);
     },
     closeFlag() {
       this.show = false;
@@ -74,7 +74,7 @@ export default {
       this.$store.commit('removebuyitems',['buy',sid]);
       // this.lists.splice(index, 1);
       this.closeFlag();
-      console.log(this);
+      // console.log(this);
     }
   },
   computed: {
@@ -82,7 +82,7 @@ export default {
       return this.lists.length != 0;
     },
     lists(){
-      console.log(this.$route.query)
+      // console.log(this.$route.query)
       return this.$store.state.pub.Mine.buylist&&this.$store.state.pub.Mine.buylist||[];
     }
   }

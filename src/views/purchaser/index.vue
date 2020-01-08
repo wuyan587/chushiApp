@@ -10,7 +10,7 @@
       <div class="shopinfo">
         <div class="shopname">
           <p class="farm">养殖户</p>
-          <h3>宁波居食坊</h3>
+          <h3>{{detail.userNick?detail.userNick:''}}</h3>
         </div>
         <div class="comp">
           <p>实名</p>
@@ -21,33 +21,33 @@
     <div class="question">
       <div class="first">
         <p class="first_1">采购</p>
-        <p class="first_2">湖南有名的什么东西</p>
+        <p class="first_2">{{detail.name}}</p>
       </div>
       <div class="second">
         <p>单次</p>
-        <p>100000斤</p>
+        <p>{{detail.demand}}斤</p>
       </div>
     </div>
     <div class="details">
       <p>
-        <strong>期望产地：</strong>全国
+        <strong>期望产地：</strong>{{detail.origin}}
       </p>
       <p>
-        <strong>规格要求：</strong>幼苗期
+        <strong>规格要求：</strong>{{detail.specReq}}
       </p>
       <p>
-        <strong>品质要求：</strong>品质中上，不需要非常好
+        <strong>品质要求：</strong>{{detail.quality}}
       </p>
       <p>
-        <strong>其他要求：</strong>要有包装，运输安全
+        <strong>其他要求：</strong>{{detail.otherReq}}
       </p>
     </div>
     <div class="delivery">
       <p>
-        <strong>收货地：</strong>浙江省宁波市
+        <strong>收货地：</strong>{{detail.province+detail.city}}
       </p>
       <p>
-        <strong>送货时间：</strong>20119年5月28日-20119年8月28日
+        <strong>送货时间：</strong>2019年5月28日-2019年8月28日
       </p>
     </div>
     <div class="quotation" @click="toQuotation">立即报价</div>
@@ -57,14 +57,17 @@
     confirmButtonColor='#4cc79b'
     cancelButtonText='暂不报价'
     cancelButtonColor='#81d8b9'
-    show-cancel-button></van-dialog>
+    show-cancel-button
+    @confirm='confirm'
+    ></van-dialog>
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
-      show: false
+      show: false,
+      list:[]
     };
   },
   methods: {
@@ -72,14 +75,47 @@ export default {
       this.$router.go(-1);
     },
     toQuotation() {
-      this.show=true;
-      // this.$router.push({
-      //   name: 'quotation',
-      // });
+      if(this.flag){
+      this.$router.push({
+        name: 'quotation',
+        query:{
+          fid:this.$route.query.fid
+        }
+      });
+      }else{
+        this.show=true;
+      }
+       
       
+      
+    },
+    confirm(){
+      this.$router.push({
+        name:'release',
+        query:{
+          type:'supply',
+        }
+      })
     }
   },
-  mounted() {}
+  async mounted() {
+    let result =await this.$request({
+      url:'selectAllUserProcure',
+    })
+    result=result.data;
+    this.list=result;
+  },
+  computed:{
+    detail(){
+      return this.list[this.$route.query.fid-1]&&this.list[this.$route.query.fid-1]||'';
+    },
+    flag(){
+      if(this.$store.state.pub.Mine.supplylist.some(item=>item.fruitName==this.detail.name))
+      return true;
+      else
+      return false;
+    }
+  }
 };
 </script>
 <style scoped>

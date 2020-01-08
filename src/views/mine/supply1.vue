@@ -21,7 +21,7 @@
               <h4> {{ item.fruitName+item.fruitTitle }} </h4>
               <p> 300km <i class="fas fa-map-marker-alt"> </i> <span></span> {{ item.area }} </p> 
              
-              <p class="price">{{item.price}} 斤 / 件</p>
+              <p class="price">{{item.num}} 斤 / 件</p>
 
               <div class="list-top">
               
@@ -62,7 +62,7 @@
               <h4> {{ item.fruitName }} </h4>
               <p> 300km <i class="fas fa-map-marker-alt"> </i> <span></span> {{ item.area }} </p> 
              
-              <p class="price">{{item.price}} 斤 / 件</p>
+              <p class="price">{{item.num}} 斤 / 件</p>
 
               <div class="list-top">
               
@@ -103,7 +103,7 @@
               <h4> {{ item.fruitName }} </h4>
               <p> 300km <i class="fas fa-map-marker-alt"> </i> <span></span> {{ item.area }} </p> 
              
-              <p class="price">{{item.price}} 斤 / 件</p>
+              <p class="price">{{item.num}} 斤 / 件</p>
 
               <div class="list-top">
               
@@ -144,7 +144,7 @@
               <h4> {{ item.fruitName }} </h4>
               <p> 300km <i class="fas fa-map-marker-alt"> </i> <span></span> {{ item.area }} </p> 
              
-              <p class="price">{{item.price}} 斤 / 件</p>
+              <p class="price">{{item.num}} 斤 / 件</p>
 
               <div class="list-top">
               
@@ -177,7 +177,7 @@
             </van-tab>
       </van-tabs>
     </div>
-   <footer><router-link to='/release?type=supply' tag='div'>发布新采购 </router-link></footer> 
+   <footer><router-link to='/release?type=supply' tag='div'>发布新供应 </router-link></footer> 
   </div>
 </template>
 <script>
@@ -238,7 +238,7 @@ export default {
        this.activeIndex = index 
        this.activeSid = sid;
 
-        console.log(this)
+        // console.log(this)
     },
      closeFlag () {
       this.show = false 
@@ -408,7 +408,7 @@ img{
     }
     .list-top{
       p{
-          padding: .1rem;
+          padding: .1rem 0;
           font-size: .16rem;
       }
       

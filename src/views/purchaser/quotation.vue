@@ -7,11 +7,11 @@
     <div class="question">
       <div class="first">
         <p class="first_1">采购</p>
-        <p class="first_2">湖南有名的什么东西</p>
+        <p class="first_2">{{detail.name}}</p>
       </div>
       <div class="second">
         <p>单次</p>
-        <p>100000斤</p>
+        <p>{{detail.demand}}斤</p>
       </div>
     </div>
     <div class="product">
@@ -20,19 +20,20 @@
         <p>更换产品</p>
       </div>
       <div class="pro_2">
-        <img src="@/assets/images/10.png" alt="">
+        <img :src="imgs" alt="" v-if='imgs'>
+        <img src="~@/assets/images/10.png" alt="" v-else>
         <div class="pro_3">
-          <p class="pro_name">{{this.$route.query.name}}</p>
-          <p class="pro_price">20斤/元</p>
+          <p class="pro_name">{{details.fruitName}}</p>
+          <p class="pro_price">{{details.price}}斤/元</p>
         </div>
       </div>
       <div class="pro_1"></div>
     </div>
     <div class="money">报价金额 (元/斤)
-      <input type="text" placeholder="请输入你的报价">
+      <input type="text" placeholder="请输入你的报价" v-model="price">
     </div>
     <div class="contact">联系方式
-      <input type="text" placeholder="请输入你的联系方式">
+      <input type="text" placeholder="请输入你的联系方式" v-model="phone">
     </div>
     <div class="tips">
       <p class="tips_price">报价说明</p>
@@ -57,6 +58,9 @@ export default {
     return {
       f:false,
       time: 5 * 1000,
+      list:[],
+      price:'',
+      phone:''
     };
   },
   methods: {
@@ -69,6 +73,31 @@ export default {
     finish(){
           this.$router.push({name:'home'});
         },
+  },
+  async mounted() {
+    let result =await this.$request({
+      url:'selectAllUserProcure',
+    })
+    result=result.data;
+    this.list=result;
+  },
+  computed:{
+    detail(){
+      return this.list[this.$route.query.fid-1]&&this.list[this.$route.query.fid-1]||'';
+    },
+    details(){
+      let obj=this.$store.state.pub.Mine.supplylist.filter(item=>item.fruitName==this.detail.name)[0];
+      return obj&&obj||'';
+    },
+    imgs(){
+      let src='';
+      if(this.details&&this.details.imgs.length!=0){
+        src=this.details.imgs[0].content;
+      }else{
+        src='';
+      }
+      return src;
+    }
   }
 };
 </script>
@@ -242,7 +271,7 @@ input {
     padding-top:.2rem;
     width: 100%;
     height: 100%;
-    
+    margin: 0;
     }
 
     .success h2{

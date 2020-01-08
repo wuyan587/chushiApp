@@ -36,14 +36,7 @@ export default {
 methods:{
   async onSearch(){
     // console.log(this.value); 
-    const result=await this.$request({
-      url:'/search',
-      params:{
-        searchContent:this.value
-      }
-    })
-    console.log(result);
-    
+    this.$store.state.search.key=this.value;
   },
     goback(){
        this.$router.go(-1)

@@ -39,7 +39,7 @@
           />
         </div>
       </van-popup>
-      <div class="user_info_box" v-if="!token" @click="personal">
+      <div class="user_info_box" v-if="!$store.state.pub.Mine.token" @click="personal">
         <div class="user_left">
           <img src="~assets/images/head_img.jpg" />
         </div>
@@ -95,7 +95,7 @@
           </div>
           <div class="my_detail_group">
             <van-cell is-link title="主营业务" :value="user.introduce" />
-            <van-cell is-link title="绑定微信" value="1325465459" />
+            <van-cell is-link title="绑定微信" :value="this.$store.state.pub.Mine.token" />
           </div>
           <div class="my_detail_group">
             <van-cell is-link title="退出账户" value @click="logout" />
@@ -197,7 +197,7 @@ export default {
   },
   mounted(){
   //  this.token=getCookie('token');//查看token是否存在 
-   if(this.token){
+   if(this.$store.state.pub.Mine.token){
      this.user={
       img:'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1577507829105&di=627d71aa4a1bd01206771ef65ff01c12&imgtype=0&src=http%3A%2F%2Fimg.qqzhi.com%2Fuploads%2F2018-12-30%2F134534410.jpg',
       images:[
@@ -208,8 +208,8 @@ export default {
       customer_service:'小红',
       realname_auth:1,
       business_auth:0,
-      phone:1325465459,
-      wechat:1325465459
+      phone:this.$store.state.pub.Mine.token,
+      wechat:this.$store.state.pub.Mine.token,
      }
     }    
   },
@@ -220,7 +220,7 @@ export default {
     },
     //个人中心弹出层触发
     personal() {
-      if(this.token){
+      if(this.$store.state.pub.Mine.token){
          this.showPersonal = true;
       }
       else{

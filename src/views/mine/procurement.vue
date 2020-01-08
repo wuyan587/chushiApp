@@ -247,7 +247,7 @@ export default {
     showPopup(index,sid) {
       this.show = true;
        this.activeIndex = index 
-        console.log(this)
+        // console.log(this)
         this.activeSid=sid;
     },
      closeFlag () {

@@ -1,6 +1,6 @@
 <template>
  <div class="Floor">
-   <div v-for="(item) of goodslist" :key="item.sid" class="hot">
+   <!-- <div v-for="(item) of goodslist" :key="item.sid" class="hot">
               <p>{{item.name}}</p>
      <ul>
            <li v-for="(ele) of item.list" :key="ele.tid" @click="chose([ele.tid,ele.tname])">
@@ -10,12 +10,12 @@
               </a>
           </li>
      </ul>
-     </div>
+  </div> -->
      <div class="others" v-for="(item) of otherList" :key="item.sid">
        <p>{{item.name}}</p>
       <ul>
-        <li v-for="(ele) of item.list" :key="ele.sid">
-         <a href="javascript:;"><strong>{{ele.title}}</strong></a>
+        <li v-for="(ele) of item.list" :key="ele.tid" :class="{active:fruitType==ele.tname}" @click="chose([ele.tid,ele.tname])">
+         <a href="javascript:;"><strong>{{ele.tname}}</strong></a>
         </li>
       
       </ul>
@@ -63,7 +63,7 @@ export default {
          }
          ]
      }],
-     otherList:[ {name:'其他',sid:2,list:[
+     otherList:[ {name:'热门',sid:2,list:[
       { sid:1,
         url:"https://img.alicdn.com/imgextra/i3/2053469401/O1CN0120xXfv2JJhzih36oA_!!2053469401.png",title:"葡萄"},
       {sid:2,
@@ -87,7 +87,7 @@ export default {
       }
     })
     result=result.data;
-    this.goodslist[0].list=result;
+    this.otherList[0].list=result;
   },
  watch:{
   async index(){
@@ -102,13 +102,16 @@ export default {
     //   item.text=item.tname;
     // })
     // this.items=result;
-    console.log(result);
-    this.goodslist[0].list=result;
+    // console.log(result);
+    this.otherList[0].list=result;
    }
  },
  methods:{
    ...mapMutations(['setType']),
    chose(val){
+     this.fruitType=val[1];
+    //  console.log(val,this.fruitType);
+     
      this.$store.commit('setType',val);
    }
  }
@@ -168,7 +171,16 @@ export default {
        margin-bottom:.19rem ;
        box-sizing: border-box;
        padding-right:.17rem; 
-       
+       &.active{
+         a{
+           color: white;
+           background: #4cc79b;
+           strong{
+             color: white;
+           }
+         }
+      
+      }
 
       a{
         
@@ -182,11 +194,12 @@ export default {
      
       strong{
         color: #333333;
-line-height: .12rem
+        line-height: .12rem
       }
       }
       }
   }
+  
  }
 
   
