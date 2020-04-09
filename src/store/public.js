@@ -15,6 +15,7 @@ const pub={
             token:'',
         }
     },
+    
     mutations:{
         addbuyitems(state,val){ //加入货单
             state.Mine.buylist.push(val);
